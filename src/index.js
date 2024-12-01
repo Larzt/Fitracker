@@ -1,17 +1,17 @@
 import app from './app.js';
 import { connectDB } from './db.js';
 import path from 'path';
+import express from 'express'; // Asegúrate de importar express
 
 const PORT = process.env.PORT || 4000;
 
 // Conexión a la base de datos
 connectDB();
 
-// Middleware para servir archivos estáticos del frontend
-const __dirname = path.resolve(); // Asegura que funcione correctamente
+// Servir archivos estáticos del frontend
+const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, 'client', 'dist')));
 
-// Manejo de cualquier otra solicitud para el frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
 });
