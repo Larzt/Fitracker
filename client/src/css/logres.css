@@ -1,0 +1,167 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1E1E2F; /* Fondo oscuro moderno */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Mensajes de error */
+.error-message {
+  color: #ff4d4d; /* Rojo vibrante para errores */
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+  text-align: left;
+  display: block;
+  animation: fade-in 0.3s ease; /* Transición suave al aparecer */
+}
+
+/* Animación para error */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo para campos con errores */
+.error {
+  border: 1px solid #FF6B6B; /* Borde rojo */
+  padding: 0.4rem;
+  border-radius: 4px;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  background-color: #29293D; /* Fondo con buen contraste */
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Sombras más intensas */
+  width: 90%; /* Ajuste para pantallas pequeñas */
+  max-width: 400px;
+  text-align: center;
+  animation: slide-up 0.4s ease; /* Animación para entrada */
+}
+
+/* Animación de entrada del formulario */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Títulos */
+.form-container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #E4E4F0;
+}
+
+/* Campos de entrada */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="number"],
+.form-container select {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  background-color: #3B3B51; /* Fondo de los campos */
+  border: 1px solid #555; /* Borde sutil */
+  border-radius: 5px;
+  color: #E4E4F0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease; /* Suaviza el cambio de bordes */
+}
+
+.form-container input:focus,
+.form-container select:focus {
+  outline: none;
+  border-color: #4CAF50; /* Verde al enfocarse */
+}
+
+/* Placeholder */
+.form-container input::placeholder,
+.form-container select::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Botón de Login/Register */
+.form-container button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1rem;
+  background-color: #4CAF50; /* Verde progreso */
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.form-container button:hover {
+  background-color: #45A049; /* Verde más claro */
+  transform: scale(1.02); /* Sutil aumento al pasar el mouse */
+}
+
+/* Links o mensajes adicionales */
+.form-container p {
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  color: #ccc;
+}
+
+.form-container p a {
+  color: #4CAF50;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.form-container p a:hover {
+  text-decoration: underline;
+  color: #45A049; /* Cambia de tono */
+}
+
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 1.5rem;
+  }
+  .form-container h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Contenedor para filas flexibles */
+.row {
+  display: flex;
+  justify-content: space-between; /* Espacio entre columnas */
+  gap: 1rem; /* Espaciado entre columnas */
+}
+
+/* Columnas individuales */
+.column {
+  flex: 1; /* Cada columna ocupa el mismo espacio */
+}
+
+/* Ajustes para inputs en columnas */
+.row .column input {
+  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
+}

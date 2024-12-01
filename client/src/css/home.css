@@ -1,0 +1,97 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1E1E2F;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor Principal */
+.home-container {
+  width: 100%;
+  max-width: 600px; /* Ancho máximo ajustado */
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #29293D;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Header */
+.home-header {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header-content h1 {
+  font-size: 2rem;
+  color: #E4E4F0;
+}
+
+.user-icon {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.home-header p {
+  font-size: 1.2rem;
+  color: #B0B0C0;
+}
+
+/* Progress Section */
+.progress-section {
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.progress-card {
+  background-color: #38384D;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.progress-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.progress-graph {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #555;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4CAF50;
+  transition: width 0.3s ease;
+}

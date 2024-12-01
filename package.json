@@ -1,0 +1,32 @@
+{
+  "name": "mern-stack-example",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "build": "cd client && npm install && npm run build",
+    "postinstall": "npm run build",
+    "dev": "npx nodemon src/index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.8.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "chai-http": "^5.1.1",
+    "mocha": "^10.8.2",
+    "sinon": "^19.0.2",
+    "supertest": "^7.0.0"
+  }
+}
