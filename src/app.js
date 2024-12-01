@@ -7,6 +7,9 @@ import path from 'path';
 import authRoutes from './routes/auth.routes.js';
 import foodRoutes from './routes/food.routes.js';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const app = express();
 
 // Configuración del middleware
