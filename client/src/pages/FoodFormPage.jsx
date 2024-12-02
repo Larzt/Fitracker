@@ -12,10 +12,15 @@ function FoodFormPage() {
 
   const onSubmit = handleSubmit((data) => {
     createFood(data);
+    reloadPage();
   });
 
   const goBackHome = () => {
     navigate('/home');
+  };
+
+  const reloadPage = () => {
+    window.location.reload();
   };
 
   return (

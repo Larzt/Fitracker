@@ -30,7 +30,7 @@ export const createFood = async (req, res) => {
 export const deleteFood = async (req, res) => {
   const food = await Food.findByIdAndDelete(req.params.id);
   if (!food) return res.status(404).json({ message: "Food not found"})
-  return res.sedStatus(204);
+  return res.status(204);
 };
 
 export const updateFood = async (req, res) => {

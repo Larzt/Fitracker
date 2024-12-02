@@ -33,11 +33,17 @@ export function FoodProvider({ children }) {
     console.log(res);
   }
 
+  const deleteFood = async (food) => {
+    const res = await deleteFoodRequest(food);
+    console.log(res);
+  }
+
   return (
     <FoodContext.Provider
       value={{
         foods,
         createFood,
+        deleteFood,
         getFoods,
         getFood,
       }}>
