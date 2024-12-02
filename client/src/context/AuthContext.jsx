@@ -37,14 +37,24 @@ export const AuthProvider = ({ children }) => {
             const res = await loginRequest(user);
             console.log(res);
             setUser(res.data);
-            setIsAuthenticated(true)
+            setIsAuthenticated(true);
+            setErrors([]); // Limpia errores anteriores
         } catch (error) {
-            if (Array.isArray(error.response.data)) {
-                setErrors(error.response.data)
+            // Comprueba si hay una respuesta y si data contiene errores
+            if (error.response && error.response.data) {
+                if (Array.isArray(error.response.data)) {
+                    setErrors(error.response.data); // Establece los errores si es un array
+                } else if (error.response.data.message) {
+                    setErrors([error.response.data.message]); // Si es un objeto con un mensaje, lo convierte en un array
+                } else {
+                    setErrors(["Ocurrió un error desconocido"]); // Caso de error inesperado
+                }
+            } else {
+                setErrors(["No se pudo conectar con el servidor"]); // Error de red o sin respuesta
             }
-            setErrors([error.response.data])
         }
-    }
+    };
+
 
     const logout = () => {
         Cookies.remove('token');

@@ -12,7 +12,7 @@ function HomePage() {
       {/* Header */}
       <header className="home-header">
         <div className="header-content">
-          <h1>¡Bienvenido, {user.username}</h1>
+          <h1>¡Bienvenido, {user.username}!</h1>
           <Link to="/profile">
             <button className="user-icon">
               <i className="fas fa-user"></i>

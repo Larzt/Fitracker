@@ -1,5 +1,7 @@
 # .env
 *node_modules/
+# No commitear el axios para asi poder trabajar en web con el https y en local con el host
+/client/src/api/axios.js
 
 # Logs
 logs
@@ -131,3 +133,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+client/src/api/axios.js
