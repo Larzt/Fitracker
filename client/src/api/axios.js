@@ -6,7 +6,7 @@ import axios from "axios";
 const API_URL = 'https://fitracker-h0at.onrender.com'
 
 const instance = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_URL}/api`,
   withCredentials: true
 })
 
