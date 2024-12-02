@@ -9,7 +9,7 @@ function FoodPage() {
   const handleDeleteSubmit = (data) => {
     deleteFood(data);
     reloadPage();
-  }
+  };
 
   const reloadPage = () => {
     window.location.reload();
@@ -17,9 +17,9 @@ function FoodPage() {
 
   useEffect(() => {
     getFoods();
-  }, [])
+  }, []);
 
-  if (foods === 0) return (<h1>No foods</h1>)
+  if (foods === 0) return <h1>No foods</h1>;
 
   return (
     <div className="home-container">
@@ -42,8 +42,6 @@ function FoodPage() {
       <Navbar />
     </div>
   );
-
-
 }
 
 export default FoodPage;

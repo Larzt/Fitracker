@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #1E1E2F; /* Fondo oscuro moderno */
+  background-color: #1e1e2f; /* Fondo oscuro moderno */
   color: #fff;
   display: flex;
   justify-content: center;
@@ -35,14 +35,14 @@ body {
 
 /* Estilo para campos con errores */
 .error {
-  border: 1px solid #FF6B6B; /* Borde rojo */
+  border: 1px solid #ff6b6b; /* Borde rojo */
   padding: 0.4rem;
   border-radius: 4px;
 }
 
 /* Contenedor del formulario */
 .form-container {
-  background-color: #29293D; /* Fondo con buen contraste */
+  background-color: #29293d; /* Fondo con buen contraste */
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Sombras más intensas */
@@ -68,22 +68,22 @@ body {
 .form-container h1 {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
-  color: #E4E4F0;
+  color: #e4e4f0;
 }
 
 /* Campos de entrada */
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="password"],
-.form-container input[type="number"],
+.form-container input[type='text'],
+.form-container input[type='email'],
+.form-container input[type='password'],
+.form-container input[type='number'],
 .form-container select {
   width: 100%;
   padding: 0.8rem;
   margin: 0.5rem 0;
-  background-color: #3B3B51; /* Fondo de los campos */
+  background-color: #3b3b51; /* Fondo de los campos */
   border: 1px solid #555; /* Borde sutil */
   border-radius: 5px;
-  color: #E4E4F0;
+  color: #e4e4f0;
   font-size: 1rem;
   transition: border-color 0.3s ease; /* Suaviza el cambio de bordes */
 }
@@ -91,7 +91,7 @@ body {
 .form-container input:focus,
 .form-container select:focus {
   outline: none;
-  border-color: #4CAF50; /* Verde al enfocarse */
+  border-color: #4caf50; /* Verde al enfocarse */
 }
 
 /* Placeholder */
@@ -106,18 +106,20 @@ body {
   width: 100%;
   padding: 0.8rem;
   margin-top: 1rem;
-  background-color: #4CAF50; /* Verde progreso */
+  background-color: #4caf50; /* Verde progreso */
   border: none;
   border-radius: 5px;
   color: white;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .form-container button:hover {
-  background-color: #45A049; /* Verde más claro */
+  background-color: #45a049; /* Verde más claro */
   transform: scale(1.02); /* Sutil aumento al pasar el mouse */
 }
 
@@ -129,14 +131,14 @@ body {
 }
 
 .form-container p a {
-  color: #4CAF50;
+  color: #4caf50;
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .form-container p a:hover {
   text-decoration: underline;
-  color: #45A049; /* Cambia de tono */
+  color: #45a049; /* Cambia de tono */
 }
 
 /* Responsivo para pantallas pequeñas */

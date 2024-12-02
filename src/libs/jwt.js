@@ -1,5 +1,5 @@
-import {TOKEN_SECRET} from '../config.js'
-import jwt from 'jsonwebtoken'
+import { TOKEN_SECRET } from '../config.js';
+import jwt from 'jsonwebtoken';
 
 export function createAccessToken(payload) {
   return new Promise((resolve, _) => {
@@ -7,12 +7,12 @@ export function createAccessToken(payload) {
       payload,
       TOKEN_SECRET,
       {
-        "expiresIn": "1d",
+        expiresIn: '1d',
       },
       (err, token) => {
         if (err) console.log(err);
-        resolve(token)
+        resolve(token);
       }
-    )
-  })
+    );
+  });
 }

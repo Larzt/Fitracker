@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #1E1E2F;
+  background-color: #1e1e2f;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #29293D;
+  background-color: #29293d;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
@@ -38,18 +38,18 @@ body {
 }
 
 .food-list::-webkit-scrollbar-thumb {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border-radius: 10px;
 }
 
 .food-list::-webkit-scrollbar-track {
-  background-color: #29293D;
+  background-color: #29293d;
   border-radius: 10px;
 }
 
 /* Tarjeta de comida */
 .food-card {
-  background-color: #38384D;
+  background-color: #38384d;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
@@ -75,7 +75,7 @@ body {
 /* Nombre de comida */
 .food-header h1 {
   font-size: 1.5rem;
-  color: #E4E4F0;
+  color: #e4e4f0;
   margin: 0;
 }
 
@@ -93,7 +93,7 @@ body {
 }
 
 .food-header button:hover {
-  color: #FF2626;
+  color: #ff2626;
 }
 
 .food-header button i {

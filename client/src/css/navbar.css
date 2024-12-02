@@ -9,9 +9,9 @@
   /* flex-wrap: wrap; Permitir que los botones se ajusten si es necesario */
   justify-content: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
-  gap: .5rem; /* Espacio uniforme entre botones */
+  gap: 0.5rem; /* Espacio uniforme entre botones */
   padding: 1rem; /* Añadir espacio interno */
-  background-color: #29293D; /* Fondo opcional para el footer */
+  background-color: #29293d; /* Fondo opcional para el footer */
   /* border-radius: 8px; Bordes redondeados */
   border-top: 2px solid #555; /* Línea encima de los botones */
 }
@@ -24,17 +24,19 @@
   align-items: center;
   justify-content: center;
   padding: 0.8rem;
-  background-color: #3B3B51;
+  background-color: #3b3b51;
   border: none;
   border-radius: 8px;
   color: #fff;
   font-size: 1rem; /* Tamaño de fuente reducido */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .footer-button:hover {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   transform: scale(1.05);
 }
 

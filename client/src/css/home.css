@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #1E1E2F;
+  background-color: #1e1e2f;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #29293D;
+  background-color: #29293d;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
@@ -40,7 +40,7 @@ body {
 
 .header-content h1 {
   font-size: 2rem;
-  color: #E4E4F0;
+  color: #e4e4f0;
 }
 
 .user-icon {
@@ -53,7 +53,7 @@ body {
 
 .home-header p {
   font-size: 1.2rem;
-  color: #B0B0C0;
+  color: #b0b0c0;
 }
 
 /* Progress Section */
@@ -63,7 +63,7 @@ body {
 }
 
 .progress-card {
-  background-color: #38384D;
+  background-color: #38384d;
   border-radius: 10px;
   padding: 1.2rem;
   margin-bottom: 1rem;
@@ -92,6 +92,6 @@ body {
 
 .progress-fill {
   height: 100%;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   transition: width 0.3s ease;
 }

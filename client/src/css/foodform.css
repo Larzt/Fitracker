@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #1E1E2F;
+  background-color: #1e1e2f;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -20,7 +20,7 @@ body {
   /* display: flex; */
   flex-direction: column;
   align-items: flex-start;
-  background-color: #29293D;
+  background-color: #29293d;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
@@ -36,7 +36,7 @@ body {
 
 .form-container h1 {
   font-size: 1.8rem;
-  color: #E4E4F0;
+  color: #e4e4f0;
   margin-bottom: 1.5rem;
 }
 
@@ -46,10 +46,10 @@ body {
   width: 100%;
   padding: 0.8rem;
   margin: 0.5rem 0;
-  background-color: #3B3B51;
+  background-color: #3b3b51;
   border: 1px solid #555;
   border-radius: 5px;
-  color: #E4E4F0;
+  color: #e4e4f0;
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
@@ -57,7 +57,7 @@ body {
 .form-container input:focus,
 .form-container textarea:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: #4caf50;
 }
 
 /* 
@@ -72,7 +72,7 @@ body {
 .save-btn {
   flex: 3; /* El botón "Save" ocupa 3/4 del espacio */
   padding: 0.8rem;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   border-radius: 5px;
   color: white;
@@ -84,13 +84,13 @@ body {
 }
 
 .save-btn:hover {
-  background-color: #45A049;
+  background-color: #45a049;
 }
 
 .back-btn {
   flex: 1; /* El botón "Home" ocupa 1/4 del espacio */
   padding: 0.8rem;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   border: none;
   border-radius: 5px;
   color: white;
@@ -105,6 +105,5 @@ body {
 }
 
 .back-btn:hover {
-  background-color: #45A049;
+  background-color: #45a049;
 }
-

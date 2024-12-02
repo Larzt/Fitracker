@@ -21,7 +21,6 @@ function HomePage() {
         </div>
         <p>Visualiza tu progreso y establece tus metas</p>
       </header>
-
       {/* Progress Section */}
       <section className="progress-section">
         <div className="progress-card">
@@ -37,7 +36,7 @@ function HomePage() {
         <div className="progress-card">
           <h3>Peso actual</h3>
           <div className="progress-graph">
-            <p>70kg / 68kg</p>
+            <p>{user.weight}kg / 68kg</p>
             <div className="progress-bar">
               <div className="progress-fill" style={{ width: '95%' }}></div>
             </div>
