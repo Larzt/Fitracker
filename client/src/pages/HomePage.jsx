@@ -2,12 +2,18 @@ import { Navbar } from '../components/Navbar.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Link } from 'react-router-dom';
 import '../css/home.css';
-import { RingsChart } from '../components/Progress.jsx';
+import { RingsChart, BarChart } from '../components/Progress.jsx';
 
 function HomePage() {
   const { user } = useAuth();
   console.log(user);
-
+  const exercise = 'Press banca';
+  const mockData = [
+    { time: 'Semana 1', weight: 85 },
+    { time: 'Semana 2', weight: 83 },
+    { time: 'Semana 3', weight: 82 },
+    { time: 'Semana 4', weight: 80 },
+  ];
   return (
     <div className="home-container">
       {/* Header */}
@@ -41,26 +47,33 @@ function HomePage() {
           </div>
         </section>
       </div>
-      {/* Information Section */}
+
+      {/* {Information} */}
       <div className="information-container">
-        <section className="information-section">
-          <h1 className="progress-title">Extra</h1>
-          <div className="information-charts">
-            <div className="information-chart">
-              <RingsChart />
-            </div>
+        {/* Exercise */}
+        <section className="information-exercise">
+          <div className="information-bar">
+            <h1>Exercises</h1>
+            <button>
+              <i className="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
+          <p>today</p>
+          <p>information goes here</p>
         </section>
-        <section className="information-section">
-          <h1 className="progress-title">Extra</h1>
-          <div className="information-charts">
-            <div className="information-chart">
-              <RingsChart />
-            </div>
+
+        {/* Food */}
+        <section className="information-food">
+          <div className="information-bar">
+            <h1>Foods</h1>
+            <button>
+              <i className="fa-solid fa-arrow-right"></i>
+            </button>
           </div>
+          <p>today</p>
+          <p>information goes here</p>
         </section>
       </div>
-
       <Navbar />
     </div>
   );

@@ -121,7 +121,14 @@ body {
 /* Ícono de Logro */
 .achievement-icon {
   font-size: 2.5rem; /* Tamaño grande para el ícono */
-  color: #34d399; /* Color verde */
+  color: #6f6f6f; /* Color verde */
+  margin-bottom: 0.5rem;
+}
+
+/* Ícono de Logro */
+.achievement-icon-completed {
+  font-size: 2.5rem; /* Tamaño grande para el ícono */
+  color: #3b82f6; /* Color verde */
   margin-bottom: 0.5rem;
 }
 

@@ -12,23 +12,27 @@ body {
 }
 
 /* Contenedor Principal */
-.home-container {
+.home-container,
+.progress-container {
   width: 100%;
   max-width: 600px; /* Ancho máximo ajustado */
-  margin: 0 auto;
-  padding: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #29293d;
+  background-color: #292938;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.progress-container h1 {
+  margin-top: 0rem;
 }
 
 /* Header */
 .home-header {
   width: 100%;
-  /* margin-bottom: 1rem; */
 }
 
 .header-content {
@@ -51,7 +55,7 @@ body {
   cursor: pointer;
 }
 
-.user-icon :hover {
+.user-icon:hover {
   color: #34d399;
 }
 
@@ -60,20 +64,7 @@ body {
   color: #b0b0c0;
 }
 
-/* Contenedor Principal */
-.progress-container {
-  width: 100%;
-  max-width: 600px; /* Ancho máximo ajustado */
-  margin: 1.5rem;
-  padding: 0rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #292938;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-}
-
+/* Sección de Progreso */
 .progress-title {
   display: flex;
   align-items: center;
@@ -83,55 +74,20 @@ body {
   font-weight: bold;
 }
 
-/* Sección de Progreso */
 .progress-section {
-  border-top: 2px solid #bfbfbf; /* Línea encima de los botones */
-  display: flex; /* Hace que el contenido esté en fila */
-  justify-content: space-between; /* Espaciado entre elementos */
-  align-items: center; /* Centra verticalmente */
-  width: 80%; /* Ocupa todo el ancho */
+  border-top: 2px solid #bfbfbf;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
 
-/* Contenedor horizontal */
-.information-container {
-  display: flex; /* Aplica flexbox */
-  justify-content: space-around; /* Espaciado uniforme entre los elementos */
-  align-items: center; /* Alinea verticalmente los elementos */
-  flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples filas si no caben */
-  gap: 1.5rem; /* Espaciado entre las secciones */
-  margin-bottom: 1.5rem;
-}
-
-.information-chart {
-  margin-top: 1rem;
-}
-
-.information-charts {
-  border-top: 2px solid #bfbfbf; /* Línea encima de los botones */
-}
-
-/* Secciones individuales */
-.information-section {
-  flex: 1; /* Las secciones ocuparán el mismo ancho */
-  max-width: 300px; /* Define un ancho máximo para que no se expandan demasiado */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem;
-  padding-top: 0rem;
-  background-color: #292938; /* Fondo oscuro */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-}
-
-/* Gráfico */
 .progress-chart {
-  flex: 1; /* Permite que el gráfico ocupe su proporción */
+  flex: 1;
   display: flex;
-  /* justify-content: center; Centra horizontalmente el gráfico */
-  align-items: center; /* Centra verticalmente */
+  align-items: center;
 }
 
 .progress-info {
@@ -139,24 +95,106 @@ body {
   row-gap: 1rem;
 }
 
-/* Información asociada */
 .progress-info h1 {
-  flex: 2; /* Información ocupa más espacio que el gráfico */
+  flex: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1rem; /* Espaciado entre las filas de información */
-  color: #34d399; /* Mantén el color claro */
-  font-size: 1.2rem; /* Ajusta el tamaño del título */
+  gap: 1rem;
+  color: #34d399;
+  font-size: 1.2rem;
   font-weight: bold;
   margin: 0;
 }
 
 .progress-info #progress-info-weight {
-  color: #3b82f6; /* Mantén el color claro */
+  color: #3b82f6;
 }
 
 .progress-info p {
-  font-size: 1rem; /* Texto más pequeño */
+  font-size: 1rem;
   margin: 0;
+}
+
+/* Contenedor de Información */
+.information-container {
+  display: flex;
+  justify-content: space-between; /* Asegura que haya espacio entre los elementos */
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem; /* Añade espacio entre las secciones */
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Información Bar */
+.information-bar {
+  display: flex; /* Asegura que los elementos estén en la misma línea */
+  justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
+  width: 100%; /* Ocupa todo el ancho disponible */
+  gap: 1.5rem; /* Espacio entre los elementos dentro de la barra */
+}
+
+/* Secciones individuales de Información */
+.information-food,
+.information-exercise {
+  width: 100%;
+  max-width: 280px;
+  background-color: #292938;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  margin-bottom: 1rem;
+}
+
+.information-food h1,
+.information-exercise h1 {
+  font-size: 1.5rem;
+  color: #e4e4f0;
+}
+
+.information-food p,
+.information-exercise p {
+  font-size: 1rem;
+  color: #b0b0c0;
+  margin: 0.5rem 0;
+  align-self: flex-start;
+}
+
+.information-food button,
+.information-exercise button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.information-food button:hover,
+.information-exercise button:hover {
+  color: #34d399; /* Color de hover */
+}
+
+.information-food i,
+.information-exercise i {
+  font-size: 1.5rem;
+}
+
+.information-food .header,
+.information-exercise .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Estilo para separar y alinear los elementos de la información */
+.information-food p:last-child,
+.information-exercise p:last-child {
+  font-weight: bold;
+  color: #34d399; /* Color del texto destacado */
 }

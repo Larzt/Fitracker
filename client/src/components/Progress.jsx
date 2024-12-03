@@ -1,9 +1,33 @@
-import React from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut } from 'react-chartjs-2';
-import { useAuth } from '../context/AuthContext';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+  ArcElement,
+} from 'chart.js';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+  ArcElement
+);
+
+import React from 'react';
+import { Doughnut, Bar } from 'react-chartjs-2';
+import { useAuth } from '../context/AuthContext';
 
 export const RingsChart = () => {
   const { user } = useAuth();
@@ -61,6 +85,59 @@ export const RingsChart = () => {
       >
         <p style={{ margin: 0, fontWeight: 'bold' }}>Metas</p>
       </div>
+    </div>
+  );
+};
+
+export const BarChart = ({ exerciseName, dataPoints }) => {
+  const data = {
+    labels: dataPoints.map((point) => point.time), // Eje X: Tiempo
+    datasets: [
+      {
+        label: exerciseName, // Cambiado a exerciseName
+        data: dataPoints.map((point) => point.weight), // Eje Y: Peso
+        backgroundColor: '#34d399', // Color principal
+        borderColor: '#22c55e', // Color de borde
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        title: {
+          display: true,
+          text: 'Tiempo',
+          color: '#e4e4f0',
+        },
+      },
+      y: {
+        grid: {
+          color: '#3b3b48',
+        },
+        title: {
+          display: true,
+          text: 'Peso (kg)',
+          color: '#e4e4f0',
+        },
+      },
+    },
+  };
+
+  return (
+    <div style={{ width: '100%', height: '200px' }}>
+      <Bar data={data} options={options} />
     </div>
   );
 };

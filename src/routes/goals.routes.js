@@ -15,7 +15,12 @@ const router = Router();
 router.get('/goals', authRequired, getGoals);
 router.get('/goals/:id', authRequired, getGoal);
 router.post('/goals', authRequired, validateSchema(createSchema), createGoal);
-router.put('/goals/:id', authRequired, validateSchema(updateSchema), updateGoal);
+router.put(
+  '/goals/:id',
+  authRequired,
+  validateSchema(updateSchema),
+  updateGoal
+);
 router.delete('/goals/:id', authRequired, deleteGoal);
 
 export default router;

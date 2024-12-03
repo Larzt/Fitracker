@@ -3,10 +3,12 @@ import Goal from '../models/goals.model.js';
 // Obtener todos los logros de un usuario
 export const getGoals = async (req, res) => {
   try {
-    const goals = await Goal.find({ user: req.user.id }).populate('user');
+    const goals = await Goal.find({
+      user: req.user.id,
+    }).populate('user');
     res.json(goals);
   } catch (error) {
-    res.status(404).json({ message: 'Goals not found' });
+    if (error) res.status(404).json({ message: 'Goals not found' });
   }
 };
 
@@ -17,7 +19,7 @@ export const getGoal = async (req, res) => {
     if (!goal) return res.status(404).json({ message: 'Goal not found' });
     res.json(goal);
   } catch (error) {
-    res.status(404).json({ message: 'Goal not found' });
+    if (error) res.status(404).json({ message: 'Goal not found' });
   }
 };
 
@@ -25,7 +27,6 @@ export const getGoal = async (req, res) => {
 export const createGoal = async (req, res) => {
   try {
     const { name, description, id } = req.body;
-
     const newGoal = new Goal({
       name,
       description,
@@ -36,7 +37,7 @@ export const createGoal = async (req, res) => {
     const savedGoal = await newGoal.save();
     res.json(savedGoal);
   } catch (error) {
-    res.status(404).json({ message: 'Goal not created' });
+    if (error) res.status(404).json({ message: 'Goal not created' });
   }
 };
 
@@ -47,17 +48,19 @@ export const deleteGoal = async (req, res) => {
     if (!goal) return res.status(404).json({ message: 'Goal not found' });
     res.status(204).send();
   } catch (error) {
-    res.status(404).json({ message: 'Goal not found' });
+    if (error) res.status(404).json({ message: 'Goal not found' });
   }
 };
 
 // Actualizar un logro por su ID
 export const updateGoal = async (req, res) => {
   try {
-    const goal = await Goal.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const goal = await Goal.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     if (!goal) return res.status(404).json({ message: 'Goal not found' });
     res.json(goal);
   } catch (error) {
-    res.status(404).json({ message: 'Goal not found' });
+    if (error) res.status(404).json({ message: 'Goal not found' });
   }
 };
