@@ -91,7 +91,7 @@ body {
 .form-container input:focus,
 .form-container select:focus {
   outline: none;
-  border-color: #4caf50; /* Verde al enfocarse */
+  border-color: #34d399; /* Verde al enfocarse */
 }
 
 /* Placeholder */
@@ -131,7 +131,7 @@ body {
 }
 
 .form-container p a {
-  color: #4caf50;
+  color: #34d399;
   text-decoration: none;
   transition: color 0.2s ease;
 }
