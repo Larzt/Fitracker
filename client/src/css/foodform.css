@@ -22,7 +22,7 @@ body {
   align-items: flex-start;
   background-color: #29293d;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* Estilos para el formulario */
@@ -57,22 +57,13 @@ body {
 .form-container input:focus,
 .form-container textarea:focus {
   outline: none;
-  border-color: #4caf50;
+  border-color: #34d399;
 }
-
-/* 
-.footer {
-  display: flex;
-  justify-content: space-between; 
-  width: 100%;
-  margin-top: 1rem;
-}
-*/
 
 .save-btn {
   flex: 3; /* El botón "Save" ocupa 3/4 del espacio */
   padding: 0.8rem;
-  background-color: #4caf50;
+  background-color: #34d399;
   border: none;
   border-radius: 5px;
   color: white;
@@ -84,13 +75,13 @@ body {
 }
 
 .save-btn:hover {
-  background-color: #45a049;
+  background-color: #34d399;
 }
 
 .back-btn {
   flex: 1; /* El botón "Home" ocupa 1/4 del espacio */
   padding: 0.8rem;
-  background-color: #4caf50;
+  background-color: #34d399;
   border: none;
   border-radius: 5px;
   color: white;
@@ -105,5 +96,5 @@ body {
 }
 
 .back-btn:hover {
-  background-color: #45a049;
+  background-color: #34d399;
 }

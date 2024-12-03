@@ -1,32 +1,42 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useFood } from '../context/FoodContext';
 import { Navbar } from '../components/Navbar.jsx';
 import '../css/foodform.css';
 
 function FoodFormPage() {
-  const { register, handleSubmit } = useForm();
-  const { createFood } = useFood();
-
+  const { register, handleSubmit, setValue } = useForm();
+  const { createFood, getFood, updateFood } = useFood();
   const navigate = useNavigate();
+  const params = useParams();
 
   const onSubmit = handleSubmit((data) => {
-    createFood(data);
-    reloadPage();
+    if (params.id) {
+      updateFood(params.id, data);
+    } else {
+      createFood(data);
+    }
+    navigate('/food');
   });
 
-  const goBackHome = () => {
-    navigate('/home');
-  };
-
-  const reloadPage = () => {
-    window.location.reload();
-  };
+  useEffect(() => {
+    async function loadFood() {
+      if (params.id) {
+        const food = await getFood(params.id);
+        console.log(food);
+        setValue('name', food.name);
+        setValue('calories', food.calories);
+        setValue('ingredients', food.ingredients);
+      }
+    }
+    loadFood();
+  }, []);
 
   return (
     <div className="container">
       <div className="form-container">
-        <h1>Add New Food</h1>
+        <h1>Food Form</h1>
         <form onSubmit={onSubmit}>
           <input
             type="text"

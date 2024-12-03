@@ -22,13 +22,13 @@ body {
   align-items: center;
   background-color: #29293d;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* Header */
 .home-header {
   width: 100%;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1rem; */
 }
 
 .header-content {
@@ -51,47 +51,112 @@ body {
   cursor: pointer;
 }
 
+.user-icon :hover {
+  color: #34d399;
+}
+
 .home-header p {
   font-size: 1.2rem;
   color: #b0b0c0;
 }
 
-/* Progress Section */
-.progress-section {
+/* Contenedor Principal */
+.progress-container {
   width: 100%;
+  max-width: 600px; /* Ancho máximo ajustado */
+  margin: 1.5rem;
+  padding: 0rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #292938;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.progress-title {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+/* Sección de Progreso */
+.progress-section {
+  border-top: 2px solid #bfbfbf; /* Línea encima de los botones */
+  display: flex; /* Hace que el contenido esté en fila */
+  justify-content: space-between; /* Espaciado entre elementos */
+  align-items: center; /* Centra verticalmente */
+  width: 80%; /* Ocupa todo el ancho */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Contenedor horizontal */
+.information-container {
+  display: flex; /* Aplica flexbox */
+  justify-content: space-around; /* Espaciado uniforme entre los elementos */
+  align-items: center; /* Alinea verticalmente los elementos */
+  flex-wrap: wrap; /* Permite que los elementos se acomoden en múltiples filas si no caben */
+  gap: 1.5rem; /* Espaciado entre las secciones */
   margin-bottom: 1.5rem;
 }
 
-.progress-card {
-  background-color: #38384d;
-  border-radius: 10px;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+.information-chart {
+  margin-top: 1rem;
 }
 
-.progress-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+.information-charts {
+  border-top: 2px solid #bfbfbf; /* Línea encima de los botones */
 }
 
-.progress-graph {
+/* Secciones individuales */
+.information-section {
+  flex: 1; /* Las secciones ocuparán el mismo ancho */
+  max-width: 300px; /* Define un ancho máximo para que no se expandan demasiado */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  padding: 1rem;
+  padding-top: 0rem;
+  background-color: #292938; /* Fondo oscuro */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-.progress-bar {
-  width: 100%;
-  height: 10px;
-  background-color: #555;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-top: 0.5rem;
+/* Gráfico */
+.progress-chart {
+  flex: 1; /* Permite que el gráfico ocupe su proporción */
+  display: flex;
+  /* justify-content: center; Centra horizontalmente el gráfico */
+  align-items: center; /* Centra verticalmente */
 }
 
-.progress-fill {
-  height: 100%;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
+.progress-info {
+  display: grid;
+  row-gap: 1rem;
+}
+
+/* Información asociada */
+.progress-info h1 {
+  flex: 2; /* Información ocupa más espacio que el gráfico */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem; /* Espaciado entre las filas de información */
+  color: #34d399; /* Mantén el color claro */
+  font-size: 1.2rem; /* Ajusta el tamaño del título */
+  font-weight: bold;
+  margin: 0;
+}
+
+.progress-info #progress-info-weight {
+  color: #3b82f6; /* Mantén el color claro */
+}
+
+.progress-info p {
+  font-size: 1rem; /* Texto más pequeño */
+  margin: 0;
 }

@@ -2,13 +2,19 @@ import { useEffect } from 'react';
 import { useFood } from '../context/FoodContext';
 import { Navbar } from '../components/Navbar.jsx';
 import '../css/food.css';
+import { useNavigate } from 'react-router-dom';
 
 function FoodPage() {
   const { foods, getFoods, deleteFood } = useFood();
+  const navigate = useNavigate();
 
-  const handleDeleteSubmit = (data) => {
-    deleteFood(data);
+  const handleDeleteSubmit = (id) => {
+    deleteFood(id);
     reloadPage();
+  };
+
+  const handleEditSubmit = (id) => {
+    navigate(`/food/${id}`);
   };
 
   const reloadPage = () => {
@@ -29,9 +35,20 @@ function FoodPage() {
             <div className="food-info">
               <div className="food-header">
                 <h1>{food.name}</h1>
-                <button onClick={() => handleDeleteSubmit(food._id)}>
-                  <i className="fas fa-trash"></i>
-                </button>
+                <div className="food-modifiers">
+                  <button
+                    id="edit-button"
+                    onClick={() => handleEditSubmit(food._id)}
+                  >
+                    <i className="fas fa-edit"></i>
+                  </button>
+                  <button
+                    id="delete-button"
+                    onClick={() => handleDeleteSubmit(food._id)}
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </div>
               </div>
               <p>Calories: {food.calories}</p>
               <p>Ingredients: {food.ingredients}</p>

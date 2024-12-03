@@ -30,18 +30,40 @@ export function FoodProvider({ children }) {
   };
 
   const getFood = async (id) => {
-    const res = await getFoodRequest(id);
-    console.log(res);
+    try {
+      const res = await getFoodRequest(id);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const createFood = async (food) => {
-    const res = await createFoodRequest(food);
-    console.log(res);
+    try {
+      const res = await createFoodRequest(food);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateFood = async (id, food) => {
+    try {
+      const res = await updateFoodRequest(id, food);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const deleteFood = async (food) => {
-    const res = await deleteFoodRequest(food);
-    console.log(res);
+    try {
+      const res = await deleteFoodRequest(food);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -49,6 +71,7 @@ export function FoodProvider({ children }) {
       value={{
         foods,
         createFood,
+        updateFood,
         deleteFood,
         getFoods,
         getFood,

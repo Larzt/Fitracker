@@ -6,6 +6,6 @@ export const getFoodRequest = (id) => axios.get(`/food/${id}`);
 
 export const createFoodRequest = (food) => axios.post('/food', food);
 
-export const updateFoodRequest = (food) => axios.put(`/food/${food._id}`, food);
+export const updateFoodRequest = (id, food) => axios.put(`/food/${id}`, food);
 
 export const deleteFoodRequest = (id) => axios.delete(`/food/${id}`);

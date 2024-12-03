@@ -2,6 +2,7 @@ import { Navbar } from '../components/Navbar.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Link } from 'react-router-dom';
 import '../css/home.css';
+import { RingsChart } from '../components/Progress.jsx';
 
 function HomePage() {
   const { user } = useAuth();
@@ -22,27 +23,44 @@ function HomePage() {
         <p>Visualiza tu progreso y establece tus metas</p>
       </header>
       {/* Progress Section */}
-      <section className="progress-section">
-        <div className="progress-card">
-          <h3>Calorías consumidas</h3>
-          <div className="progress-graph">
-            <p>2000 / 2500 kcal</p>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: '80%' }}></div>
+      <div className="progress-container">
+        <h1 className="progress-title">Progress</h1>
+        <section className="progress-section">
+          <div className="progress-chart">
+            <RingsChart />
+          </div>
+          <div className="progress-info">
+            <div>
+              <h1 id="progress-info-weight">Peso</h1>
+              <p>{user.weight} / 80 kg</p>
+            </div>
+            <div>
+              <h1>Calorías</h1>
+              <p>1500 / 1700 kcal</p>
             </div>
           </div>
-        </div>
+        </section>
+      </div>
+      {/* Information Section */}
+      <div className="information-container">
+        <section className="information-section">
+          <h1 className="progress-title">Extra</h1>
+          <div className="information-charts">
+            <div className="information-chart">
+              <RingsChart />
+            </div>
+          </div>
+        </section>
+        <section className="information-section">
+          <h1 className="progress-title">Extra</h1>
+          <div className="information-charts">
+            <div className="information-chart">
+              <RingsChart />
+            </div>
+          </div>
+        </section>
+      </div>
 
-        <div className="progress-card">
-          <h3>Peso actual</h3>
-          <div className="progress-graph">
-            <p>{user.weight}kg / 68kg</p>
-            <div className="progress-bar">
-              <div className="progress-fill" style={{ width: '95%' }}></div>
-            </div>
-          </div>
-        </div>
-      </section>
       <Navbar />
     </div>
   );

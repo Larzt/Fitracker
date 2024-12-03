@@ -5,12 +5,12 @@ export const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="home-footer">
-        <Link to="/exercises">
+        <Link to="/exercise">
           <button className="footer-button">
             <i className="fas fa-dumbbell"></i>
           </button>
         </Link>
-        <Link to="/exercise">
+        <Link to="/exercise/new">
           <button className="footer-button">
             <i className="fas fa-running"></i>
           </button>

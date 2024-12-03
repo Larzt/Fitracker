@@ -22,7 +22,13 @@ body {
   align-items: center;
   background-color: #29293d;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+.food-modifiers {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
 /* Lista de comidas (scrollable) */
@@ -49,11 +55,11 @@ body {
 
 /* Tarjeta de comida */
 .food-card {
-  background-color: #38384d;
+  background-color: #292938;
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
   display: flex;
   flex-direction: column;
 }
@@ -92,8 +98,12 @@ body {
   transition: color 0.3s ease;
 }
 
-.food-header button:hover {
-  color: #ff2626;
+.food-header button:first-child:hover {
+  color: #34d399;
+}
+
+.food-header button:last-child:hover {
+  color: #cc1f1f;
 }
 
 .food-header button i {

@@ -1,0 +1,60 @@
+import { createContext, useContext, useState } from 'react';
+import {
+  getExersRequest,
+  getExerRequest,
+  createExerRequest,
+  updateExerRequest,
+  deleteExerRequest,
+} from '../api/exercise.js';
+
+const ExersContext = createContext();
+
+export const useExers = () => {
+  const context = useContext(ExersContext);
+  if (!context) {
+    throw new Error('useExers must be used within a ExersProvider');
+  }
+  return context;
+};
+
+export function ExersProvider({ children }) {
+  const [exers, setExers] = useState([]);
+
+  const getExers = async () => {
+    try {
+      const res = await getExersRequest();
+      setExers(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getExer = async (id) => {
+    const res = await getExerRequest(id);
+    console.log(res);
+  };
+
+  const createExer = async (exer) => {
+    const res = await createExerRequest(exer);
+    console.log(res);
+  };
+
+  const deleteExer = async (exer) => {
+    const res = await deleteExerRequest(exer);
+    console.log(res);
+  };
+
+  return (
+    <ExersContext.Provider
+      value={{
+        exers,
+        createExer,
+        deleteExer,
+        getExers,
+        getExer,
+      }}
+    >
+      {children}
+    </ExersContext.Provider>
+  );
+}

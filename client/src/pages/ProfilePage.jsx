@@ -1,3 +1,4 @@
+import { Navbar } from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import '../css/home.css';
 
@@ -9,6 +10,7 @@ function ProfilePage() {
       <button className="nav-button" onClick={() => logout()}>
         <a href="/">Logout</a>
       </button>
+      <Navbar />
     </div>
   );
 }
