@@ -1,0 +1,145 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e2f;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor Principal */
+.profile-container {
+  width: 100%;
+  max-width: 600px; /* Ancho máximo ajustado */
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #29293d;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Header de Perfil */
+.profile-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Espacia los elementos (icono y botón) */
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.logout-button {
+  background: none;
+  border: none;
+  color: #fff; /* Rojo para el ícono de logout */
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logout-button:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el mouse */
+  color: #ff6b6b;
+}
+
+.user-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-icon {
+  font-size: 2.5rem;
+  color: #fff; /* Verde para el ícono del usuario */
+  transition: transform 0.2s ease;
+}
+
+.user-icon:hover {
+  transform: scale(1.1); /* Aumenta ligeramente el tamaño al pasar el mouse */
+  color: #34d399; /* Verde para el ícono del usuario */
+}
+
+.user-achievement {
+  font-weight: bold;
+  font-size: x-large;
+}
+
+/* Contenedor Desplazable */
+.scrollable-container {
+  max-height: 400px; /* Ajusta según sea necesario */
+  max-width: 400px; /* Ajusta según sea necesario */
+  overflow-y: auto; /* Habilita el desplazamiento vertical */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #38384d; /* Borde opcional para delimitar */
+  border-radius: 5px;
+}
+
+/* Personalización del Scrollbar */
+.scrollable-container::-webkit-scrollbar {
+  width: 6px; /* Ancho de la barra */
+}
+
+.scrollable-container::-webkit-scrollbar-thumb {
+  background-color: #34d399; /* Color del "pulgar" */
+  border-radius: 5px; /* Bordes redondeados */
+}
+
+.scrollable-container::-webkit-scrollbar-track {
+  background-color: #29293d; /* Fondo del scrollbar */
+  border-radius: 10px;
+}
+
+/* Contenedor de Logros */
+.achievements-container {
+  display: grid; /* Define un contenedor grid */
+  grid-template-columns: repeat(2, 1fr); /* 3 columnas de igual ancho */
+  gap: 1.5rem; /* Espaciado entre elementos */
+}
+
+/* Item de Logro */
+.achievement-item {
+  display: flex;
+  flex-direction: column; /* Elementos alineados verticalmente */
+  align-items: center; /* Centra horizontalmente */
+  text-align: center; /* Centra texto */
+  padding: 1rem;
+  background-color: #38384d; /* Fondo para cada logro */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Ícono de Logro */
+.achievement-icon {
+  font-size: 2.5rem; /* Tamaño grande para el ícono */
+  color: #34d399; /* Color verde */
+  margin-bottom: 0.5rem;
+}
+
+/* Título de Logro */
+.achievement-title {
+  font-size: 1.2rem;
+  color: #e4e4f0; /* Texto claro */
+  margin-bottom: 0.5rem;
+}
+
+/* Descripción de Logro */
+.achievement-description {
+  font-size: 0.9rem;
+  color: #b0b0c0; /* Texto más claro */
+}
+
+/* Hover Effects */
+.achievement-item:hover {
+  transform: translateY(-5px); /* Eleva ligeramente al pasar el mouse */
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3); /* Aumenta el sombreado */
+}

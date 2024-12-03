@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useFood } from '../context/FoodContext';
-import { Navbar } from '../components/Navbar.jsx';
-import '../css/food.css';
+import { useFood } from '../../context/FoodContext.jsx';
+import { Navbar } from '../../components/Navbar.jsx';
+import '../../css/food.css';
 import { useNavigate } from 'react-router-dom';
 
 function FoodPage() {

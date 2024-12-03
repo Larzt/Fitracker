@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
-import FoodPage from './pages/FoodPage.jsx';
-import FoodFormPage from './pages/FoodFormPage.jsx';
-import ExercisePage from './pages/ExercisePage.jsx';
-import ExerciseFormPage from './pages/ExerciseFormPage.jsx';
+import FoodPage from './pages/Food/FoodPage.jsx';
+import FoodFormPage from './pages/Food/FoodFormPage.jsx';
+import ExercisePage from './pages/Exercise/ExercisePage.jsx';
+import ExerciseFormPage from './pages/Exercise/ExerciseFormPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 
