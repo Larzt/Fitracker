@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import DishPage from './pages/Food/DishPage.jsx';
 import FoodPage from './pages/Food/FoodPage.jsx';
+import FoodListPage from './pages/Food/FoodListPage.jsx';
 import FoodFormPage from './pages/Food/FoodFormPage.jsx';
 import ExercisePage from './pages/Exercise/ExercisePage.jsx';
 import ExerciseFormPage from './pages/Exercise/ExerciseFormPage.jsx';
@@ -35,6 +36,7 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="/dish" element={<DishPage />} />
                   <Route path="/food" element={<FoodPage />} />
+                  <Route path="/food/list" element={<FoodListPage />} />
                   <Route path="/food/new" element={<FoodFormPage />} />
                   <Route path="/food/:id" element={<FoodFormPage />} />
                   <Route path="/exercise" element={<ExercisePage />} />

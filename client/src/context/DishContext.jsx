@@ -3,6 +3,7 @@ import {
   getDishesRequest,
   getDishRequest,
   createDishRequest,
+  deleteDishRequest,
   getDishesByDateRequest,
 } from '../api/dish';
 import { useFood } from './FoodContext';
@@ -52,6 +53,15 @@ export function DishProvider({ children }) {
     }
   };
 
+  const deleteDish = async (id) => {
+    try {
+      const res = await deleteDishRequest(id);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getDishesByDate = async (date) => {
     try {
       const res = await getDishesByDateRequest(date);
@@ -69,6 +79,7 @@ export function DishProvider({ children }) {
         getDishes,
         getDish,
         createDish,
+        deleteDish,
         getDishesByDate,
       }}
     >

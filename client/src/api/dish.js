@@ -6,6 +6,8 @@ export const getDishRequest = (id) => axios.get(`/dish/${id}`);
 
 export const createDishRequest = (id) => axios.post(`/dish/${id}`);
 
+export const deleteDishRequest = (id) => axios.delete(`/dish/${id}`);
+
 export const getDishesByDateRequest = async (date) => {
   return await axios.get(`/dish/date/${date}`);
 };

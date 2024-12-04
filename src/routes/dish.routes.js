@@ -4,6 +4,7 @@ import {
   getDishes,
   getDish,
   createDish,
+  deleteDish,
   getDishesByDate,
 } from '../controllers/dish.controller.js';
 
@@ -14,6 +15,8 @@ router.get('/dish/', authRequired, getDishes);
 router.get('/dish/:id', authRequired, getDish);
 
 router.post('/dish/:id', authRequired, createDish);
+
+router.delete('/dish/:id', authRequired, deleteDish);
 
 router.get('/dish/date/:date', authRequired, getDishesByDate);
 
