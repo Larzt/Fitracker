@@ -54,9 +54,11 @@ function HomePage() {
         <section className="information-exercise">
           <div className="information-bar">
             <h1>Exercises</h1>
-            <button>
-              <i className="fa-solid fa-arrow-right"></i>
-            </button>
+            <Link to={'/routine'}>
+              <button>
+                <i className="fa-solid fa-arrow-right"></i>
+              </button>
+            </Link>
           </div>
           <p>today</p>
           <p>information goes here</p>

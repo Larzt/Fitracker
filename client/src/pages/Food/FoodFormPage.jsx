@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useFood } from '../../context/FoodContext.jsx';
 import { Navbar } from '../../components/Navbar.jsx';
-import '../../css/foodform.css';
+import '../../css/Food/foodform.css';
 
 function FoodFormPage() {
   const { register, handleSubmit, setValue } = useForm();

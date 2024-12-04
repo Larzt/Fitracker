@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useGoal } from '../context/GoalContext.jsx';
 import { Navbar } from '../components/Navbar.jsx';
-import '../css/foodform.css';
+import '../css/Food/foodform.css';
 
 function GoalFormPage() {
   const { register, handleSubmit } = useForm();

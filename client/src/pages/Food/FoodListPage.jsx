@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useFood } from '../../context/FoodContext.jsx';
 import { Navbar } from '../../components/Navbar.jsx';
 import { useNavigate } from 'react-router-dom';
-import '../../css/foodList.css';
 import { useDish } from '../../context/DishContext.jsx';
+import '../../css/Food/foodList.css';
 
 function FoodListPage() {
   const { foods, getFoods } = useFood();

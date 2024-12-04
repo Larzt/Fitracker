@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDish } from '../../context/DishContext.jsx';
 import { Navbar } from '../../components/Navbar.jsx';
-import '../../css/dish.css';
 import AddButton from '../../components/AddButton.jsx';
 import { Link, useNavigate } from 'react-router-dom';
+import '../../css/Food/dish.css';
 
 function DishPage() {
   const { dishes, getDishesByDate, deleteDish } = useDish();

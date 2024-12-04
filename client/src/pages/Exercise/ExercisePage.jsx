@@ -5,8 +5,7 @@ import { Navbar } from '../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 
 function ExercisePage() {
-  const { exers, getExers, deleteExer
-   } = useExers();
+  const { exers, getExers, updateExer, deleteExer } = useExers();
   const navigate = useNavigate();
 
   const handleDeleteSubmit = (id) => {
@@ -14,14 +13,13 @@ function ExercisePage() {
     reloadPage();
   };
 
-
   const handleEditSubmit = (id) => {
     navigate(`/exercise/${id}`);
   };
 
   const reloadPage = () => {
     window.location.reload();
-  }
+  };
 
   useEffect(() => {
     getExers();
@@ -29,7 +27,7 @@ function ExercisePage() {
 
   if (exers === 0) return <h1>No exercises</h1>;
   return (
-<div className="home-container">
+    <div className="home-container">
       <div className="exercise-list">
         {exers.map((exer) => (
           <div key={exer._id} className="exercise-card">
@@ -51,10 +49,11 @@ function ExercisePage() {
                   </button>
                 </div>
               </div>
+              <p>Description: {exer.description}</p>
+              {/* <p>More: {exer.more}</p> */}
             </div>
           </div>
         ))}
-        
       </div>
       <Navbar />
     </div>
