@@ -12,9 +12,10 @@ body {
 }
 
 /* Contenedor Principal */
+.dish-container-empty,
 .dish-container {
   width: 100%;
-  max-width: 600px; /* Ancho máximo ajustado */
+  max-width: 600px;
   margin: 0 auto;
   padding: 1.5rem;
   display: flex;
@@ -25,7 +26,19 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* Lista de platos (scrollable) */
+.add-button-empty,
+.dish-container-empty p {
+  margin-bottom: 1rem;
+}
+
+/* Título de la Página */
+.dish-container h1 {
+  font-size: 2rem;
+  color: #e4e4f0;
+  margin-bottom: 1.5rem;
+}
+
+/* Lista de Dishes (scrollable) */
 .dish-list {
   width: 100%;
   max-height: 400px; /* Altura máxima para la lista */
@@ -38,7 +51,7 @@ body {
 }
 
 .dish-list::-webkit-scrollbar-thumb {
-  background-color: #4caf50;
+  background-color: #34d399;
   border-radius: 10px;
 }
 
@@ -47,7 +60,7 @@ body {
   border-radius: 10px;
 }
 
-/* Tarjeta de plato */
+/* Tarjeta de Dish */
 .dish-card {
   background-color: #292938;
   border-radius: 10px;
@@ -58,13 +71,7 @@ body {
   flex-direction: column;
 }
 
-/* Información del plato */
-.dish-info {
-  display: flex;
-  flex-direction: column;
-}
-
-/* Cabecera del plato */
+/* Cabecera de Dish */
 .dish-header {
   display: flex;
   justify-content: space-between;
@@ -72,9 +79,25 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* Nombre del plato */
-.dish-header h1 {
+/* Nombre del Dish */
+.dish-header h2 {
   font-size: 1.5rem;
   color: #e4e4f0;
   margin: 0;
+}
+
+.dish-header button:hover {
+  color: #cc1f1f;
+}
+
+/* Información del Dish */
+.dish-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.dish-info p {
+  margin: 0.5rem 0;
+  color: #b3b3c2;
+  font-size: 1rem;
 }

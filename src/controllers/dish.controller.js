@@ -39,6 +39,16 @@ export const createDish = async (req, res) => {
   }
 };
 
+export const deleteDish = async (req, res) => {
+  try {
+    const dish = await Dish.findByIdAndDelete(req.params.id);
+    if (!dish) return res.status(404).json({ message: 'Dish not found' });
+    return res.status(204);
+  } catch (error) {
+    if (error) return res.status(404).json({ message: 'Dish not found' });
+  }
+};
+
 // Controlador para obtener platos por fecha
 export const getDishesByDate = async (req, res) => {
   try {
