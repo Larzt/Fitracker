@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import foodRoutes from './routes/food.routes.js';
 import exerRoutes from './routes/exercise.routes.js';
 import goalRoutes from './routes/goals.routes.js';
+import dishRoutes from './routes/dish.routes.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -31,6 +32,7 @@ app.use('/api', authRoutes);
 app.use('/api', foodRoutes);
 app.use('/api', exerRoutes);
 app.use('/api', goalRoutes);
+app.use('/api', dishRoutes);
 
 // Servir frontend en producción
 if (process.env.NODE_ENV === 'production') {

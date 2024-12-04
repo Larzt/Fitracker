@@ -1,0 +1,80 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e2f;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor Principal */
+.dish-container {
+  width: 100%;
+  max-width: 600px; /* Ancho máximo ajustado */
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #29293d;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Lista de platos (scrollable) */
+.dish-list {
+  width: 100%;
+  max-height: 400px; /* Altura máxima para la lista */
+  overflow-y: auto; /* Scroll vertical */
+  padding: 0.5rem;
+}
+
+.dish-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dish-list::-webkit-scrollbar-thumb {
+  background-color: #4caf50;
+  border-radius: 10px;
+}
+
+.dish-list::-webkit-scrollbar-track {
+  background-color: #29293d;
+  border-radius: 10px;
+}
+
+/* Tarjeta de plato */
+.dish-card {
+  background-color: #292938;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Información del plato */
+.dish-info {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabecera del plato */
+.dish-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+/* Nombre del plato */
+.dish-header h1 {
+  font-size: 1.5rem;
+  color: #e4e4f0;
+  margin: 0;
+}
