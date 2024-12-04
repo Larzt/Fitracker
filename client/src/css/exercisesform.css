@@ -1,0 +1,97 @@
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #1e1e2f;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor principal */
+.container {
+  width: 100%;
+  max-width: 500px; /* Limitar el ancho máximo */
+  margin: 0 auto; /* Centrar en la pantalla */
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #29293d;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Estilos para el formulario */
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container h1 {
+  font-size: 1.8rem;
+  color: #e4e4f0;
+  margin-bottom: 1.5rem;
+}
+
+/* Campos del formulario */
+.form-container input,
+.form-container textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  background-color: #3b3b51;
+  border: 1px solid #555;
+  border-radius: 5px;
+  color: #e4e4f0;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #34d399;
+}
+
+/* Botón de guardar */
+.save-btn {
+  padding: 0.8rem;
+  background-color: #34d399;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-btn:hover {
+  background-color: #2ca583;
+}
+
+/* Botón de regreso */
+.back-btn {
+  padding: 0.8rem;
+  background-color: #34d399;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 1.5rem; /* Espacio entre el ícono y el texto */
+}
+
+.back-btn:hover {
+  background-color: #2ca583;
+}

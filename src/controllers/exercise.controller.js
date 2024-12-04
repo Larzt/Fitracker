@@ -32,9 +32,15 @@ export const createExer = async (req, res) => {
 };
 
 export const deleteExer = async (req, res) => {
-  const exer = await Exer.findByIdAndDelete(req.params.id);
-  if (!exer) return res.status(404).json({ message: 'Exer not found' });
-  return res.status(204);
+  try {
+    const exer = await Exer.findById(req.params.id);
+    if (!exer) return res.status(404).json({ message: 'Exer not found' });
+    await Exer.findByIdAndDelete(req.params.id);
+    res.json({ message: 'Exer deleted' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
 
 export const updateExer = async (req, res) => {

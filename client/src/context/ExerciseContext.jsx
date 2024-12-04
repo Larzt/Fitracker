@@ -30,8 +30,13 @@ export function ExersProvider({ children }) {
   };
 
   const getExer = async (id) => {
-    const res = await getExerRequest(id);
-    console.log(res);
+    try {
+      const res = await getExerRequest(id);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const createExer = async (exer) => {
@@ -39,9 +44,22 @@ export function ExersProvider({ children }) {
     console.log(res);
   };
 
-  const deleteExer = async (exer) => {
-    const res = await deleteExerRequest(exer);
-    console.log(res);
+  const updateExer = async (id, exer) => {
+    try { 
+      const res = await updateExerRequest(id, exer);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteExer = async (id) => {
+    try {
+      const res = await deleteExerRequest(id);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -52,6 +70,7 @@ export function ExersProvider({ children }) {
         deleteExer,
         getExers,
         getExer,
+        updateExer,
       }}
     >
       {children}

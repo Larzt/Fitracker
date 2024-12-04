@@ -17,11 +17,13 @@ import { FoodProvider } from './context/FoodContext.jsx';
 import { GoalProvider } from './context/GoalContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { DishProvider } from './context/DishContext.jsx';
+import { ExersProvider } from './context/ExerciseContext.jsx';
 
 function App() {
   return (
     <AuthProvider>
       <FoodProvider>
+        <ExersProvider>
         <GoalProvider>
           <DishProvider>
             <BrowserRouter>
@@ -37,6 +39,7 @@ function App() {
                   <Route path="/food/:id" element={<FoodFormPage />} />
                   <Route path="/exercise" element={<ExercisePage />} />
                   <Route path="/exercise/new" element={<ExerciseFormPage />} />
+                  <Route path="/exercise/:id" element={<ExerciseFormPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
                   <Route path="/home" element={<HomePage />} />
                   <Route path="/goals" element={<GoalPage />} />
@@ -46,6 +49,7 @@ function App() {
             </BrowserRouter>
           </DishProvider>
         </GoalProvider>
+        </ExersProvider>
       </FoodProvider>
     </AuthProvider>
   );
