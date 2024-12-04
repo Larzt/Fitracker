@@ -11,7 +11,7 @@ General Reset body {
 }
 
 /* Contenedor Principal */
-.dish-container {
+.routine-container {
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
@@ -25,7 +25,7 @@ General Reset body {
 }
 
 /* Lista de comidas (scrollable) */
-.dish-food-list {
+.routine-exer-list {
   width: 100%;
   max-height: 500px;
   overflow-y: auto;
@@ -34,22 +34,22 @@ General Reset body {
   border-radius: 10px;
 }
 
-.dish-food-list::-webkit-scrollbar {
+.routine-exer-list::-webkit-scrollbar {
   width: 6px;
 }
 
-.dish-food-list::-webkit-scrollbar-thumb {
+.routine-exer-list::-webkit-scrollbar-thumb {
   background-color: #34d399;
   border-radius: 10px;
 }
 
-.dish-food-list::-webkit-scrollbar-track {
+.routine-exer-list::-webkit-scrollbar-track {
   background-color: #29293d;
   border-radius: 10px;
 }
 
 /* Tarjeta de comida como botón */
-.dish-food-card {
+.routine-exer-card {
   width: 100%;
   background-color: #292938;
   border: none;
@@ -68,24 +68,24 @@ General Reset body {
   text-decoration: none;
 }
 
-.dish-food-card:hover {
+.routine-exer-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
   background-color: #34344a;
 }
 
-.dish-food-card:hover {
+.routine-exer-card:hover {
   outline: 2px solid #34d399;
 }
 
 /* Información de comida */
-.dish-food-info {
+.routine-exer-info {
   display: flex;
   flex-direction: column;
 }
 
 /* Cabecera de comida */
-.dish-food-header {
+.routine-exer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,14 +93,14 @@ General Reset body {
 }
 
 /* Nombre de comida */
-.dish-food-header h1 {
+.routine-exer-header h1 {
   font-size: 1.5rem;
   color: #e4e4f0;
   margin: 0;
 }
 
 /* Información adicional */
-.dish-food-info p {
+.routine-exer-info p {
   margin: 0.5rem 0;
   color: #c1c1d0;
   font-size: 1rem;
