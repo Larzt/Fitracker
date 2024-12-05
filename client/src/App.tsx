@@ -1,6 +1,5 @@
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// import LoginPage from './pages/LoginPage.jsx';
 // import RegisterPage from './pages/RegisterPage.jsx';
 // import HomePage from './pages/HomePage.jsx';
 // import ProfilePage from './pages/ProfilePage.jsx';
@@ -21,7 +20,6 @@
 
 // import { FoodProvider } from './context/FoodContext.jsx';
 // import { GoalProvider } from './context/GoalContext.jsx';
-// import { AuthProvider } from './context/AuthContext.jsx';
 // import { DishProvider } from './context/DishContext.jsx';
 // import { ExersProvider } from './context/ExerciseContext.jsx';
 // import { RoutineProvider } from './context/RoutineContext.jsx';
@@ -87,8 +85,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { DashboardPage } from './pages/Dashboard/DashboardPage.jsx';
 import DExercisePage from './pages/Dashboard/DExercisePage.jsx';
-import DDishPage from './pages/Dashboard/DDishPage.jsx';
+import DFoodPage from './pages/Dashboard/DFoodPage.jsx';
 import DFoodFormPage from './pages/Dashboard/DFoodFormPage.jsx';
+// import LoginPage from './pages/LoginPage.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ExersProvider } from './context/ExerciseContext.jsx';
@@ -101,10 +100,10 @@ function App() {
         <FoodProvider>
           <BrowserRouter>
             <Routes>
+              {/* <Route path="/login" element={<LoginPage />} /> */}
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/dashboard/exercise" element={<DExercisePage />} />
-              <Route path="/dashboard/food" element={<DDishPage />} />
-              <Route path="/dashboard/food/new" element={<DFoodFormPage />} />
+              <Route path="/dashboard/food" element={<DFoodPage />} />
             </Routes>
           </BrowserRouter>
         </FoodProvider>

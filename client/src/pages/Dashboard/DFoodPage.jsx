@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
-import { useExers } from '../../context/ExerciseContext';
+import { useFood } from '../../context/FoodContext';
 
-function DExercisePage() {
-  const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
+function DFoodPage() {
+  const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentExer, setCurrentExer] = useState({});
+  const [currentFood, setCurrentFood] = useState({});
 
   useEffect(() => {
-    getExers();
-  }, [getExers]);
+    getFoods();
+  }, []);
 
   const resetForm = () => {
-    setCurrentExer({});
+    setCurrentFood({});
     setIsEditing(false);
   };
 
@@ -22,58 +22,58 @@ function DExercisePage() {
     else setIsFormVisible(!isFormVisible);
   };
 
-  const handleSaveExer = () => {
-    if (!currentExer.name || !currentExer.category) {
-      alert('Please fill out the name and category fields!');
+  const handleSaveFood = () => {
+    if (!currentFood.name || !currentFood.calories) {
+      alert('Please fill out the name and calories fields!');
       return;
     }
 
     if (isEditing) {
-      updateExer(currentExer._id, currentExer);
+      updateFood(currentFood._id, currentFood);
     } else {
-      createExer(currentExer);
+      createFood(currentFood);
     }
     resetForm();
     setIsFormVisible(false);
     window.location.reload();
   };
 
-  const handleEditExer = (exer) => {
-    setCurrentExer(exer);
+  const handleEditFood = (food) => {
+    setCurrentFood(food);
     setIsEditing(true);
     setIsFormVisible(true);
   };
 
-  const handleDeleteExer = (id) => {
-    deleteExer(id);
+  const handleDeleteFood = (id) => {
+    deleteFood(id);
     window.location.reload();
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentExer((prev) => ({ ...prev, [name]: value }));
+    setCurrentFood((prev) => ({ ...prev, [name]: value }));
   };
 
-  const ExerciseTable = () => (
+  const FoodTable = () => (
     <div className="display-content-table">
       <table>
         <thead>
           <tr className="display-content-table-header text-left">
             <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
+            <th>Ingredients</th>
+            <th>Calories</th>
             <th className="text-center">Edit</th>
             <th className="text-center">Delete</th>
           </tr>
         </thead>
         <tbody>
-          {exers.map((exer) => (
-            <tr key={exer._id}>
-              <td className="text-left">{exer.name}</td>
-              <td className="text-left">{exer.description || 'None'}</td>
-              <td className="text-left">{exer.category || 'None'}</td>
+          {foods.map((food) => (
+            <tr key={food._id}>
+              <td className="text-left">{food.name}</td>
+              <td className="text-left">{food.ingredients || 'None'}</td>
+              <td className="text-left">{food.calories || 'None'}</td>
               <td className="text-center">
                 <button
-                  onClick={() => handleEditExer(exer)}
+                  onClick={() => handleEditFood(food)}
                   className="edit-btn"
                 >
                   <i className="fas fa-edit"></i>
@@ -81,7 +81,7 @@ function DExercisePage() {
               </td>
               <td className="text-center">
                 <button
-                  onClick={() => handleDeleteExer(exer._id)}
+                  onClick={() => handleDeleteFood(food._id)}
                   className="delete-btn"
                 >
                   <i className="fas fa-trash"></i>
@@ -94,32 +94,32 @@ function DExercisePage() {
     </div>
   );
 
-  const ExerciseForm = () =>
+  const FoodForm = () =>
     isFormVisible && (
       <div className="display-content-form">
         <input
           type="text"
           name="name"
-          placeholder="Exercise name"
-          value={currentExer.name || ''}
+          placeholder="Food name"
+          value={currentFood.name || ''}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="description"
-          placeholder="Description"
-          value={currentExer.description || ''}
+          name="ingredients"
+          placeholder="Ingredients"
+          value={currentFood.ingredients || ''}
           onChange={handleInputChange}
         />
         <input
           type="text"
-          name="category"
-          placeholder="Category"
-          value={currentExer.category || ''}
+          name="calories"
+          placeholder="Calories"
+          value={currentFood.calories || ''}
           onChange={handleInputChange}
         />
         <div className="form-buttons">
-          <button onClick={handleSaveExer} className="save-btn">
+          <button onClick={handleSaveFood} className="save-btn">
             <p>{isEditing ? 'Update' : 'Save'}</p>
           </button>
           <button
@@ -138,19 +138,19 @@ function DExercisePage() {
         content={
           <div className="display-content">
             <div className="display-content-header">
-              <h1>Exercises</h1>
+              <h1>Foods</h1>
               <div className="display-content-header-button">
                 <button onClick={toggleFormVisibility}>
                   <i className="fa-solid fa-circle-plus"></i>
-                  <p>New exercise</p>
+                  <p>New food</p>
                 </button>
               </div>
             </div>
             <div className="display-content-search">
-              <input type="text" placeholder="Filter by category" />
+              <input type="text" placeholder="Filter by name" />
             </div>
-            <ExerciseTable />
-            <ExerciseForm />
+            <FoodTable />
+            <FoodForm />
           </div>
         }
       />
@@ -158,4 +158,4 @@ function DExercisePage() {
   );
 }
 
-export default DExercisePage;
+export default DFoodPage;
