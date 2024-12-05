@@ -1,0 +1,187 @@
+/* Estilos para el contenedor principal */
+body {
+  background-color: #131318;
+}
+
+/* Estilos para el contenedor de contenido */
+.display-container {
+  margin-top: 1rem; /* Asegura que el título no quede pegado al borde superior */
+  transition: margin-left 0.3s ease-in-out; /* Añadimos una transición para suavizar el cambio */
+  margin-right: 1rem; /* Alinea el contenido después de la barra lateral */
+}
+
+/* Cuando la barra lateral está abierta */
+.display-container.open {
+  margin-left: 15rem; /* Ajuste cuando el DashBar está abierto */
+}
+
+/* Cuando la barra lateral está cerrada */
+.display-container.closed {
+  margin-left: 1rem; /* Ajuste cuando el DashBar está cerrado */
+}
+
+/* Header */
+.display-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+}
+
+.display-header button:hover {
+  color: #3b82f6;
+}
+
+/* Content Header */
+.display-content-header {
+  display: flex;
+  flex-direction: row; /* Alinea los elementos de manera horizontal */
+  justify-content: space-between; /* Espacia los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  margin-top: 2rem;
+  font-weight: bold;
+}
+
+.display-content-header-button {
+  color: #131318; /* Cambia el color de fondo al pasar el mouse */
+  padding: 1rem;
+  background-color: #34d399;
+  font-size: 1.2rem;
+  max-height: 3rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.3rem;
+  cursor: pointer; /* Cambia el cursor al pasar por encima */
+  justify-content: center; /* Centra el contenido dentro del contenedor */
+}
+
+/* Hover sobre el botón */
+.display-content-header-button:hover {
+  color: #fff; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Estilo del contenido dentro del botón */
+.display-content-header-button p {
+  padding-bottom: 0.2rem;
+  margin: 0; /* Elimina márgenes innecesarios */
+}
+
+/* Estilo del botón dentro del div */
+.display-content-header-button button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0; /* Elimina el padding para el botón, ya que el padding principal es del contenedor */
+  border: none; /* Elimina los bordes del botón */
+  background: transparent; /* Elimina el fondo del botón */
+  width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+}
+
+/* Estilos para el h1 */
+.display-content h1 {
+  margin: 0; /* Elimina márgenes innecesarios */
+  font-size: 2rem; /* Puedes ajustar el tamaño de la fuente si lo necesitas */
+}
+
+/* Search Input */
+.display-content-search {
+  margin-top: 1rem;
+}
+
+.display-content-search input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.display-content-search input {
+  width: 15rem;
+  padding: 0.8rem;
+  margin: 0.5rem 0rem;
+  background-color: transparent;
+  color: #e4e4f0;
+  border-radius: 0.3rem;
+  border: 0.15rem solid #1f1f26;
+}
+
+/* TABLE */
+.display-content-table {
+  background-color: #1f1f26;
+  border-radius: 0.3rem;
+}
+
+.display-content-table-header {
+  border-bottom: 0.1rem solid #36363e;
+}
+
+.display-content-table table {
+  width: 100%;
+}
+
+.display-content-table th,
+.display-content-table td {
+  padding: 1rem;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.edit-btn,
+.delete-btn {
+  cursor: pointer;
+}
+
+.edit-btn i,
+.delete-btn i {
+  color: #fff;
+  font-size: 1.3rem;
+}
+
+.edit-btn:hover i {
+  color: #3b82f6; /* Color verde al pasar el mouse */
+}
+
+.delete-btn:hover i {
+  color: #f63b3b; /* Color rojo al pasar el mouse */
+}
+
+/* FORMULARIO */
+/* Contenedor del formulario emergente */
+.display-content-form {
+  background-color: #1f1f26;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Estilo para los inputs del formulario */
+.display-content-form input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 0.3rem;
+  border: 0.15rem solid #3b3b44;
+  background-color: transparent;
+  color: #fff;
+}
+
+.display-content-form input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.save-btn :hover {
+  color: #34d399;
+}
+.cancel-btn :hover {
+  color: #f63b3b;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
