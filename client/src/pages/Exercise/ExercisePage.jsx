@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useExers } from '../../context/ExerciseContext';
-import '../../css/exercises.css';
 import { Navbar } from '../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
+import '../../css/Exercise/exercises.css';
 
 function ExercisePage() {
   const { exers, getExers, updateExer, deleteExer } = useExers();

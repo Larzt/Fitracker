@@ -1,200 +1,130 @@
-/* General Reset */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #1e1e2f;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
+/* dashbar.css */
 
-/* Contenedor Principal */
-.home-container,
-.progress-container {
-  width: 100%;
-  max-width: 600px; /* Ancho máximo ajustado */
-  margin-top: 1rem;
-  padding-top: 0.5rem;
+/* Contenedor principal */
+.dash-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: #292938;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px; /* Ancho del menú */
+  height: 100vh; /* Altura completa del viewport */
+  background-color: #292938; /* Fondo principal */
+  color: #fff; /* Color del texto */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra del menú */
 }
 
-.progress-container h1 {
-  margin-top: 0rem;
-}
-
-/* Header */
-.home-header {
-  width: 100%;
-}
-
-.header-content {
+/* Botones del usuario y ajustes */
+.dash-container-user {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 0;
+  background-color: #1e1e28; /* Fondo de los botones del header */
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  font-size: 20px;
+  transition: all 0.3s ease;
 }
 
-.header-content h1 {
-  font-size: 2rem;
-  color: #e4e4f0;
+.dash-container-user:hover {
+  background-color: #3b82f6; /* Color al pasar el cursor */
 }
 
+/* Íconos dentro de los botones del header */
 .user-icon {
-  background-color: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1.8rem;
-  cursor: pointer;
+  margin-right: 5px; /* Espacio entre ícono y texto */
 }
 
-.user-icon:hover {
-  color: #34d399;
-}
-
-.home-header p {
-  font-size: 1.2rem;
-  color: #b0b0c0;
-}
-
-/* Sección de Progreso */
-.progress-title {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-}
-
-.progress-section {
-  border-top: 2px solid #bfbfbf;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 80%;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-.progress-chart {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-
-.progress-info {
-  display: grid;
-  row-gap: 1rem;
-}
-
-.progress-info h1 {
-  flex: 2;
+/* Header del Dash (Dashboard Button) */
+.dish-header {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  background-color: #1e1e28;
+  padding: 10px 0;
+}
+
+.dish-header button {
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  color: #34d399;
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.progress-info #progress-info-weight {
-  color: #3b82f6;
-}
-
-.progress-info p {
-  font-size: 1rem;
-  margin: 0;
-}
-
-/* Contenedor de Información */
-.information-container {
-  display: flex;
-  justify-content: space-between; /* Asegura que haya espacio entre los elementos */
-  flex-direction: row;
-  align-items: center;
-  gap: 1.5rem; /* Añade espacio entre las secciones */
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
-/* Información Bar */
-.information-bar {
-  display: flex; /* Asegura que los elementos estén en la misma línea */
-  justify-content: space-between; /* Alinea los elementos con espacio entre ellos */
-  width: 100%; /* Ocupa todo el ancho disponible */
-  gap: 1.5rem; /* Espacio entre los elementos dentro de la barra */
-}
-
-/* Secciones individuales de Información */
-.information-food,
-.information-exercise {
-  width: 100%;
-  max-width: 280px;
-  background-color: #292938;
-  padding: 1rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-  margin-bottom: 1rem;
-}
-
-.information-food h1,
-.information-exercise h1 {
-  font-size: 1.5rem;
-  color: #e4e4f0;
-}
-
-.information-food p,
-.information-exercise p {
-  font-size: 1rem;
-  color: #b0b0c0;
-  margin: 0.5rem 0;
-  align-self: flex-start;
-}
-
-.information-food button,
-.information-exercise button {
-  background-color: transparent;
+  background: transparent;
   border: none;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 18px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.information-food button:hover,
-.information-exercise button:hover {
-  color: #34d399; /* Color de hover */
+.dish-header button:hover {
+  color: #34d399;
 }
 
-.information-food i,
-.information-exercise i {
-  font-size: 1.5rem;
-}
-
-.information-food .header,
-.information-exercise .header {
+/* Contenido del Dash */
+.dash-content {
+  flex-grow: 1;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
+  flex-direction: column; /* Mostrar verticalmente */
+  padding: 10px;
+  gap: 15px; /* Espaciado entre botones */
 }
 
-/* Estilo para separar y alinear los elementos de la información */
-.information-food p:last-child,
-.information-exercise p:last-child {
-  font-weight: bold;
-  color: #34d399; /* Color del texto destacado */
+.dash-content h2 {
+  color: #34d399; /* Título en verde */
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+/* Botones de contenido */
+.dash-content button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #1e1e28;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.dash-content button:hover {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.dash-content button i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Desplegable para calendarios */
+.dash-content .calendar-dropdown {
+  display: flex;
+  flex-direction: column;
+  background-color: #1e1e28;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: 20px;
+  gap: 10px;
+}
+
+.dash-content .calendar-dropdown button {
+  background-color: #292938;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dash-content .calendar-dropdown button:hover {
+  background-color: #34d399;
+  color: #fff;
 }

@@ -1,0 +1,96 @@
+.dash-container {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 12rem; /* Ancho mínimo */
+  max-width: 14rem; /* Ancho máximo */
+  width: 100%;
+  height: 100%; /* Altura completa */
+  background-color: #1f1f26; /* Fondo principal */
+  color: #fff; /* Color del texto */
+  box-shadow: 0.125rem 0 0.3125rem rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease-in-out; /* Añadimos una transición para que el cambio sea suave */
+}
+
+.dash-header a {
+  display: flex;
+}
+
+/* Cuando está cerrado, movemos la barra lateral fuera de la pantalla */
+.dash-container.closed {
+  transform: translateX(
+    -100%
+  ); /* Desplaza la barra lateral fuera de la pantalla */
+}
+
+/* Cuando está abierto, mostramos la barra lateral */
+.dash-container.open {
+  transform: translateX(0); /* Restaura la posición de la barra lateral */
+}
+
+/* HEADER */
+/* Botones del usuario y ajustes */
+.dash-header {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  gap: 1rem;
+}
+
+.dash-header-button {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el contenido */
+  align-items: center; /* Centra verticalmente el contenido */
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+.dash-header-text h1,
+h2 {
+  font-size: 1rem;
+}
+
+.dash-header-text h1 {
+  font-weight: bold;
+}
+
+.dash-content h2 {
+  margin: 1rem;
+}
+
+.dash-calendar button,
+.dash-exercises button,
+.dash-dishes button {
+  margin-top: 0.3rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye los elementos entre el inicio y el final */
+  width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+}
+
+.dash-calendar button:hover,
+.dash-exercises button:hover,
+.dash-dishes button:hover {
+  background-color: #3b82f6;
+  border-radius: 0.3rem;
+  border: #34d399;
+}
+
+.dropdown {
+  margin-left: 1.4rem;
+}
+
+.dropdown button {
+  border-left: solid 0.15rem #3b82f6;
+  margin-top: 0.5rem;
+}
+.dropdown button:first-child,
+.dropdown button:first-child {
+  margin-top: 0rem;
+}
