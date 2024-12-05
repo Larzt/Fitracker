@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
-import { useExers } from '../../context/ExerciseContext';
+import { useExers } from '../context/ExerciseContext';
 
 function DExercisePage() {
   const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
@@ -10,7 +10,7 @@ function DExercisePage() {
 
   useEffect(() => {
     getExers();
-  }, [getExers]);
+  }, []);
 
   const resetForm = () => {
     setCurrentExer({});

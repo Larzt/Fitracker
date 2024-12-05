@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import '../css/Dashboard/dashbar.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import '../css/dashbar.css';
 
 export const DashBar = ({ isOpen }) => {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isExerciseOpen, setIsExerciseOpen] = useState(false);
   const [isDishOpen, setIsDishOpen] = useState(false);
+  const { logout } = useAuth();
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -109,6 +111,17 @@ export const DashBar = ({ isOpen }) => {
             </div>
           )}
         </div>
+      </div>
+      {/* Setting */}
+      <div className="dash-setting">
+        <button>
+          <i className="fa-solid fa-cog"></i>
+        </button>
+        <Link>
+          <button onClick={() => logout()}>
+            <i className="fa-solid fa-right-from-bracket"></i>
+          </button>
+        </Link>
       </div>
     </div>
   );

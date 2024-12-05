@@ -80,14 +80,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import ProfilePage from './pages/ProfilePage.jsx';
 // import GoalFormPage from './pages/GoalFormPage.jsx';
 // import GoalPage from './pages/GoalPage.jsx';
-// import ProtectedRoute from './ProtectedRoute.jsx';
 // import DashboardPage from './pages/DashboardPage.jsx';
 
-import { DashboardPage } from './pages/Dashboard/DashboardPage.jsx';
-import DExercisePage from './pages/Dashboard/DExercisePage.jsx';
-import DFoodPage from './pages/Dashboard/DFoodPage.jsx';
-import DFoodFormPage from './pages/Dashboard/DFoodFormPage.jsx';
-// import LoginPage from './pages/LoginPage.jsx';
+import { DashboardPage } from './pages/DashboardPage.jsx';
+import DExercisePage from './pages/DExercisePage.jsx';
+import DFoodPage from './pages/DFoodPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import ProtectedRoute from './ProtectedRoute.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ExersProvider } from './context/ExerciseContext.jsx';
@@ -100,10 +100,15 @@ function App() {
         <FoodProvider>
           <BrowserRouter>
             <Routes>
-              {/* <Route path="/login" element={<LoginPage />} /> */}
-              <Route path="/dashboard" element={<DashboardPage />} />
-              <Route path="/dashboard/exercise" element={<DExercisePage />} />
-              <Route path="/dashboard/food" element={<DFoodPage />} />
+              <Route path="/" element={<LoginPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+
+              <Route element={<ProtectedRoute />}>
+                <Route path="/dashboard" element={<DashboardPage />} />
+                <Route path="/dashboard/exercise" element={<DExercisePage />} />
+                <Route path="/dashboard/food" element={<DFoodPage />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </FoodProvider>

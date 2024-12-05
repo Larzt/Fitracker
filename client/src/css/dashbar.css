@@ -33,10 +33,9 @@
 /* HEADER */
 /* Botones del usuario y ajustes */
 .dash-header {
-  padding-left: 1rem;
-  padding-right: 1rem;
+  border-bottom: 0.1rem solid #36363e;
+  padding: 1rem;
   display: flex;
-  margin-top: 1rem;
   margin-bottom: 2rem;
   font-size: 1.5rem;
   gap: 1rem;
@@ -93,4 +92,21 @@ h2 {
 .dropdown button:first-child,
 .dropdown button:first-child {
   margin-top: 0rem;
+}
+
+.dash-setting {
+  width: 100%;
+  border-top: 0.1rem solid #36363e;
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto; /* Esto posiciona el contenido al final */
+  padding: 1rem;
+}
+
+.dash-setting button:hover {
+  color: #3b82f6;
+}
+
+.dash-setting button:hover:last-child {
+  color: #f63b3b;
 }

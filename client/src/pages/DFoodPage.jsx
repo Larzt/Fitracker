@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
-import { useFood } from '../../context/FoodContext';
+import { useFood } from '../context/FoodContext';
 
 function DFoodPage() {
   const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
