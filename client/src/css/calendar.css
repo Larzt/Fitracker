@@ -1,7 +1,19 @@
 .rbc-allday-cell{
     width: 100%;
     height: 100%;
-    background-color: #000000;
+}
+
+.rbc-header.rbc-today{
+    background-color: #025f0e;
+}
+
+.rbc-day-bg.rbc-today{
+    background-color: #025f0e00;
+}
+
+.rbc-event-content{
+    font-weight: bold;
+    
 }
 
 .remove-time .rbc-time-gutter > .rbc-timeslot-group > .rbc-time-slot{
@@ -23,7 +35,11 @@
   flex-direction: row;
   min-height: 0;
   position: static;
-  background-color: #000000;
-
+  background-color: none;
 }
+
+.rbc-agenda-time-cell{
+  display: none;
+}
+
 

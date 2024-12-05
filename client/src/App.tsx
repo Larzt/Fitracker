@@ -88,6 +88,7 @@ import DFoodPage from './pages/DFoodPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
+import CalendarPage from './pages/Dashboard/DExerCalendar.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ExersProvider } from './context/ExerciseContext.jsx';
@@ -108,6 +109,7 @@ function App() {
                 <Route path="/dashboard" element={<DashboardPage />} />
                 <Route path="/dashboard/exercise" element={<DExercisePage />} />
                 <Route path="/dashboard/food" element={<DFoodPage />} />
+                <Route path="/dashboard/calendar" element={<CalendarPage />} />
               </Route>
             </Routes>
           </BrowserRouter>
