@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext.jsx';
-// import {loginRequest} from '../api/auth.js'
 import { useNavigate } from 'react-router-dom';
 
 import '../css/logres.css';
@@ -17,7 +16,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/home');
+    if (isAuthenticated) navigate('/dashboard');
   }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {

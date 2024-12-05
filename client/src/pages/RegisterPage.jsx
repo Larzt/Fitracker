@@ -37,7 +37,7 @@ function RegisterPage() {
           <input
             type="text"
             {...register('username', { required: true })}
-            placeholder="username"
+            placeholder="Username"
             className={errors.username ? 'error' : ''}
           />
           {errors.username && (
@@ -49,7 +49,7 @@ function RegisterPage() {
           <input
             type="email"
             {...register('email', { required: true })}
-            placeholder="email"
+            placeholder="Email"
             className={errors.email ? 'error' : ''}
           />
           {errors.email && (
@@ -61,7 +61,7 @@ function RegisterPage() {
           <input
             type="password"
             {...register('password', { required: true })}
-            placeholder="password"
+            placeholder="Password"
             className={errors.password ? 'error' : ''}
           />
           {errors.password && (
@@ -75,7 +75,7 @@ function RegisterPage() {
             <input
               type="text"
               {...register('age', { required: true, min: 18 })}
-              placeholder="age"
+              placeholder="Age"
               className={errors.age ? 'error' : ''}
             />
             {errors.age && (
@@ -88,7 +88,7 @@ function RegisterPage() {
             <input
               type="text"
               {...register('weight', { required: true, min: 1 })}
-              placeholder="weight (kg)"
+              placeholder="Weight (kg)"
               className={errors.weight ? 'error' : ''}
             />
             {errors.weight && (
