@@ -37,6 +37,7 @@
     "eslint-plugin-react": "^7.37.2",
     "globals": "^15.13.0",
     "mocha": "^10.8.2",
+    "mongodb-memory-server": "^8.16.1",
     "prettier": "^3.4.1",
     "sinon": "^19.0.2",
     "supertest": "^7.0.0"
