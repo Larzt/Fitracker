@@ -1,93 +1,104 @@
 import mongoose from 'mongoose';
-import Dish from '../models/dish.model.js'; // Asegúrate de que este sea el modelo de Dish.
-import Food from '../models/food.model.js'; // Modelo de comida (suponiendo que lo tienes).
-import User from '../models/user.model.js'; // Modelo de usuario.
-import { expect } from 'chai';
-import request from 'supertest';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import app from '../src/app.js'
+import Dish from '../src/models/dish.model.js';
+import User from '../src/models/user.model.js';
+import { expect } from 'chai';
 
-let user;
-let food;
+let mongoServer;
 
-beforeEach(async () => {
-  // Crear un usuario válido
-  user = new User({
-    email: 'user@example.com',
-    password: 'password123',
-    username: 'testuser',
-    age: 25,
-    weight: 70,
-    gender: 'masculino'
-  });
-  await user.save();
-
-  // Crear un alimento ficticio
-  food = new Food({
-    name: 'Pizza',
-    calories: '250',  // Asegúrate de que la calificación sea válida (string o number)
-    ingredients: 'Tomato, Cheese, Dough'
-  });
-  await food.save();
-});
-
-describe('Dish API', () => {
-  it('debería crear un plato correctamente', async () => {
-    const response = await request(app)
-      .post('/api/dishes')
-      .set('Authorization', `Bearer ${user.token}`)
-      .send({
-        food: food._id,  // Usa el ObjectId del alimento creado
-        user: user._id
-      });
-
-    expect(response.status).to.equal(200);
-    expect(response.body.food).to.equal(food._id.toString());
-    expect(response.body.user).to.equal(user._id.toString());
+describe('Dish Controller Tests', () => {
+  before(async () => {
+    mongoServer = await MongoMemoryServer.create();
+    const uri = mongoServer.getUri();
+    await mongoose.connect(uri);
   });
 
-  it('debería devolver un error si no se pasa un ObjectId válido para food', async () => {
-    const response = await request(app)
-      .post('/api/dishes')
-      .set('Authorization', `Bearer ${user.token}`)
-      .send({
-        food: 'invalid_food_id',  // ID inválido
-        user: user._id
-      });
-
-    expect(response.status).to.equal(400);  // Esperamos un error 400 por ID inválido
-    expect(response.body.message).to.include('Cast to ObjectId failed');  // Esto es específico de Mongoose.
+  after(async () => {
+    await mongoose.disconnect();
+    await mongoServer.stop();
   });
 
-  it('debería devolver un error si el alimento no se encuentra', async () => {
-    const invalidFoodId = new mongoose.Types.ObjectId(); // ID ficticio
-    const response = await request(app)
-      .post('/api/dishes')
-      .set('Authorization', `Bearer ${user.token}`)
-      .send({
-        food: invalidFoodId,
-        user: user._id
-      });
+  let user;
 
-    expect(response.status).to.equal(404);  // Si no encuentra el alimento
-    expect(response.body.message).to.equal('Food not found');
-  });
-
-  it('debería obtener los platos de un usuario', async () => {
-    const dish = new Dish({
-      food: food._id,
-      user: user._id
+  beforeEach(async () => {
+    // Crear un usuario para usar en los tests
+    user = new User({
+      email: 'testuser@example.com',
+      password: 'password123',
+      username: 'testuser',
+      age: 25,
+      weight: 70,
+      gender: 'masculino',
     });
-    await dish.save();
+    await user.save();
+  });
 
-    const response = await request(app)
-      .get('/api/dishes')
-      .set('Authorization', `Bearer ${user.token}`);
+  afterEach(async () => {
+    // Limpiar la base de datos después de cada test
+    await mongoose.connection.db.dropDatabase();
+  });
 
-    expect(response.status).to.equal(200);
-    expect(response.body).to.be.an('array').that.is.not.empty;
-    expect(response.body[0].food.toString()).to.equal(food._id.toString());
-    expect(response.body[0].user.toString()).to.equal(user._id.toString());
+  it('debería crear un nuevo plato', async () => {
+    const res = await chai
+      .request(app)
+      .post('/api/dishes') // Ajusta según la ruta
+      .set('Authorization', `Bearer ${token}`)
+      .send({ food: 'Pizza' }); // Asegúrate de enviar el campo requerido
+  
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('object');
+    expect(res.body.food).to.equal('Pizza');
+  });
+  
+
+  it('debería requerir un usuario para el plato', async () => {
+    const dishWithoutUser = new Dish({
+      name: 'Salad',
+      calories: 150,
+      ingredients: 'Lettuce, Tomato, Cucumber',
+    });
+
+    let error;
+    try {
+      await dishWithoutUser.save();
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error).to.be.instanceOf(mongoose.Error.ValidationError);
+    expect(error.errors.user).to.exist;
+  });
+  
+  it('debería obtener todos los platos de un usuario', async () => {
+    await Dish.create({ name: 'Salad', calories: 150, ingredients: 'Lettuce, Tomato, Cucumber', user: user._id });
+    await Dish.create({ name: 'Pizza', calories: 300, ingredients: 'Cheese, Tomato Sauce, Pepperoni', user: user._id });
+
+    const res = await chai
+      .request(app)
+      .get('/api/dishes') // Ajusta según la ruta
+      .set('Authorization', `Bearer ${token}`);
+  
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('array');
+    expect(res.body).to.have.lengthOf(2);
+  });
+
+  it('debería obtener un plato específico por su ID', async () => {
+    const dish = new Dish({
+      name: 'Salad',
+      calories: 150,
+      ingredients: 'Lettuce, Tomato, Cucumber',
+      user: user._id,
+    });
+    const savedDish = await dish.save();
+
+    const res = await chai
+      .request(app)
+      .get(`/api/dishes/${savedDish.id}`) // Ajusta según la ruta
+      .set('Authorization', `Bearer ${token}`);
+  
+    expect(res).to.have.status(200);
+    expect(res.body).to.be.an('object');
+    expect(res.body.name).to.equal('Salad');
   });
 });
-
