@@ -3,10 +3,10 @@ name: Node.js CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Se activa en cada push a la rama principal
+      - main
   pull_request:
     branches:
-      - main  # Se activa en cada pull request hacia la rama principal
+      - main
 
 jobs:
   build:
@@ -14,45 +14,19 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]  # Especifica las versiones de Node.js para probar
+        node-version: [18.x, 20.x, 22.x] # Usar estas versiones más nuevas de Node.js
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2  # Hace un checkout de tu código fuente
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}  # Usa la versión de Node.js de la matriz
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: npm install  # Instala las dependencias de tu proyecto, incluyendo mongodb-memory-server
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run tests
-      run: npm test  # Ejecuta las pruebas (asegúrate de tener un script "test" configurado en tu package.json)
-      env:
-        MONGODB_URI: "mongodb://localhost:27017/test"  # URI de MongoDB en memoria para las pruebas con mongodb-memory-server
-
-    - name: Build
-      run: npm run build  # Si tu proyecto necesita ser compilado o generado
-
-  deploy:
-    needs: build  # El job "deploy" se ejecutará solo después de que el "build" termine con éxito
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up SSH for deployment
-      uses: appleboy/ssh-action@v0.1.5
-      with:
-        host: ${{ secrets.SERVER_IP }}  # Dirección IP del servidor de destino
-        username: ${{ secrets.SERVER_USER }}  # Nombre de usuario del servidor
-        key: ${{ secrets.SSH_PRIVATE_KEY }}  # Clave privada SSH
-        port: 22  # Puerto SSH (por lo general es el 22)
-        script: |
-          cd http://localhost:4000/api/login  # no sé si es asi o http://localhost:5173/login
-          git pull origin main  # actualiza en el servidor
-          npm install  # Instala las dependencias de nuevo
-          npm run dev  # Ejecuta tu aplicación en modo de desarrollo
+      - name: Run build
+        run: npm run build
