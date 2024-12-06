@@ -61,9 +61,9 @@ export const DashBar = ({ isOpen }) => {
           {isCalendarOpen && (
             <div className="dropdown">
               <Link to={'/dashboard/calendar'}>
-              <button>
-                <p>Exercise</p>
-              </button>
+                <button>
+                  <p>Exercise</p>
+                </button>
               </Link>
               <button>
                 <p>Dish</p>
@@ -102,9 +102,11 @@ export const DashBar = ({ isOpen }) => {
           </button>
           {isDishOpen && (
             <div className="dropdown">
-              <button>
-                <p>Dishes</p>
-              </button>
+              <Link to={'/dashboard/dish'}>
+                <button>
+                  <p>Dishes</p>
+                </button>
+              </Link>
               <Link to={'/dashboard/food'}>
                 <button>
                   <p>Food</p>

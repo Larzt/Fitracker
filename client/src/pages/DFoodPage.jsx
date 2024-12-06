@@ -70,29 +70,35 @@ function DFoodPage() {
           </tr>
         </thead>
         <tbody>
-          {foods.map((food) => (
-            <tr key={food._id}>
-              <td className="text-left">{food.name}</td>
-              <td className="text-left">{food.ingredients || 'None'}</td>
-              <td className="text-left">{food.calories || 'None'}</td>
-              <td className="text-center">
-                <button
-                  onClick={() => handleEditFood(food)}
-                  className="edit-btn"
-                >
-                  <i className="fas fa-edit"></i>
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  onClick={() => handleDeleteFood(food._id)}
-                  className="delete-btn"
-                >
-                  <i className="fas fa-trash"></i>
-                </button>
-              </td>
+          {foods.length > 0 ? (
+            foods.map((food) => (
+              <tr key={food._id}>
+                <td className="text-left">{food.name}</td>
+                <td className="text-left">{food.ingredients || 'None'}</td>
+                <td className="text-left">{food.calories || 'None'}</td>
+                <td className="text-center">
+                  <button
+                    onClick={() => handleEditFood(food)}
+                    className="edit-btn"
+                  >
+                    <i className="fas fa-edit"></i>
+                  </button>
+                </td>
+                <td className="text-center">
+                  <button
+                    onClick={() => handleDeleteFood(food._id)}
+                    className="delete-btn"
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No food has been added</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

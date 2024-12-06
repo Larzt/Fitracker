@@ -32,7 +32,6 @@ export function FoodProvider({ children }) {
   const getFood = async (id) => {
     try {
       const res = await getFoodRequest(id);
-      console.log(res);
       return res.data;
     } catch (error) {
       console.log(error);

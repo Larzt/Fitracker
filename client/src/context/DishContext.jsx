@@ -27,9 +27,6 @@ export function DishProvider({ children }) {
     try {
       const res = await getDishesRequest();
       setDish(res.data);
-      res.data.map((item) => {
-        console.log(getFood(item.food).data);
-      });
     } catch (error) {
       console.log(error);
     }
