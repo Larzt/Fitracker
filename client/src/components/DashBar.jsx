@@ -60,9 +60,11 @@ export const DashBar = ({ isOpen }) => {
           </button>
           {isCalendarOpen && (
             <div className="dropdown">
+              <Link to={'/dashboard/calendar'}>
               <button>
                 <p>Exercise</p>
               </button>
+              </Link>
               <button>
                 <p>Dish</p>
               </button>

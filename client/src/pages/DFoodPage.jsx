@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
 import { useFood } from '../context/FoodContext';
+import FoodForm from '../components/FoodForm';
 
 function DFoodPage() {
   const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
@@ -15,11 +16,12 @@ function DFoodPage() {
   const resetForm = () => {
     setCurrentFood({});
     setIsEditing(false);
+    setIsFormVisible(false);
   };
 
   const toggleFormVisibility = () => {
-    if (isFormVisible && isEditing) resetForm();
-    else setIsFormVisible(!isFormVisible);
+    setIsFormVisible(!isFormVisible);
+    if (!isFormVisible) setIsEditing(false);
   };
 
   const handleSaveFood = () => {
@@ -34,8 +36,7 @@ function DFoodPage() {
       createFood(currentFood);
     }
     resetForm();
-    setIsFormVisible(false);
-    window.location.reload();
+    getFoods();
   };
 
   const handleEditFood = (food) => {
@@ -46,11 +47,14 @@ function DFoodPage() {
 
   const handleDeleteFood = (id) => {
     deleteFood(id);
-    window.location.reload();
+    getFoods();
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentFood((prev) => ({ ...prev, [name]: value }));
+    setCurrentFood((prev) => {
+      if (prev[name] === value) return prev;
+      return { ...prev, [name]: value };
+    });
   };
 
   const FoodTable = () => (
@@ -94,44 +98,6 @@ function DFoodPage() {
     </div>
   );
 
-  const FoodForm = () =>
-    isFormVisible && (
-      <div className="display-content-form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Food name"
-          value={currentFood.name || ''}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="ingredients"
-          placeholder="Ingredients"
-          value={currentFood.ingredients || ''}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="calories"
-          placeholder="Calories"
-          value={currentFood.calories || ''}
-          onChange={handleInputChange}
-        />
-        <div className="form-buttons">
-          <button onClick={handleSaveFood} className="save-btn">
-            <p>{isEditing ? 'Update' : 'Save'}</p>
-          </button>
-          <button
-            onClick={() => setIsFormVisible(false)}
-            className="cancel-btn"
-          >
-            <p>Cancel</p>
-          </button>
-        </div>
-      </div>
-    );
-
   return (
     <div>
       <DashboardPage
@@ -150,7 +116,14 @@ function DFoodPage() {
               <input type="text" placeholder="Filter by name" />
             </div>
             <FoodTable />
-            <FoodForm />
+            <FoodForm
+              isVisible={isFormVisible}
+              currentFood={currentFood}
+              handleInputChange={handleInputChange}
+              handleSaveFood={handleSaveFood}
+              resetForm={resetForm}
+              isEditing={isEditing}
+            />
           </div>
         }
       />

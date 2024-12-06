@@ -7,7 +7,7 @@ const API_URL = 'https://fitracker-h0at.onrender.com';
 const LOCAL_URL = 'http://localhost:4000';
 
 const instance = axios.create({
-  baseURL: `${API_URL}/api`,
+  baseURL: `${LOCAL_URL}/api`,
   withCredentials: true,
 });
 
