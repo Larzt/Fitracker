@@ -62,11 +62,11 @@ export const DashBar = ({ isOpen }) => {
             <div className="dropdown">
               <Link to={'/dashboard/calendar'}>
                 <button>
-                  <p>Exercise</p>
+                  <p>Routines</p>
                 </button>
               </Link>
               <button>
-                <p>Dish</p>
+                <p>Dishes</p>
               </button>
             </div>
           )}
@@ -76,14 +76,16 @@ export const DashBar = ({ isOpen }) => {
         <div className="dash-exercises">
           <button onClick={toggleExercise}>
             <i className="fa-solid fa-heart"></i>
-            <p>Exercises</p>
+            <p>Routines</p>
             <i className={`fa-solid fa-chevron-${exerciseState()}`}></i>
           </button>
           {isExerciseOpen && (
             <div className="dropdown">
-              <button>
-                <p>Routines</p>
-              </button>
+              <Link to={'/dashboard/routines'}>
+                <button>
+                  <p>Routines</p>
+                </button>
+              </Link>
               <Link to={'/dashboard/exercise'}>
                 <button>
                   <p>Exercise</p>
@@ -102,7 +104,7 @@ export const DashBar = ({ isOpen }) => {
           </button>
           {isDishOpen && (
             <div className="dropdown">
-              <Link to={'/dashboard/dish'}>
+              <Link to={'/dashboard/dishes'}>
                 <button>
                   <p>Dishes</p>
                 </button>

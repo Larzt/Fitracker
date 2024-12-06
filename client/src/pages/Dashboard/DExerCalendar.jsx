@@ -25,7 +25,7 @@ function CalendarPage() {
   }, []);
   useEffect(() => {
     if (exers && exers.length > 0) {
-      const events = exers.map(exer => ({
+      const events = exers.map((exer) => ({
         title: exer.name,
         //la fecha viene en el timestamp de la base de datos
         start: moment(exer.date).toDate(),
@@ -37,27 +37,28 @@ function CalendarPage() {
     }
   }, [exers]);
 
-
-
   const handleSelectSlot = () => {
     navigate('/dashboard/exercise/');
   };
 
   return (
-    <DashboardPage content={    
-    <div className="display-content">
-      <h1>Exercise Calendar</h1>
-      <div class="remove-time">
-      <Calendar
-        localizer={localizer}
-        events={events}
-        style={{ height: 500 }}
-        views={['month', 'week', 'day']}
-        selectable={true}
-        onSelectSlot={handleSelectSlot}
-      />
-    </div>
-    </div>}/>
+    <DashboardPage
+      content={
+        <div className="display-content">
+          <h1>Exercise Calendar</h1>
+          <div className="remove-time">
+            <Calendar
+              localizer={localizer}
+              events={events}
+              style={{ height: 500 }}
+              views={['month', 'week', 'day']}
+              selectable={true}
+              onSelectSlot={handleSelectSlot}
+            />
+          </div>
+        </div>
+      }
+    />
   );
 }
 

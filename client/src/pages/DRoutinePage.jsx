@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
-import { useDish } from '../context/DishContext';
+// import { useExer } from '../src/context/ExerciseContext.jsx';
+import { useRoutine } from '../context/RoutineContext';
 
-function DDishPage() {
-  const { dishes, getDishesByDate, deleteDish } = useDish();
+function DRoutinePage() {
+  const { routines, getRoutinesByDate, deleteRoutine } = useRoutine();
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0]; // Formato 'YYYY-MM-DD'
-    getDishesByDate(today);
+    getRoutinesByDate(today);
   }, []);
 
   const handleDeleteSubmit = (id) => {
-    deleteDish(id);
+    deleteRoutine(id);
     window.location.reload();
   };
 
-  const DishTable = () => (
+  const ExerTable = () => (
     <div className="display-content-table">
       <table>
         <thead>
@@ -28,20 +29,20 @@ function DDishPage() {
           </tr>
         </thead>
         <tbody>
-          {dishes.length > 0 ? (
+          {routines.length > 0 ? (
             // Filtra los platos que tienen datos de 'food'
-            dishes.filter((dish) => dish.food).length > 0 ? (
-              dishes.map((dish) => {
-                const { food } = dish || {};
+            routines.filter((exer) => exer.food).length > 0 ? (
+              routines.map((exer) => {
+                const { food } = exer || {};
                 if (!food) {
                   console.warn(
-                    `Dish with ID ${dish._id} has no associated food data.`
+                    `Exer with ID ${exer._id} has no associated food data.`
                   );
 
                   return null;
                 }
                 return (
-                  <tr key={dish._id}>
+                  <tr key={exer._id}>
                     <td className="text-left">
                       {food?.name || 'No food added'}
                     </td>
@@ -55,7 +56,7 @@ function DDishPage() {
                     <td className="text-center">
                       <button
                         className="delete-btn"
-                        onClick={() => handleDeleteSubmit(dish._id)}
+                        onClick={() => handleDeleteSubmit(exer._id)}
                       >
                         <i className="fas fa-trash"></i>
                       </button>
@@ -65,12 +66,12 @@ function DDishPage() {
               })
             ) : (
               <tr>
-                <td colSpan="5">No dishes available for today</td>
+                <td colSpan="5">No routines available for today</td>
               </tr>
             )
           ) : (
             <tr>
-              <td colSpan="5">No dishes available for today</td>
+              <td colSpan="5">No routines available for today</td>
             </tr>
           )}
         </tbody>
@@ -84,18 +85,18 @@ function DDishPage() {
         content={
           <div className="display-content">
             <div className="display-content-header">
-              <h1>Today Dishes</h1>
+              <h1>Today Routines</h1>
               <div className="display-content-header-button">
                 <button>
                   <i className="fa-solid fa-circle-plus"></i>
-                  <p>New dish</p>
+                  <p>New exer</p>
                 </button>
               </div>
             </div>
             <div className="display-content-search">
               <input type="text" placeholder="Filter by name" />
             </div>
-            <DishTable />
+            <ExerTable />
           </div>
         }
       />
@@ -103,4 +104,4 @@ function DDishPage() {
   );
 }
 
-export default DDishPage;
+export default DRoutinePage;

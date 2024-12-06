@@ -84,6 +84,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { DashboardPage } from './pages/DashboardPage.jsx';
 import DExercisePage from './pages/DExercisePage.jsx';
+import DRoutinePage from './pages/DRoutinePage.jsx';
 import DFoodPage from './pages/DFoodPage.jsx';
 import DDishPage from './pages/DDishPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
@@ -95,6 +96,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import { ExersProvider } from './context/ExerciseContext.jsx';
 import { FoodProvider } from './context/FoodContext.jsx';
 import { DishProvider } from './context/DishContext.jsx';
+import { RoutineProvider } from './context/RoutineContext.jsx';
 
 function App() {
   return (
@@ -102,27 +104,39 @@ function App() {
       <ExersProvider>
         <FoodProvider>
           <DishProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<LoginPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/register" element={<RegisterPage />} />
+            <RoutineProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<LoginPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
 
-                <Route element={<ProtectedRoute />}>
-                  <Route path="/dashboard" element={<DashboardPage />} />
-                  <Route
-                    path="/dashboard/exercise"
-                    element={<DExercisePage />}
-                  />
-                  <Route path="/dashboard/food" element={<DFoodPage />} />
-                  <Route path="/dashboard/dish" element={<DDishPage />} />
-                  <Route
-                    path="/dashboard/calendar"
-                    element={<CalendarPage />}
-                  />
-                </Route>
-              </Routes>
-            </BrowserRouter>
+                  <Route element={<ProtectedRoute />}>
+                    <Route path="/dashboard" element={<DashboardPage />} />
+
+                    {/* Exercise */}
+                    <Route
+                      path="/dashboard/exercise"
+                      element={<DExercisePage />}
+                    />
+                    <Route
+                      path="/dashboard/routines"
+                      element={<DRoutinePage />}
+                    />
+
+                    {/* Food */}
+                    <Route path="/dashboard/food" element={<DFoodPage />} />
+                    <Route path="/dashboard/dishes" element={<DDishPage />} />
+
+                    {/* Exercise Calendar */}
+                    <Route
+                      path="/dashboard/calendar"
+                      element={<CalendarPage />}
+                    />
+                  </Route>
+                </Routes>
+              </BrowserRouter>
+            </RoutineProvider>
           </DishProvider>
         </FoodProvider>
       </ExersProvider>

@@ -70,29 +70,35 @@ function DExercisePage() {
           </tr>
         </thead>
         <tbody>
-          {exers.map((exer) => (
-            <tr key={exer._id}>
-              <td className="text-left">{exer.name}</td>
-              <td className="text-left">{exer.description || 'None'}</td>
-              <td className="text-left">{exer.category || 'None'}</td>
-              <td className="text-center">
-                <button
-                  onClick={() => handleEditExer(exer)}
-                  className="edit-btn"
-                >
-                  <i className="fas fa-edit"></i>
-                </button>
-              </td>
-              <td className="text-center">
-                <button
-                  onClick={() => handleDeleteExer(exer._id)}
-                  className="delete-btn"
-                >
-                  <i className="fas fa-trash"></i>
-                </button>
-              </td>
+          {exers.length > 0 ? (
+            exers.map((exer) => (
+              <tr key={exer._id}>
+                <td className="text-left">{exer.name}</td>
+                <td className="text-left">{exer.description || 'None'}</td>
+                <td className="text-left">{exer.category || 'None'}</td>
+                <td className="text-center">
+                  <button
+                    onClick={() => handleEditExer(exer)}
+                    className="edit-btn"
+                  >
+                    <i className="fas fa-edit"></i>
+                  </button>
+                </td>
+                <td className="text-center">
+                  <button
+                    onClick={() => handleDeleteExer(exer._id)}
+                    className="delete-btn"
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5">No exercises has been added</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>
