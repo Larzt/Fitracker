@@ -10,7 +10,8 @@
     "start": "node src/index.js",
     "build": "cd client && npm install && npm run build",
     "postinstall": "npm run build",
-    "dev": "npx nodemon src/index.js"
+    "dev": "npx nodemon src/index.js",
+    "test": "mocha"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
