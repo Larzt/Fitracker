@@ -1,0 +1,5 @@
+{
+  "extension": ["js"],
+  "spec": "spec/**/*.spec.js",
+  "loader": "esm"
+}
