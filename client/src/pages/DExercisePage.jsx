@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardPage } from './DashboardPage';
 import { useExers } from '../context/ExerciseContext';
+import ExerciseForm from '../components/ExerciseForm';
 
 function DExercisePage() {
   const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
@@ -15,11 +16,12 @@ function DExercisePage() {
   const resetForm = () => {
     setCurrentExer({});
     setIsEditing(false);
+    setIsFormVisible(false);
   };
 
   const toggleFormVisibility = () => {
-    if (isFormVisible && isEditing) resetForm();
-    else setIsFormVisible(!isFormVisible);
+    setIsFormVisible(!isFormVisible);
+    if (!isFormVisible) setIsEditing(false);
   };
 
   const handleSaveExer = () => {
@@ -34,8 +36,7 @@ function DExercisePage() {
       createExer(currentExer);
     }
     resetForm();
-    setIsFormVisible(false);
-    window.location.reload();
+    getExers(); // Refresca la lista sin recargar la página
   };
 
   const handleEditExer = (exer) => {
@@ -46,11 +47,14 @@ function DExercisePage() {
 
   const handleDeleteExer = (id) => {
     deleteExer(id);
-    window.location.reload();
+    getExers(); // Actualiza la lista sin recargar la página
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentExer((prev) => ({ ...prev, [name]: value }));
+    setCurrentExer((prev) => {
+      if (prev[name] === value) return prev; // Evita renders innecesarios
+      return { ...prev, [name]: value };
+    });
   };
 
   const ExerciseTable = () => (
@@ -94,44 +98,6 @@ function DExercisePage() {
     </div>
   );
 
-  const ExerciseForm = () =>
-    isFormVisible && (
-      <div className="display-content-form">
-        <input
-          type="text"
-          name="name"
-          placeholder="Exercise name"
-          value={currentExer.name || ''}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="description"
-          placeholder="Description"
-          value={currentExer.description || ''}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          value={currentExer.category || ''}
-          onChange={handleInputChange}
-        />
-        <div className="form-buttons">
-          <button onClick={handleSaveExer} className="save-btn">
-            <p>{isEditing ? 'Update' : 'Save'}</p>
-          </button>
-          <button
-            onClick={() => setIsFormVisible(false)}
-            className="cancel-btn"
-          >
-            <p>Cancel</p>
-          </button>
-        </div>
-      </div>
-    );
-
   return (
     <div>
       <DashboardPage
@@ -150,7 +116,14 @@ function DExercisePage() {
               <input type="text" placeholder="Filter by category" />
             </div>
             <ExerciseTable />
-            <ExerciseForm />
+            <ExerciseForm
+              isVisible={isFormVisible}
+              currentExer={currentExer}
+              handleInputChange={handleInputChange}
+              handleSaveExer={handleSaveExer}
+              resetForm={resetForm}
+              isEditing={isEditing}
+            />
           </div>
         }
       />
