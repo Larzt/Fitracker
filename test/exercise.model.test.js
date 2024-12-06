@@ -99,4 +99,4 @@ describe('Exer model', () => {
     expect(savedExer.name).to.equal('NoDescriptionExercise');
     expect(savedExer.description).to.be.undefined; // Campo opcional
   });
-});
+}); 
