@@ -1,4 +1,4 @@
-import { DashboardPage } from '../DashboardPage';
+import { BaseDashboardPage } from '../BaseDashboardPage';
 import { useExers } from '../../context/ExerciseContext';
 
 import React, { useEffect, useMemo, useState } from 'react';
@@ -42,7 +42,7 @@ function CalendarPage() {
   };
 
   return (
-    <DashboardPage
+    <BaseDashboardPage
       content={
         <div className="display-content">
           <h1>Exercise Calendar</h1>

@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { DashboardPage } from './DashboardPage';
-import { useExers } from '../context/ExerciseContext';
-import ExerciseForm from '../components/ExerciseForm';
+import { BaseDashboardPage } from './BaseDashboardPage';
+import { useFood } from '../context/FoodContext';
+import FoodForm from '../components/FoodForm';
 
-function DExercisePage() {
-  const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
+function FoodPage() {
+  const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [currentExer, setCurrentExer] = useState({});
+  const [currentFood, setCurrentFood] = useState({});
 
   useEffect(() => {
-    getExers();
+    getFoods();
   }, []);
 
   const resetForm = () => {
-    setCurrentExer({});
+    setCurrentFood({});
     setIsEditing(false);
     setIsFormVisible(false);
   };
@@ -24,61 +24,61 @@ function DExercisePage() {
     if (!isFormVisible) setIsEditing(false);
   };
 
-  const handleSaveExer = () => {
-    if (!currentExer.name || !currentExer.category) {
-      alert('Please fill out the name and category fields!');
+  const handleSaveFood = () => {
+    if (!currentFood.name || !currentFood.calories) {
+      alert('Please fill out the name and calories fields!');
       return;
     }
 
     if (isEditing) {
-      updateExer(currentExer._id, currentExer);
+      updateFood(currentFood._id, currentFood);
     } else {
-      createExer(currentExer);
+      createFood(currentFood);
     }
     resetForm();
-    getExers(); // Refresca la lista sin recargar la página
+    getFoods();
   };
 
-  const handleEditExer = (exer) => {
-    setCurrentExer(exer);
+  const handleEditFood = (food) => {
+    setCurrentFood(food);
     setIsEditing(true);
     setIsFormVisible(true);
   };
 
-  const handleDeleteExer = (id) => {
-    deleteExer(id);
-    getExers(); // Actualiza la lista sin recargar la página
+  const handleDeleteFood = (id) => {
+    deleteFood(id);
+    getFoods();
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentExer((prev) => {
-      if (prev[name] === value) return prev; // Evita renders innecesarios
+    setCurrentFood((prev) => {
+      if (prev[name] === value) return prev;
       return { ...prev, [name]: value };
     });
   };
 
-  const ExerciseTable = () => (
+  const FoodTable = () => (
     <div className="display-content-table">
       <table>
         <thead>
           <tr className="display-content-table-header text-left">
             <th>Name</th>
-            <th>Description</th>
-            <th>Category</th>
+            <th>Ingredients</th>
+            <th>Calories</th>
             <th className="text-center">Edit</th>
             <th className="text-center">Delete</th>
           </tr>
         </thead>
         <tbody>
-          {exers.length > 0 ? (
-            exers.map((exer) => (
-              <tr key={exer._id}>
-                <td className="text-left">{exer.name}</td>
-                <td className="text-left">{exer.description || 'None'}</td>
-                <td className="text-left">{exer.category || 'None'}</td>
+          {foods.length > 0 ? (
+            foods.map((food) => (
+              <tr key={food._id}>
+                <td className="text-left">{food.name}</td>
+                <td className="text-left">{food.ingredients || 'None'}</td>
+                <td className="text-left">{food.calories || 'None'}</td>
                 <td className="text-center">
                   <button
-                    onClick={() => handleEditExer(exer)}
+                    onClick={() => handleEditFood(food)}
                     className="edit-btn"
                   >
                     <i className="fas fa-edit"></i>
@@ -86,7 +86,7 @@ function DExercisePage() {
                 </td>
                 <td className="text-center">
                   <button
-                    onClick={() => handleDeleteExer(exer._id)}
+                    onClick={() => handleDeleteFood(food._id)}
                     className="delete-btn"
                   >
                     <i className="fas fa-trash"></i>
@@ -96,7 +96,7 @@ function DExercisePage() {
             ))
           ) : (
             <tr>
-              <td colSpan="5">No exercises has been added</td>
+              <td colSpan="5">No food has been added</td>
             </tr>
           )}
         </tbody>
@@ -106,27 +106,27 @@ function DExercisePage() {
 
   return (
     <div>
-      <DashboardPage
+      <BaseDashboardPage
         content={
           <div className="display-content">
             <div className="display-content-header">
-              <h1>Exercises</h1>
+              <h1>Foods</h1>
               <div className="display-content-header-button">
                 <button onClick={toggleFormVisibility}>
                   <i className="fa-solid fa-circle-plus"></i>
-                  <p>New exercise</p>
+                  <p>New food</p>
                 </button>
               </div>
             </div>
             <div className="display-content-search">
-              <input type="text" placeholder="Filter by category" />
+              <input type="text" placeholder="Filter by name" />
             </div>
-            <ExerciseTable />
-            <ExerciseForm
+            <FoodTable />
+            <FoodForm
               isVisible={isFormVisible}
-              currentExer={currentExer}
+              currentFood={currentFood}
               handleInputChange={handleInputChange}
-              handleSaveExer={handleSaveExer}
+              handleSaveFood={handleSaveFood}
               resetForm={resetForm}
               isEditing={isEditing}
             />
@@ -137,4 +137,4 @@ function DExercisePage() {
   );
 }
 
-export default DExercisePage;
+export default FoodPage;

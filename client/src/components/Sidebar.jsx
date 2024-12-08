@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../css/dashbar.css';
+import { useForm } from 'react-hook-form';
 
 export const DashBar = ({ isOpen }) => {
+  const { register, handleSubmit } = useForm();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isExerciseOpen, setIsExerciseOpen] = useState(false);
   const [isDishOpen, setIsDishOpen] = useState(false);
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
+
+  const toUpperCase = (str) => {
+    return str.toUpperCase();
+  };
 
   const toggleCalendar = () => {
     setIsCalendarOpen(!isCalendarOpen);
@@ -44,13 +50,12 @@ export const DashBar = ({ isOpen }) => {
         </Link>
         <div className="dash-header-text">
           <h1>Fitracker</h1>
-          <h2>Usuario</h2>
+          <h2>{toUpperCase(user.username)}</h2>
         </div>
       </div>
 
       {/* CONTENT */}
       <div className="dash-content">
-        <h2>Modules</h2>
         {/* Calendar */}
         <div className="dash-calendar">
           <button onClick={toggleCalendar}>

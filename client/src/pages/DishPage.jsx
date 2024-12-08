@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { DashboardPage } from './DashboardPage';
-// import { useExer } from '../src/context/ExerciseContext.jsx';
-import { useRoutine } from '../context/RoutineContext';
+import { BaseDashboardPage } from './BaseDashboardPage';
+import { useDish } from '../context/DishContext';
 
-function DRoutinePage() {
-  const { routines, getRoutinesByDate, deleteRoutine } = useRoutine();
+function DishPage() {
+  const { dishes, getDishesByDate, deleteDish } = useDish();
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0]; // Formato 'YYYY-MM-DD'
-    getRoutinesByDate(today);
+    getDishesByDate(today);
   }, []);
 
   const handleDeleteSubmit = (id) => {
-    deleteRoutine(id);
+    deleteDish(id);
     window.location.reload();
   };
 
-  const ExerTable = () => (
+  const DishTable = () => (
     <div className="display-content-table">
       <table>
         <thead>
@@ -29,20 +28,20 @@ function DRoutinePage() {
           </tr>
         </thead>
         <tbody>
-          {routines.length > 0 ? (
+          {dishes.length > 0 ? (
             // Filtra los platos que tienen datos de 'food'
-            routines.filter((exer) => exer.food).length > 0 ? (
-              routines.map((exer) => {
-                const { food } = exer || {};
+            dishes.filter((dish) => dish.food).length > 0 ? (
+              dishes.map((dish) => {
+                const { food } = dish || {};
                 if (!food) {
                   console.warn(
-                    `Exer with ID ${exer._id} has no associated food data.`
+                    `Dish with ID ${dish._id} has no associated food data.`
                   );
 
                   return null;
                 }
                 return (
-                  <tr key={exer._id}>
+                  <tr key={dish._id}>
                     <td className="text-left">
                       {food?.name || 'No food added'}
                     </td>
@@ -56,7 +55,7 @@ function DRoutinePage() {
                     <td className="text-center">
                       <button
                         className="delete-btn"
-                        onClick={() => handleDeleteSubmit(exer._id)}
+                        onClick={() => handleDeleteSubmit(dish._id)}
                       >
                         <i className="fas fa-trash"></i>
                       </button>
@@ -66,12 +65,12 @@ function DRoutinePage() {
               })
             ) : (
               <tr>
-                <td colSpan="5">No routines available for today</td>
+                <td colSpan="5">No dishes available for today</td>
               </tr>
             )
           ) : (
             <tr>
-              <td colSpan="5">No routines available for today</td>
+              <td colSpan="5">No dishes available for today</td>
             </tr>
           )}
         </tbody>
@@ -81,22 +80,22 @@ function DRoutinePage() {
 
   return (
     <div>
-      <DashboardPage
+      <BaseDashboardPage
         content={
           <div className="display-content">
             <div className="display-content-header">
-              <h1>Today Routines</h1>
+              <h1>Today Dishes</h1>
               <div className="display-content-header-button">
                 <button>
                   <i className="fa-solid fa-circle-plus"></i>
-                  <p>New exer</p>
+                  <p>New dish</p>
                 </button>
               </div>
             </div>
             <div className="display-content-search">
               <input type="text" placeholder="Filter by name" />
             </div>
-            <ExerTable />
+            <DishTable />
           </div>
         }
       />
@@ -104,4 +103,4 @@ function DRoutinePage() {
   );
 }
 
-export default DRoutinePage;
+export default DishPage;

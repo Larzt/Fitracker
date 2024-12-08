@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { DashBar } from '../components/DashBar';
-// import '../css/dishplay.css';
+import { DashBar } from '../components/Sidebar';
 import '../css/display.css';
 
-export const DashboardPage = ({ content }) => {
+export const BaseDashboardPage = ({ content }) => {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [isLightOpen, setIsLightOpen] = useState(false);
 

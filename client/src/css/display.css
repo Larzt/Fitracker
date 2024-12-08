@@ -185,3 +185,10 @@ body {
   justify-content: space-between;
   font-weight: bold;
 }
+
+.display-content-progress {
+  display: flex;
+  justify-content: space-between;
+  background-color: #1f1f26;
+  margin: 1rem;
+}
