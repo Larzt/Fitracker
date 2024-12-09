@@ -29,6 +29,7 @@ before(async () => {
 
   // Crear un plato de prueba asociado al usuario y alimento
   testDish = await Dish.create({
+    category: 'aperitivo',
     food: testFood._id,
     user: testUser._id,
   });
@@ -37,6 +38,7 @@ before(async () => {
 describe('----DISH MODEL TESTS----', () => {
   it('Should create a new dish', async () => {
     const dishData = {
+      category: testDish.category,
       food: testFood._id,
       user: testUser._id,
     };
@@ -76,6 +78,7 @@ describe('----DISH MODEL TESTS----', () => {
 
   it('Should update a dish', async () => {
     const updatedDishData = {
+      category: 'desayuno',
       food: testFood._id,
     };
 
@@ -92,6 +95,7 @@ describe('----DISH MODEL TESTS----', () => {
 
   it('Should delete a dish', async () => {
     const dishToDelete = await Dish.create({
+      category: testDish.category,
       food: testFood._id,
       user: testUser._id,
     });
@@ -106,6 +110,7 @@ describe('----DISH MODEL TESTS----', () => {
   it('Should fetch all dishes for a user', async () => {
     // Creamos 2 platos adicionales para el usuario de prueba
     const dishData1 = {
+      category: testDish.category,
       food: testFood._id,
       user: testUser._id,
     };
