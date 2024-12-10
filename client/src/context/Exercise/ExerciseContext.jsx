@@ -5,7 +5,7 @@ import {
   createExerRequest,
   updateExerRequest,
   deleteExerRequest,
-} from '../api/exercise.js';
+} from '../../api/exercise.js';
 
 const ExersContext = createContext();
 
@@ -45,7 +45,7 @@ export function ExersProvider({ children }) {
   };
 
   const updateExer = async (id, exer) => {
-    try { 
+    try {
       const res = await updateExerRequest(id, exer);
       console.log(res);
     } catch (error) {

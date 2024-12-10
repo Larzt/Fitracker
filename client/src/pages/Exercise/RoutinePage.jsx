@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { BaseDashboardPage } from './BaseDashboardPage';
-// import { useExer } from '../src/context/ExerciseContext.jsx';
-import { useRoutine } from '../context/RoutineContext';
+import { BaseDashboardPage } from '../BaseDashboardPage';
+import { useRoutine } from '../../context/Exercise/RoutineContext';
 
 function DRoutinePage() {
   const { routines, getRoutinesByDate, deleteRoutine } = useRoutine();

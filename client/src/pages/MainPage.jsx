@@ -1,6 +1,6 @@
 import React from 'react';
 import { WeightChart } from '../components/WeightChart';
-import { CaloriesChart } from '../components/CaloriesChart';
+import { CaloriesChart } from '../components/Food/CaloriesChart';
 import { BaseDashboardPage } from './BaseDashboardPage';
 
 function MainPage() {

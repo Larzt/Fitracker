@@ -5,7 +5,7 @@ import {
   createFoodRequest,
   updateFoodRequest,
   deleteFoodRequest,
-} from '../api/food';
+} from '../../api/food';
 
 const FoodContext = createContext();
 

@@ -6,7 +6,7 @@ import {
   createRoutineRequest,
   deleteRoutineRequest,
   getRoutinesByDateRequest,
-} from '../api/routine';
+} from '../../api/routine';
 import { useExers } from './ExerciseContext';
 
 const RoutineContext = createContext();

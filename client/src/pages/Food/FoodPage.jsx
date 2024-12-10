@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { BaseDashboardPage } from './BaseDashboardPage';
-import { useFood } from '../context/FoodContext';
-import FoodForm from '../components/FoodForm';
+import { BaseDashboardPage } from '../BaseDashboardPage';
+import { useFood } from '../../context/Food/FoodContext';
+import FoodForm from '../../components/Food/FoodForm';
 
 function FoodPage() {
   const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();

@@ -1,20 +1,20 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import MainPage from './pages/MainPage.jsx';
-import ExercisePage from './pages/ExercisePage.jsx';
-import RoutinePage from './pages/RoutinePage.jsx';
-import FoodPage from './pages/FoodPage.jsx';
-import DishPage from './pages/DishPage.jsx';
+import ExercisePage from './pages/Exercise/ExercisePage.jsx';
+import RoutinePage from './pages/Exercise/RoutinePage.jsx';
+import FoodPage from './pages/Food/FoodPage.jsx';
+import DishPage from './pages/Food/DishPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
-import CalendarPage from './pages/Dashboard/DExerCalendar.jsx';
+import CalendarPage from './pages/Calendar/DExerCalendar.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
-import { ExersProvider } from './context/ExerciseContext.jsx';
-import { FoodProvider } from './context/FoodContext.jsx';
-import { DishProvider } from './context/DishContext.jsx';
-import { RoutineProvider } from './context/RoutineContext.jsx';
+import { ExersProvider } from './context/Exercise/ExerciseContext.jsx';
+import { FoodProvider } from './context/Food/FoodContext.jsx';
+import { DishProvider } from './context/Food/DishContext.jsx';
+import { RoutineProvider } from './context/Exercise/RoutineContext.jsx';
 import { ObjetiveProvider } from './context/ObjetiveContext.jsx';
 
 function App() {

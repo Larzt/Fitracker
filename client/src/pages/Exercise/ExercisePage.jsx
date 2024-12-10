@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { BaseDashboardPage } from './BaseDashboardPage';
-import { useExers } from '../context/ExerciseContext';
-import ExerciseForm from '../components/ExerciseForm';
+import { BaseDashboardPage } from '../BaseDashboardPage';
+import { useExers } from '../../context/Exercise/ExerciseContext';
+import ExerciseForm from '../../components/Exercise/ExerciseForm';
 
 function ExercisePage() {
   const { exers, getExers, createExer, updateExer, deleteExer } = useExers();

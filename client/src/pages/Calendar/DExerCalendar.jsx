@@ -1,5 +1,5 @@
 import { BaseDashboardPage } from '../BaseDashboardPage';
-import { useExers } from '../../context/ExerciseContext';
+import { useExers } from '../../context/Exercise/ExerciseContext';
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';

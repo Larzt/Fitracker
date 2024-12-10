@@ -84,22 +84,9 @@ body {
 
 /* Search Input */
 .display-content-search {
+  display: flex;
   margin-top: 1rem;
-}
-
-.display-content-search input:focus {
-  outline: none;
-  border-color: #3b82f6;
-}
-
-.display-content-search input {
-  width: 15rem;
-  padding: 0.8rem;
-  margin: 0.5rem 0rem;
-  background-color: transparent;
-  color: #e4e4f0;
-  border-radius: 0.3rem;
-  border: 0.15rem solid #1f1f26;
+  margin-bottom: 1rem;
 }
 
 /* TABLE */
@@ -177,8 +164,8 @@ body {
 .display-content-form-select {
   background-color: #131318;
   color: #ffffff; /* Texto blanco para mejor contraste */
+  border: 2px solid #1f1f26; /* Borde azul más oscuro */
   font-weight: bold;
-  border: 2px solid #3b82f6; /* Borde azul más oscuro */
   border-radius: 0.5rem;
   padding: 0.5rem; /* Espaciado interno */
   font-size: 1rem; /* Tamaño de fuente más legible */
@@ -190,7 +177,7 @@ body {
 }
 
 .display-content-form-select:focus {
-  box-shadow: 0 0 5px 2px #3b82f6; /* Resplandor azul al enfocarse */
+  border: 2px solid #3b82f6; /* Borde azul más oscuro */
 }
 
 /* Estilo para el botón Save */
