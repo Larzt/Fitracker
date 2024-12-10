@@ -27,8 +27,11 @@ export const getRoutine = async (req, res) => {
 };
 
 export const createRoutine = async (req, res) => {
+  const { category, musclesTargeted } = req.body;
   try {
     const newRoutine = new Routine({
+      category,
+      musclesTargeted,
       exer: req.params.id,
       user: req.user.id,
     });
@@ -50,7 +53,7 @@ export const deleteRoutine = async (req, res) => {
   }
 };
 
-// Controlador para obtener platos por fecha
+// Controlador para obtener rutinas por fecha
 export const getRoutinesByDate = async (req, res) => {
   try {
     const { date } = req.params; // Obtener la fecha de los query params
@@ -65,6 +68,44 @@ export const getRoutinesByDate = async (req, res) => {
     // Buscar platos en ese rango
     const routines = await Routine.find({
       createdAt: { $gte: startOfDay, $lte: endOfDay },
+    }).populate('exer user'); // Popula las referencias si es necesario
+
+    res.json(routines);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Controlador para obtener rutinas por categoria
+export const getRoutinesByCategory = async (req, res) => {
+  try {
+    const { category } = req.params; // Obtener la fecha de los query params
+    if (!category) {
+      return res.status(404).json({ message: 'Muscles Targeted is required' });
+    }
+
+    // Buscar platos en ese rango
+    const routines = await Routine.find({
+      category,
+    }).populate('exer user'); // Popula las referencias si es necesario
+
+    res.json(routines);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Controlador para obtener rutinas por musculo
+export const getRoutinesByMuscle = async (req, res) => {
+  try {
+    const { musclesTargeted } = req.params; // Obtener la fecha de los query params
+    if (!musclesTargeted) {
+      return res.status(404).json({ message: 'Muscles Targeted is required' });
+    }
+
+    // Buscar platos en ese rango
+    const routines = await Routine.find({
+      musclesTargeted,
     }).populate('exer user'); // Popula las referencias si es necesario
 
     res.json(routines);

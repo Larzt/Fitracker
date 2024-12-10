@@ -19,16 +19,20 @@ export const getExer = async (req, res) => {
 };
 
 export const createExer = async (req, res) => {
-  const { name, description } = req.body;
+  try {
+    const { name, description, equipment } = req.body;
+    const newExer = new Exer({
+      name,
+      description,
+      equipment,
+      user: req.user.id,
+    });
 
-  const newExer = new Exer({
-    name,
-    description,
-    user: req.user.id,
-  });
-
-  const savedExer = await newExer.save();
-  res.json(savedExer);
+    const savedExer = await newExer.save();
+    res.json(savedExer);
+  } catch (error) {
+    if (error) return res.status(404).json({ message: 'Exercise not created' });
+  }
 };
 
 export const deleteExer = async (req, res) => {

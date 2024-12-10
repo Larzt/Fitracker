@@ -5,13 +5,18 @@ const exerSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
+      trim: true,
     },
 
     description: {
       type: String,
       required: false,
       trim: true,
+    },
+
+    equipment: {
+      type: [String],
+      default: [],
     },
 
     user: {

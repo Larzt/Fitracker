@@ -7,6 +7,9 @@ export const createSchema = z.object({
   description: z
     .string({ required_error: 'Description must be a string' })
     .optional(),
+  equipment: z
+    .string({ required_error: 'Equipment must be a string' })
+    .optional(),
 });
 
 export const updateSchema = z.object({

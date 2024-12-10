@@ -6,6 +6,8 @@ import {
   createRoutine,
   deleteRoutine,
   getRoutinesByDate,
+  getRoutinesByCategory,
+  getRoutinesByMuscle,
 } from '../controllers/routine.controller.js';
 
 const router = Router();
@@ -19,5 +21,9 @@ router.post('/routine/:id', authRequired, createRoutine);
 router.delete('/routine/:id', authRequired, deleteRoutine);
 
 router.get('/routine/date/:date', authRequired, getRoutinesByDate);
+
+router.get('/routine/category/:category', authRequired, getRoutinesByCategory);
+
+router.get('/routine/muscle/:muscle', authRequired, getRoutinesByMuscle);
 
 export default router;
