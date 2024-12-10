@@ -14,7 +14,7 @@ export const getDishes = async (req, res) => {
 
 export const getDish = async (req, res) => {
   try {
-    const dish = await Dish.find({ food: req.params.id })
+    const dish = await Dish.findById(req.params.id)
       .populate('food')
       .populate('user');
 
@@ -26,8 +26,13 @@ export const getDish = async (req, res) => {
 };
 
 export const createDish = async (req, res) => {
+  let { category } = req.body;
+  if (category == null) {
+    category = 'none';
+  }
   try {
     const newDish = new Dish({
+      category,
       food: req.params.id,
       user: req.user.id,
     });
@@ -36,6 +41,68 @@ export const createDish = async (req, res) => {
     res.json(savedDish);
   } catch (error) {
     if (error) return res.status(404).json({ message: 'Dish not created' });
+  }
+};
+
+export const updateDish = async (req, res) => {
+  const { category } = req.body; // Extraemos la categoría de la solicitud
+
+  try {
+    // Buscamos el plato a actualizar por su ID
+    const dish = await Dish.findById(req.params.id)
+      .populate('food')
+      .populate('user');
+    if (!dish) return res.status(404).json({ message: 'Dish not found' });
+
+    // Actualizamos solo la categoría del plato
+    dish.category = category;
+
+    // Guardamos los cambios en el plato
+    const updatedDish = await dish.save(); // Usamos `save` para actualizar el objeto
+
+    // Verificamos si la actualización fue exitosa
+    if (!updatedDish) {
+      return res.status(400).json({ message: 'Dish not updated' });
+    }
+
+    // Respondemos con el plato actualizado
+    return res.status(200).json(updatedDish);
+  } catch (error) {
+    // En caso de error, respondemos con un mensaje adecuado
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: 'Server error', error: error.message });
+  }
+};
+
+export const updateDishByParams = async (req, res) => {
+  const { id, category } = req.params; // Extraemos la categoría de la solicitud
+
+  try {
+    // Buscamos el plato a actualizar por su ID
+    const dish = await Dish.findById(id).populate('food').populate('user');
+    if (!dish) return res.status(404).json({ message: 'Dish not found' });
+
+    // Actualizamos solo la categoría del plato
+    dish.category = category;
+
+    // Guardamos los cambios en el plato
+    const updatedDish = await dish.save(); // Usamos `save` para actualizar el objeto
+
+    // Verificamos si la actualización fue exitosa
+    if (!updatedDish) {
+      return res.status(400).json({ message: 'Dish not updated' });
+    }
+
+    // Respondemos con el plato actualizado
+    return res.status(200).json(updatedDish);
+  } catch (error) {
+    // En caso de error, respondemos con un mensaje adecuado
+    console.error(error);
+    return res
+      .status(500)
+      .json({ message: 'Server error', error: error.message });
   }
 };
 
@@ -65,6 +132,21 @@ export const getDishesByDate = async (req, res) => {
     const dishes = await Dish.find({
       createdAt: { $gte: startOfDay, $lte: endOfDay },
     }).populate('food user'); // Popula las referencias si es necesario
+
+    res.json(dishes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// Controlador para obtener platos por categoria
+export const getDishesByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    // Buscar platos en ese rango
+    const dishes = await Dish.find({
+      category: category,
+    }).populate('food user');
 
     res.json(dishes);
   } catch (error) {

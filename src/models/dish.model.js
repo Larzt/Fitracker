@@ -2,6 +2,12 @@ import mongoose from 'mongoose';
 
 const dishSchema = new mongoose.Schema(
   {
+    category: {
+      type: String,
+      required: true,
+      enum: ['none', 'desayuno', 'almuerzo', 'merienda', 'cena', 'aperitivo'],
+    },
+
     food: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Food',

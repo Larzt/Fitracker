@@ -15,6 +15,7 @@ import { ExersProvider } from './context/ExerciseContext.jsx';
 import { FoodProvider } from './context/FoodContext.jsx';
 import { DishProvider } from './context/DishContext.jsx';
 import { RoutineProvider } from './context/RoutineContext.jsx';
+import { ObjetiveProvider } from './context/ObjetiveContext.jsx';
 
 function App() {
   return (
@@ -23,37 +24,39 @@ function App() {
         <FoodProvider>
           <DishProvider>
             <RoutineProvider>
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<LoginPage />} />
-                  <Route path="/login" element={<LoginPage />} />
-                  <Route path="/register" element={<RegisterPage />} />
+              <ObjetiveProvider>
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
 
-                  <Route element={<ProtectedRoute />}>
-                    <Route path="/dashboard" element={<MainPage />} />
+                    <Route element={<ProtectedRoute />}>
+                      <Route path="/dashboard" element={<MainPage />} />
 
-                    {/* Exercise */}
-                    <Route
-                      path="/dashboard/exercise"
-                      element={<ExercisePage />}
-                    />
-                    <Route
-                      path="/dashboard/routines"
-                      element={<RoutinePage />}
-                    />
+                      {/* Exercise */}
+                      <Route
+                        path="/dashboard/exercise"
+                        element={<ExercisePage />}
+                      />
+                      <Route
+                        path="/dashboard/routines"
+                        element={<RoutinePage />}
+                      />
 
-                    {/* Food */}
-                    <Route path="/dashboard/food" element={<FoodPage />} />
-                    <Route path="/dashboard/dishes" element={<DishPage />} />
+                      {/* Food */}
+                      <Route path="/dashboard/food" element={<FoodPage />} />
+                      <Route path="/dashboard/dishes" element={<DishPage />} />
 
-                    {/* Exercise Calendar */}
-                    <Route
-                      path="/dashboard/calendar"
-                      element={<CalendarPage />}
-                    />
-                  </Route>
-                </Routes>
-              </BrowserRouter>
+                      {/* Exercise Calendar */}
+                      <Route
+                        path="/dashboard/calendar"
+                        element={<CalendarPage />}
+                      />
+                    </Route>
+                  </Routes>
+                </BrowserRouter>
+              </ObjetiveProvider>
             </RoutineProvider>
           </DishProvider>
         </FoodProvider>

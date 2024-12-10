@@ -23,6 +23,7 @@ export function FoodProvider({ children }) {
   const getFoods = async () => {
     try {
       const res = await getFoodsRequest();
+      // console.log(res.data);
       setFoods(res.data);
     } catch (error) {
       console.log(error);

@@ -173,10 +173,47 @@ body {
   border-color: #3b82f6;
 }
 
-.save-btn :hover {
-  color: #34d399;
+/* Estilo para el select */
+.display-content-form-select {
+  background-color: #131318;
+  color: #ffffff; /* Texto blanco para mejor contraste */
+  font-weight: bold;
+  border: 2px solid #3b82f6; /* Borde azul más oscuro */
+  border-radius: 0.5rem;
+  padding: 0.5rem; /* Espaciado interno */
+  font-size: 1rem; /* Tamaño de fuente más legible */
+  cursor: pointer; /* Indicador visual interactivo */
+  outline: none; /* Sin borde adicional al enfocarse */
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
-.cancel-btn :hover {
+
+.display-content-form-select:focus {
+  box-shadow: 0 0 5px 2px #3b82f6; /* Resplandor azul al enfocarse */
+}
+
+/* Estilo para el botón Save */
+.save-btn {
+  background-color: #34d399; /* Verde brillante */
+  color: #ffffff; /* Texto blanco */
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  color: #131318;
+}
+
+.cancel-btn {
+  font-weight: bold;
+}
+
+.cancel-btn:hover {
   color: #f63b3b;
 }
 
@@ -191,4 +228,41 @@ body {
   justify-content: space-between;
   background-color: #1f1f26;
   margin: 1rem;
+}
+
+/* Tabla general */
+.display-content-add {
+  background-color: #1f1f26;
+  margin-top: 2rem;
+  border: 0.1rem solid #34d399;
+  border-radius: 0.3rem;
+}
+
+.display-content-add table {
+  width: 100%;
+}
+
+.display-content-add th,
+.display-content-add td {
+  padding: 1rem; /* Espaciado uniforme */
+  text-align: left; /* Alineación del texto */
+  box-sizing: border-box; /* Incluye padding y bordes en el tamaño */
+}
+
+.display-content-add-head {
+  border-bottom: 0.15rem solid #36363e;
+}
+
+.display-content-add-btn {
+  background-color: #3b82f6; /* Azul brillante */
+  color: #ffffff; /* Texto blanco */
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.display-content-add-btn:hover {
+  color: #131318; /* Azul más oscuro al pasar el ratón */
 }

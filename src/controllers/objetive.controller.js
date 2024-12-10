@@ -1,5 +1,16 @@
 import Objetive from '../models/objetive.model.js';
 
+export const getObjetives = async (req, res) => {
+  try {
+    const objetive = await Objetive.find();
+    if (!objetive)
+      return res.status(404).json({ message: 'Objetive not found' });
+    res.json(objetive);
+  } catch (error) {
+    if (error) return res.status(404).json({ message: 'Objetive not found' });
+  }
+};
+
 export const getObjetive = async (req, res) => {
   try {
     const objetive = await Objetive.findById(req.params.id);

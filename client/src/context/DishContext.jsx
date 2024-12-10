@@ -3,8 +3,10 @@ import {
   getDishesRequest,
   getDishRequest,
   createDishRequest,
+  updateDishRequest,
   deleteDishRequest,
   getDishesByDateRequest,
+  getDishesByCategoryRequest,
 } from '../api/dish';
 import { useFood } from './FoodContext';
 
@@ -20,8 +22,6 @@ export const useDish = () => {
 
 export function DishProvider({ children }) {
   const [dishes, setDish] = useState([]);
-
-  const { getFood } = useFood();
 
   const getDishes = async () => {
     try {
@@ -50,6 +50,15 @@ export function DishProvider({ children }) {
     }
   };
 
+  const updateDishCategory = async (id, category) => {
+    try {
+      const res = await updateDishRequest(id, category);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteDish = async (id) => {
     try {
       const res = await deleteDishRequest(id);
@@ -62,7 +71,17 @@ export function DishProvider({ children }) {
   const getDishesByDate = async (date) => {
     try {
       const res = await getDishesByDateRequest(date);
-      console.log(res.data);
+      // console.log(res.data);
+      setDish(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getDishesByCategory = async (date) => {
+    try {
+      const res = await getDishesByCategoryRequest(date);
+      // console.log(res.data);
       setDish(res.data);
     } catch (error) {
       console.error(error);
@@ -76,8 +95,10 @@ export function DishProvider({ children }) {
         getDishes,
         getDish,
         createDish,
+        updateDishCategory,
         deleteDish,
         getDishesByDate,
+        getDishesByCategory,
       }}
     >
       {children}
