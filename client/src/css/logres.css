@@ -1,5 +1,6 @@
 .form-container {
   background-color: #1f1f26;
+  background: linear-gradient(to top, #131318, #1f1f26);
   color: #fff;
   width: 100%;
   max-width: 400px;

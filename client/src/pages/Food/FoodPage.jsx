@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BaseDashboardPage } from '../BaseDashboardPage';
 import { useFood } from '../../context/Food/FoodContext';
 import FoodForm from '../../components/Food/FoodForm';
+import FoodTable from '../../components/Food/FoodTable';
 
 function FoodPage() {
   const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
@@ -51,89 +52,41 @@ function FoodPage() {
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentFood((prev) => {
-      if (prev[name] === value) return prev;
-      return { ...prev, [name]: value };
-    });
+    setCurrentFood((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
-  const FoodTable = () => (
-    <div className="display-content-table">
-      <table>
-        <thead>
-          <tr className="display-content-table-header text-left">
-            <th>Name</th>
-            <th>Ingredients</th>
-            <th>Calories</th>
-            <th className="text-center">Edit</th>
-            <th className="text-center">Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {foods.length > 0 ? (
-            foods.map((food) => (
-              <tr key={food._id}>
-                <td className="text-left">{food.name}</td>
-                <td className="text-left">{food.ingredients || 'None'}</td>
-                <td className="text-left">{food.calories || 'None'}</td>
-                <td className="text-center">
-                  <button
-                    onClick={() => handleEditFood(food)}
-                    className="edit-btn"
-                  >
-                    <i className="fas fa-edit"></i>
-                  </button>
-                </td>
-                <td className="text-center">
-                  <button
-                    onClick={() => handleDeleteFood(food._id)}
-                    className="delete-btn"
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5">No food has been added</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-  );
-
   return (
-    <div>
-      <BaseDashboardPage
-        content={
-          <div className="display-content">
-            <div className="display-content-header">
-              <h1>Foods</h1>
-              <div className="display-content-header-button">
-                <button onClick={toggleFormVisibility}>
-                  <i className="fa-solid fa-circle-plus"></i>
-                  <p>New food</p>
-                </button>
-              </div>
+    <BaseDashboardPage
+      content={
+        <div className="display-content">
+          <div className="display-content-header">
+            <h1>Foods</h1>
+            <div className="display-content-header-button">
+              <button onClick={toggleFormVisibility}>
+                <i className="fa-solid fa-circle-plus"></i>
+                <p>New food</p>
+              </button>
             </div>
-            <div className="display-content-search">
-              <input type="text" placeholder="Filter by name" />
-            </div>
-            <FoodTable />
-            <FoodForm
-              isVisible={isFormVisible}
-              currentFood={currentFood}
-              handleInputChange={handleInputChange}
-              handleSaveFood={handleSaveFood}
-              resetForm={resetForm}
-              isEditing={isEditing}
-            />
           </div>
-        }
-      />
-    </div>
+          <FoodTable
+            foods={foods}
+            handleEditFood={handleEditFood}
+            handleDeleteFood={handleDeleteFood}
+          />
+          <FoodForm
+            isVisible={isFormVisible}
+            currentFood={currentFood}
+            handleInputChange={handleInputChange}
+            handleSaveFood={handleSaveFood}
+            resetForm={resetForm}
+            isEditing={isEditing}
+          />
+        </div>
+      }
+    />
   );
 }
 
