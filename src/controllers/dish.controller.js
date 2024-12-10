@@ -28,7 +28,7 @@ export const getDish = async (req, res) => {
 export const createDish = async (req, res) => {
   let { category } = req.body;
   if (category == null) {
-    category = 'none';
+    category = 'other';
   }
   try {
     const newDish = new Dish({

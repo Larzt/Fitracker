@@ -5,7 +5,8 @@ const dishSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ['none', 'desayuno', 'almuerzo', 'merienda', 'cena', 'aperitivo'],
+      enum: ['desayuno', 'almuerzo', 'merienda', 'cena', 'aperitivo', 'other'],
+      default: 'other',
     },
 
     food: {
