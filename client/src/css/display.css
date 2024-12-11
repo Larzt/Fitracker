@@ -90,6 +90,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.display-content-search select {
+  margin-right: 1rem;
+}
+
 /* TABLE */
 .display-content-table {
   background-color: #1f1f26;

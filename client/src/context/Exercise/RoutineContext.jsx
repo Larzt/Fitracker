@@ -5,7 +5,10 @@ import {
   getRoutineRequest,
   createRoutineRequest,
   deleteRoutineRequest,
+  updateRoutineRequest,
   getRoutinesByDateRequest,
+  getRoutinesByMuscleRequest,
+  getRoutinesByCategoryRequest,
 } from '../../api/routine';
 import { useExers } from './ExerciseContext';
 
@@ -41,9 +44,29 @@ export function RoutineProvider({ children }) {
     }
   };
 
-  const createRoutine = async (id) => {
+  const getRoutinesByCategory = async (date) => {
     try {
-      const res = await createRoutineRequest(id);
+      const res = await getRoutinesByCategoryRequest(date);
+      console.log(res.data);
+      setRoutine(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getRoutinesByMuscle = async (date) => {
+    try {
+      const res = await getRoutinesByMuscleRequest(date);
+      console.log(res.data);
+      setRoutine(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const createRoutine = async (id, exer) => {
+    try {
+      const res = await createRoutineRequest(id, exer);
       console.log(res);
     } catch (error) {
       console.log(error);
@@ -67,6 +90,8 @@ export function RoutineProvider({ children }) {
         createRoutine,
         deleteRoutine,
         getRoutinesByDate,
+        getRoutinesByCategory,
+        getRoutinesByMuscle,
       }}
     >
       {children}
