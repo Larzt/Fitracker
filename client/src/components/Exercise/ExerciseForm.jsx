@@ -27,9 +27,9 @@ const ExerciseForm = ({
         />
         <input
           type="text"
-          name="category"
-          placeholder="Category"
-          value={currentExer.category || ''}
+          name="equipment"
+          placeholder="Equipment"
+          value={currentExer.equipment || ''}
           onChange={handleInputChange}
         />
         <div className="form-buttons">

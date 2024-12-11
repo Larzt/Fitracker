@@ -38,6 +38,7 @@ body {
   justify-content: space-between; /* Espacia los elementos */
   align-items: center; /* Centra verticalmente los elementos */
   margin-top: 2rem;
+  margin-bottom: 2rem;
   font-weight: bold;
 }
 

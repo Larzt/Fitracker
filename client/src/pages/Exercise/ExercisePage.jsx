@@ -25,8 +25,8 @@ function ExercisePage() {
   };
 
   const handleSaveExer = () => {
-    if (!currentExer.name || !currentExer.category) {
-      alert('Please fill out the name and category fields!');
+    if (!currentExer.name) {
+      alert('Please fill out the name field!');
       return;
     }
 
@@ -37,6 +37,7 @@ function ExercisePage() {
     }
     resetForm();
     getExers(); // Refresca la lista sin recargar la página
+    window.location.reload();
   };
 
   const handleEditExer = (exer) => {
@@ -64,7 +65,7 @@ function ExercisePage() {
           <tr className="display-content-table-header text-left">
             <th>Name</th>
             <th>Description</th>
-            <th>Category</th>
+            <th>Equipment</th>
             <th className="text-center">Edit</th>
             <th className="text-center">Delete</th>
           </tr>
@@ -74,8 +75,10 @@ function ExercisePage() {
             exers.map((exer) => (
               <tr key={exer._id}>
                 <td className="text-left">{exer.name}</td>
-                <td className="text-left">{exer.description || 'None'}</td>
-                <td className="text-left">{exer.category || 'None'}</td>
+                <td className="text-left">{exer?.description || 'N/A'}</td>
+                <td className="text-left">
+                  {exer.equipment != '' ? exer.equipment : 'N/A'}
+                </td>
                 <td className="text-center">
                   <button
                     onClick={() => handleEditExer(exer)}
@@ -117,9 +120,6 @@ function ExercisePage() {
                   <p>New exercise</p>
                 </button>
               </div>
-            </div>
-            <div className="display-content-search">
-              <input type="text" placeholder="Filter by category" />
             </div>
             <ExerciseTable />
             <ExerciseForm

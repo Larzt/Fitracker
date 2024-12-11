@@ -27,7 +27,10 @@ export const DishPage = () => {
         <div className="display-content">
           <div className="display-content-header">
             <h1>Today's Dishes</h1>
-            <button onClick={toggleAddMode}>
+            <button
+              className="display-content-header-button"
+              onClick={toggleAddMode}
+            >
               <i className="fa-solid fa-circle-plus"></i>
               <p>New dish</p>
             </button>

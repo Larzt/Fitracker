@@ -15,8 +15,8 @@ const exerSchema = new mongoose.Schema(
     },
 
     equipment: {
-      type: [String],
-      default: [],
+      type: String,
+      default: '',
     },
 
     user: {
