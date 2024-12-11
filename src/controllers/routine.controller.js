@@ -27,8 +27,8 @@ export const getRoutine = async (req, res) => {
 };
 
 export const createRoutine = async (req, res) => {
-  const { category, musclesTargeted } = req.body;
   try {
+    const { category, musclesTargeted } = req.body;
     const newRoutine = new Routine({
       category,
       musclesTargeted,
@@ -40,6 +40,38 @@ export const createRoutine = async (req, res) => {
     res.json(savedRoutine);
   } catch (error) {
     if (error) return res.status(404).json({ message: 'Routine not created' });
+  }
+};
+
+export const updateRoutine = async (req, res) => {
+  try {
+    const { category, musclesTargeted } = req.body;
+
+    // Verificar que se envíen datos válidos
+    if (!category && !musclesTargeted) {
+      return res.status(400).json({ message: 'No data provided to update' });
+    }
+
+    // Buscar la rutina por ID
+    const routine = await Routine.findById(req.params.id);
+    if (!routine) {
+      return res.status(404).json({ message: 'Routine not found' });
+    }
+
+    // Actualizar los campos si se proporcionan
+    if (category) routine.category = category;
+    if (musclesTargeted) routine.musclesTargeted = musclesTargeted;
+
+    // Guardar los cambios
+    const updatedRoutine = await routine.save();
+
+    // Verificar si la actualización fue exitosa
+    return res.status(200).json(updatedRoutine);
+  } catch (error) {
+    console.error('Error updating routine:', error);
+    return res
+      .status(500)
+      .json({ message: 'Server error', error: error.message });
   }
 };
 

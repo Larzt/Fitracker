@@ -8,7 +8,7 @@ function DRoutinePage() {
     routines,
     getRoutinesByDate,
     deleteRoutine,
-    updateRoutineCategory,
+    updateRoutine,
     createRoutine,
   } = useRoutine();
 
@@ -19,6 +19,7 @@ function DRoutinePage() {
   const [filteredRoutines, setFilteredRoutines] = useState([]);
   const [editRow, setEditRow] = useState(null);
   const [editedCategory, setEditedCategory] = useState('');
+  const [editedMuscle, setEditedMuscle] = useState('');
   const [addRoutine, setAddRoutine] = useState(false);
 
   const today = new Date().toISOString().split('T')[0];
@@ -27,7 +28,6 @@ function DRoutinePage() {
     getRoutinesByDate(today);
     getExers();
   }, []);
-  console.log(filteredRoutines);
 
   useEffect(() => {
     const filtered = routines.filter((routine) => {
@@ -35,7 +35,7 @@ function DRoutinePage() {
         ? routine.category?.toLowerCase() === filterCategory.toLowerCase()
         : true;
       const matchesMuscle = filterMuscle
-        ? routine.muscle?.toLowerCase() === filterMuscle.toLowerCase()
+        ? routine.musclesTargeted?.toLowerCase() === filterMuscle.toLowerCase()
         : true;
       return matchesCategory && matchesMuscle;
     });
@@ -44,49 +44,61 @@ function DRoutinePage() {
 
   const toggleAddMode = () => {
     setAddRoutine(!addRoutine);
-    console.log(addRoutine);
   };
 
   const handleDeleteSubmit = (id) => {
-    deleteRoutine(id);
-    window.location.reload();
+    deleteRoutine(id)
+      .then(() => {
+        setFilteredRoutines((prev) =>
+          prev.filter((routine) => routine._id !== id)
+        );
+      })
+      .catch((err) => console.error('Error deleting routine:', err));
   };
 
-  const toggleEditMode = (id, category) => {
-    setEditRow(editRow === id ? null : id);
-    setEditedCategory(category);
+  const toggleEditMode = (id, category, musclesTargeted) => {
+    if (editRow === id) {
+      setEditRow(null);
+    } else {
+      setEditRow(id);
+      setEditedCategory(category || '');
+      setEditedMuscle(musclesTargeted || '');
+    }
   };
 
-  const handleCategoryChange = (newCategory) => setEditedCategory(newCategory);
+  const saveRoutine = (id) => {
+    const updatedRoutine = {
+      category: editedCategory,
+      musclesTargeted: editedMuscle,
+    };
 
-  const saveCategory = (id) => {
-    updateRoutineCategory(id, editedCategory);
-    setEditRow(null);
-    window.location.reload();
+    updateRoutine(id, updatedRoutine)
+      .then(() => {
+        const updatedRoutines = routines.map((routine) =>
+          routine._id === id ? { ...routine, ...updatedRoutine } : routine
+        );
+        setFilteredRoutines(updatedRoutines);
+        setEditRow(null);
+      })
+      .catch((err) => console.error('Error updating routine:', err));
   };
 
   const handleExerSelect = (exer) => {
-    createRoutine(exer._id, exer);
-    window.location.reload();
+    createRoutine(exer._id, exer)
+      .then(() => {
+        getRoutinesByDate(today);
+      })
+      .catch((err) => console.error('Error adding routine:', err));
   };
 
   const RoutineTable = () => {
     const [expandedRow, setExpandedRow] = useState(null);
-    const [editedMuscle, setEditedMuscle] = useState('');
 
-    const categoryOptions = ['strength', 'cardio', 'flexibility', 'other'];
-    const muscleOptions = ['chest', 'back', 'legs', 'arms', 'abs', 'other'];
+    const categoryOptions = ['other', 'strength', 'cardio', 'flexibility'];
+    const muscleOptions = ['other', 'chest', 'back', 'legs', 'arms', 'abs'];
 
     const toggleRowExpansion = (id) => {
       setExpandedRow(expandedRow === id ? null : id);
-    };
-
-    const handleMuscleChange = (newMuscle) => setEditedMuscle(newMuscle);
-
-    const saveRoutine = (id) => {
-      updateRoutineCategory(id, editedCategory, editedMuscle);
-      setEditRow(null);
-      window.location.reload();
     };
 
     return (
@@ -121,9 +133,7 @@ function DRoutinePage() {
                           <select
                             className="display-content-form-select"
                             value={editedCategory}
-                            onChange={(e) =>
-                              handleCategoryChange(e.target.value)
-                            }
+                            onChange={(e) => setEditedCategory(e.target.value)}
                           >
                             {categoryOptions.map((option) => (
                               <option key={option} value={option}>
@@ -140,7 +150,7 @@ function DRoutinePage() {
                           <select
                             className="display-content-form-select"
                             value={editedMuscle}
-                            onChange={(e) => handleMuscleChange(e.target.value)}
+                            onChange={(e) => setEditedMuscle(e.target.value)}
                           >
                             {muscleOptions.map((option) => (
                               <option key={option} value={option}>
@@ -164,7 +174,11 @@ function DRoutinePage() {
                           <button
                             className="edit-btn"
                             onClick={() =>
-                              toggleEditMode(routine._id, routine.category)
+                              toggleEditMode(
+                                routine._id,
+                                routine.category,
+                                routine.musclesTargeted
+                              )
                             }
                           >
                             <i className="fas fa-edit"></i>
@@ -309,9 +323,11 @@ function DRoutinePage() {
                 className="display-content-form-select"
               >
                 <option value="">All Muscles</option>
-                <option value="biceps">Biceps</option>
-                <option value="triceps">Triceps</option>
-                <option value="quadriceps">Quadriceps</option>
+                <option value="chest">Chest</option>
+                <option value="back">Back</option>
+                <option value="legs">Legs</option>
+                <option value="arms">Arms</option>
+                <option value="abs">Abs</option>
               </select>
             </form>
             <RoutineTable />

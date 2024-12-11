@@ -37,7 +37,7 @@ export function RoutineProvider({ children }) {
   const getRoutinesByDate = async (date) => {
     try {
       const res = await getRoutinesByDateRequest(date);
-      console.log(res.data);
+      // console.log(res.data);
       setRoutine(res.data);
     } catch (error) {
       console.error(error);
@@ -73,6 +73,15 @@ export function RoutineProvider({ children }) {
     }
   };
 
+  const updateRoutine = async (id, body) => {
+    try {
+      const res = await updateRoutineRequest(id, body);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const deleteRoutine = async (id) => {
     try {
       const res = await deleteRoutineRequest(id);
@@ -88,6 +97,7 @@ export function RoutineProvider({ children }) {
         routines,
         getRoutines,
         createRoutine,
+        updateRoutine,
         deleteRoutine,
         getRoutinesByDate,
         getRoutinesByCategory,
