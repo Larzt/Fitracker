@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import {
   getRoutinesRequest,
@@ -24,6 +24,11 @@ export const useRoutine = () => {
 
 export function RoutineProvider({ children }) {
   const [routines, setRoutine] = useState([]);
+  const { loadExer } = useExers();
+
+  useEffect(() => {
+    loadExer();
+  }, []);
 
   const getRoutines = async () => {
     try {

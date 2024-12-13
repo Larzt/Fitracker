@@ -29,6 +29,7 @@ function RoutinePage() {
     createRoutine(exer._id, exer).catch((err) =>
       console.error('Error adding routine:', err)
     );
+    window.location.reload();
   };
 
   return (

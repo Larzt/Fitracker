@@ -19,7 +19,7 @@ function useRoutines(today) {
   useEffect(() => {
     getRoutinesByDate(today);
     getExers();
-  }, []); // today, getRoutinesByDate, getExers
+  }, [today]); // today, getRoutinesByDate, getExers
 
   useEffect(() => {
     const filtered = routines.filter((routine) => {
@@ -32,7 +32,7 @@ function useRoutines(today) {
       return matchesCategory && matchesMuscle;
     });
     setFilteredRoutines(filtered);
-  }, []); // routines, filterCategory, filterMuscle
+  }, [routines, filterCategory, filterMuscle]); // routines, filterCategory, filterMuscle
 
   return {
     routines,

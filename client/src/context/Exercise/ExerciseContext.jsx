@@ -6,6 +6,7 @@ import {
   updateExerRequest,
   deleteExerRequest,
 } from '../../api/exercise.js';
+import exerciseData from '../../data/exerciseData.json';
 
 const ExersContext = createContext();
 
@@ -20,10 +21,26 @@ export const useExers = () => {
 export function ExersProvider({ children }) {
   const [exers, setExers] = useState([]);
 
+  const loadExer = async () => {
+    try {
+      setExers((prevExers) => {
+        const ids = new Set(prevExers.map((exer) => exer.name)); // Usamos 'name' como identificador único.
+        const newExers = exerciseData.filter((exer) => !ids.has(exer.name)); // Agregamos solo ejercicios únicos.
+        return [...prevExers, ...newExers];
+      });
+    } catch (error) {
+      console.log('Error loading exercises from JSON file:', error);
+    }
+  };
+
   const getExers = async () => {
     try {
       const res = await getExersRequest();
-      setExers(res.data);
+      setExers((prevExers) => {
+        const ids = new Set(prevExers.map((exer) => exer.name)); // Usamos 'name' como identificador único.
+        const newExers = res.data.filter((exer) => !ids.has(exer.name)); // Agregamos solo ejercicios únicos.
+        return [...prevExers, ...newExers];
+      });
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +87,7 @@ export function ExersProvider({ children }) {
         deleteExer,
         getExers,
         getExer,
+        loadExer,
         updateExer,
       }}
     >

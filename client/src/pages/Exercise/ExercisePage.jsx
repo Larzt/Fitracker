@@ -4,12 +4,14 @@ import { useExers } from '../../context/Exercise/ExerciseContext';
 import ExerciseForm from '../../components/Exercise/ExerciseForm';
 
 function ExercisePage() {
-  const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
+  const { exers, getExers, createExer, updateExer, deleteExer, loadExer } =
+    useExers();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentExer, setCurrentExer] = useState({});
 
   useEffect(() => {
+    loadExer();
     getExers();
   }, []);
 

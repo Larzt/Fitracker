@@ -30,10 +30,24 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
         setEditRow(null);
       })
       .catch((err) => console.error('Error updating routine:', err));
+    window.location.reload();
+  };
+
+  const resetForm = (id) => {
+    if (editRow === id) {
+      setEditRow(null); // Salir del modo de edición
+      setEditedCategory(''); // Restablecer la categoría editada
+      setEditedMuscle(''); // Restablecer los músculos editados
+    }
   };
 
   const toggleRowExpansion = (id) => {
     setExpandedRow(expandedRow === id ? null : id);
+  };
+
+  const handleDeleteRoutine = (id) => {
+    deleteRoutine(id);
+    window.location.reload();
   };
 
   return (
@@ -121,12 +135,21 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                       )}
                     </td>
                     <td className="text-center">
-                      <button
-                        className="delete-btn"
-                        onClick={() => deleteRoutine(routine._id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
+                      {editRow === routine._id ? (
+                        <button
+                          className="cancel-btn"
+                          onClick={() => resetForm(routine._id)}
+                        >
+                          Cancel
+                        </button>
+                      ) : (
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleDeleteRoutine(routine._id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      )}
                     </td>
                     <td className="text-center">
                       <button
