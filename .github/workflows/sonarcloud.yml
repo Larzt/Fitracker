@@ -2,9 +2,9 @@ name: Sonar-Cloud
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['main']
   pull_request:
-    branches: [ "main" ]
+    branches: ['main']
 
 jobs:
   sonarcloud:
@@ -21,14 +21,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # clonar todo el historial para un mejor análisis
+          fetch-depth: 0 # clonar todo el historial para un mejor análisis
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x  # versión LTS estable
-          node-version: 20.x  # versión LTS estable
-          node-version: 22.x  # versión LTS estable
+          node-version: 22.x
 
       - name: Install dependencies
         run: npm ci
@@ -42,7 +40,7 @@ jobs:
 
       - name: Run application
         run: npm run dev &
-        
+
       - name: Run tests with coverage
         run: npm run coverage
 
