@@ -3,6 +3,7 @@ import {
   registerRequest,
   loginRequest,
   verifyTokenRequest,
+  loadAvatarRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [avatar, setAvatar] = useState('../images/default.png');
 
   const signup = async (user) => {
     try {
@@ -63,6 +65,42 @@ export const AuthProvider = ({ children }) => {
     Cookies.remove('token');
     setIsAuthenticated(false);
     setUser(null);
+  };
+
+  const getAvatar = async () => {
+    try {
+      const res = await loadAvatarRequest();
+      const avatarFileName = res.data.avatar;
+      const pathFile = `./uploads/${avatarFileName}.png`;
+      console.log(pathFile);
+
+      setAvatar(pathFile);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const uploadAvatar = async (file) => {
+    try {
+      // Crea un FormData y agrega el archivo al formulario
+      const formData = new FormData();
+      formData.append('avatarImage', file);
+
+      // Realiza la solicitud POST para subir el archivo al servidor
+      const res = await axios.post('/profile/avatar', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      // Si la carga es exitosa, actualizamos el avatar en el estado
+      if (res.status === 200) {
+        setAvatar(URL.createObjectURL(file)); // Muestra la nueva imagen
+      }
+    } catch (error) {
+      console.log('Error uploading avatar:', error.message);
+      setErrors(['Error al subir el avatar']);
+    }
   };
 
   useEffect(() => {
@@ -111,6 +149,9 @@ export const AuthProvider = ({ children }) => {
         logout,
         loading,
         user,
+        avatar,
+        getAvatar,
+        uploadAvatar,
         isAuthenticated,
         errors,
       }}

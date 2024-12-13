@@ -1,0 +1,59 @@
+/* Contenedor principal del avatar */
+.avatar-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px; /* Ajusta el ancho máximo */
+}
+
+/* Imagen de avatar */
+.avatar-form-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; /* Forma circular */
+  object-fit: cover; /* Mantiene las proporciones */
+  border: 2px solid #3b82f6; /* Borde azul */
+  cursor: pointer; /* Cursor interactivo */
+  transition: border-color 0.3s ease;
+}
+
+.avatar-form-container img:hover {
+  border-color: #34d399; /* Cambia el borde a verde al pasar el ratón */
+}
+
+/* Input de archivo oculto */
+.avatar-form-container input[type='file'] {
+  display: none; /* Ocultamos el input de archivo */
+}
+
+/* Botón de guardar */
+.avatar-save-btn {
+  margin-top: 1rem;
+  background-color: #34d399; /* Verde brillante */
+  color: #ffffff;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.avatar-save-btn:hover {
+  background-color: #ffffff; /* Cambia el fondo a blanco */
+  color: #34d399; /* Texto verde */
+}
+
+/* Mensaje de carga */
+.avatar-loading {
+  margin-top: 1rem;
+  color: #f3f3f3; /* Texto gris claro */
+  font-size: 0.9rem;
+  text-align: center;
+}

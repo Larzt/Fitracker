@@ -1,8 +1,10 @@
+import { createAccessToken } from '../libs/jwt.js';
+import { TOKEN_SECRET } from '../config.js';
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
-import { createAccessToken } from '../libs/jwt.js';
 import jwt from 'jsonwebtoken';
-import { TOKEN_SECRET } from '../config.js';
+import fs from 'fs';
+import nfs from 'node:fs';
 
 export const register = async (req, res) => {
   const { email, password, username, age, weight, gender } = req.body;
@@ -77,6 +79,47 @@ export const profile = async (req, res) => {
     createdAt: userFound.createdAt,
     updateAt: userFound.updateAt,
   });
+};
+
+export const avatar = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userFound = await User.findById(userId);
+    if (!userFound) return res.status(400).json({ message: 'User not found' });
+
+    // Ruta del archivo del avatar
+    const avatarPath = `./client/uploads/${userId}.png`;
+
+    // Comprobamos si el archivo existe
+    fs.access(avatarPath, fs.constants.F_OK, (err) => {
+      if (err) {
+        return res.status(400).json({ message: 'User avatar not found' });
+      }
+      // Si el archivo existe, devolver la respuesta con el avatar
+      return res.status(200).json({
+        message: 'User avatar found',
+        avatar: userId,
+      });
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const saveAvatarImage = (file, userId) => {
+  const newPath = `./client/uploads/${userId}.png`;
+  nfs.renameSync(file.path, newPath);
+  return newPath;
+};
+
+export const uploadAvatar = async (req, res) => {
+  const userId = req.user.id;
+  const userFound = await User.findById(userId);
+  if (!userFound) return res.status(400).json({ message: 'User not found' });
+  const fileFound = req.file;
+  if (!fileFound) return res.status(400).json({ message: 'File not found' });
+  saveAvatarImage(fileFound, userId);
+  res.send({ user: userId });
 };
 
 export const verifyToken = async (req, res) => {

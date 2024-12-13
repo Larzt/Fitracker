@@ -102,10 +102,10 @@ h2 {
   padding: 1rem;
 }
 
-.dash-setting button:hover {
+.dash-setting-profile-btn i:hover {
   color: #3b82f6;
 }
 
-.dash-setting button:hover:last-child {
+.dash-setting-logout-btn i:hover {
   color: #f63b3b;
 }

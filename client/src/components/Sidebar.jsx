@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../css/dashbar.css';
 import { useForm } from 'react-hook-form';
+import '../css/dashbar.css';
 
 export const DashBar = ({ isOpen }) => {
   const { register, handleSubmit } = useForm();
@@ -125,11 +125,13 @@ export const DashBar = ({ isOpen }) => {
       </div>
       {/* Setting */}
       <div className="dash-setting">
-        <button>
-          <i className="fa-solid fa-cog"></i>
-        </button>
+        <Link to={'/profile'}>
+          <button className="dash-setting-profile-btn">
+            <i className="fa-solid fa-cog"></i>
+          </button>
+        </Link>
         <Link>
-          <button onClick={() => logout()}>
+          <button className="dash-setting-logout-btn" onClick={() => logout()}>
             <i className="fa-solid fa-right-from-bracket"></i>
           </button>
         </Link>
