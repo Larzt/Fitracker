@@ -1,0 +1,52 @@
+name: Coveralls
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:5
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x  # Usar versión LTS para mayor estabilidad
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Wait for MongoDB to be ready
+        run: |
+          until nc -z localhost 27017; do
+            echo "Waiting for MongoDB...";
+            sleep 3;
+          done;
+
+      - name: Run application
+        run: npm run dev &
+
+      - name: Generate coverage report
+        env:
+          MONGO_URI: mongodb://localhost:27017/test_db
+        run: npm run coverage
+
+      - name: Debug coverage report (optional)
+        run: cat coverage/lcov.info
+
+      - name: Upload to Coveralls
+        uses: coverallsapp/github-action@v2.2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

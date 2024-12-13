@@ -1,0 +1,51 @@
+name: Sonar-Cloud
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  sonarcloud:
+    name: SonarCloud Analysis
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:5
+        ports:
+          - 27017:27017
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # clonar todo el historial para un mejor análisis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x  # versión LTS estable
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Wait for MongoDB to be ready
+        run: |
+          until nc -z localhost 27017; do
+            echo "Waiting for MongoDB...";
+            sleep 3;
+          done;
+
+      - name: Run application
+        run: npm run dev &
+        
+      - name: Run tests with coverage
+        run: npm run coverage
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
