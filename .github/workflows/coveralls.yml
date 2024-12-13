@@ -30,18 +30,10 @@ jobs:
 
       - name: Wait for MongoDB to be ready
         run: |
-          until mongo --host localhost --eval "db.stats()" > /dev/null 2>&1; do
+          until nc -z localhost 27017; do
             echo "Waiting for MongoDB...";
             sleep 3;
           done;
-
-      - name: Run application
-        run: npm run dev &
-
-      - name: Generate coverage report
-        env:
-          MONGO_URI: mongodb://localhost:27017/test_db
-        run: npm run coverage
 
       - name: Validate coverage file exists
         run: |
@@ -51,6 +43,14 @@ jobs:
             echo "Error: Coverage file not found!";
             exit 1;
           fi
+
+      - name: Run application
+        run: npm run dev &
+
+      - name: Generate coverage report
+        env:
+          MONGO_URI: mongodb://localhost:27017/test_db
+        run: npm run coverage
 
       - name: Debug coverage report (optional)
         run: cat coverage/lcov.info
