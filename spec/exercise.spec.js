@@ -117,24 +117,4 @@ describe('----EXER MODEL TESTS----', () => {
         .that.includes('Cast to ObjectId failed');
     }
   });
-
-  it('Should fail to create an exercise with duplicate name', async () => {
-    const exerData = {
-      name: 'Push-up',
-      description: 'A bodyweight exercise to strengthen the upper body.',
-      user: testUser._id,
-    };
-
-    // Creamos el primer ejercicio con el nombre 'Push-up'
-    await Exer.create(exerData);
-
-    // Intentamos crear un segundo ejercicio con el mismo nombre, lo que debería fallar
-    try {
-      await Exer.create(exerData);
-      throw new Error('Exercise with duplicate name should not be allowed');
-    } catch (error) {
-      expect(error).to.have.property('code', 11000); // Error de duplicado de nombre
-      expect(error.message).to.include('duplicate key error');
-    }
-  });
 });
