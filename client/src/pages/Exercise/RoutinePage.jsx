@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BaseDashboardPage } from '../BaseDashboardPage';
 import RoutineTable from '../../components/Exercise/RoutineTable';
 import AddRoutine from '../../components/Exercise/AddRoutine';

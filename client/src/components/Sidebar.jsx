@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useForm } from 'react-hook-form';
-import '../css/dashbar.css';
+import '../css/sidebar.css';
 
 export const DashBar = ({ isOpen }) => {
-  const { register, handleSubmit } = useForm();
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isExerciseOpen, setIsExerciseOpen] = useState(false);
   const [isDishOpen, setIsDishOpen] = useState(false);
-  const { user, logout } = useAuth();
+  const { user, logout, avatar, getAvatar } = useAuth();
+
+  // Carga el avatar al montar el componente
+  useEffect(() => {
+    getAvatar();
+  }, [getAvatar]);
 
   const toUpperCase = (str) => {
     return str.toUpperCase();
@@ -39,13 +42,17 @@ export const DashBar = ({ isOpen }) => {
     return isDishOpen ? 'down' : 'right';
   };
 
+  // Verifica si el avatar existe y tiene un valor válido, en caso contrario, usa una imagen predeterminada
+  const avatarUrl = avatar ? avatar : './client/images/default-avatar.png'; // Ruta de la imagen predeterminada
+  console.log(avatar);
+
   return (
     <div className={`dash-container ${isOpen ? 'open' : 'closed'}`}>
       {/* HEADER */}
       <div className="dash-header">
         <Link to={'/dashboard'}>
           <button className="dash-header-button">
-            <i className="fa-solid fa-circle-user"></i>
+            <img src={avatarUrl} />
           </button>
         </Link>
         <div className="dash-header-text">
@@ -123,7 +130,8 @@ export const DashBar = ({ isOpen }) => {
           )}
         </div>
       </div>
-      {/* Setting */}
+
+      {/* Settings */}
       <div className="dash-setting">
         <Link to={'/profile'}>
           <button className="dash-setting-profile-btn">

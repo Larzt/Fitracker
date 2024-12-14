@@ -9,3 +9,5 @@ export const loadAvatarRequest = () => axios.get('/profile/avatar');
 
 export const uploadAvatarRequest = (formData) =>
   axios.post('/profile/avatar', formData);
+
+export const deleteAvatarRequest = () => axios.delete('/profile/avatar');

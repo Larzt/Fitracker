@@ -1,47 +1,87 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext'; // Asegúrate de que el contexto está correctamente importado
+import { useAuth } from '../context/AuthContext';
 import { BaseDashboardPage } from './BaseDashboardPage';
 import '../css/profile.css';
 
 function ProfilePage() {
   const [loading, setLoading] = useState(false);
-  const { avatar, getAvatar, uploadAvatar } = useAuth(); // Traemos la función desde el contexto
+  const [showMenu, setShowMenu] = useState(false);
+  const { avatar, getAvatar, uploadAvatar, deleteAvatar } = useAuth();
 
   // Maneja la selección de un archivo
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setLoading(true);
-      // Llamamos a la función para subir el avatar
-      uploadAvatar(file).finally(() => setLoading(false)); // Esperamos a que se complete la carga
+      uploadAvatar(file).finally(() => setLoading(false)); // Subimos la nueva imagen
+      setShowMenu(false); // Ocultamos el menú tras subir una nueva imagen
     }
   };
 
-  // Carga el avatar cuando el componente se monta
+  const handleDeleteAvatar = async () => {
+    try {
+      deleteAvatar();
+      setShowMenu(false);
+      console.log('Avatar eliminado');
+    } catch (error) {
+      console.error('Error al eliminar el avatar:', error.message);
+    }
+  };
+
+  // Muestra u oculta el menú al hacer clic en la imagen
+  const toggleMenu = () => {
+    setShowMenu((prev) => !prev);
+  };
+
+  // Carga el avatar al montar el componente
   useEffect(() => {
     getAvatar();
   }, [getAvatar]);
 
-  // Formulario para mostrar el avatar y permitir la carga de un nuevo archivo
-  const AvatarForm = () => {
+  // Formulario para gestionar el avatar
+  const AvatarSection = () => {
     return (
-      <div className="avatar-form-container">
-        <form encType="multipart/form-data">
-          <label htmlFor="profileAvatar">
-            <img
-              src={avatar}
-              alt="User Avatar"
-              title="Haz clic para cambiar el avatar"
-            />
-          </label>
-          <input
-            type="file"
-            id="profileAvatar"
-            accept="image/*"
-            onChange={handleFileChange}
+      <div className="profile-avatar-container">
+        <div className="profile-avatar-wrapper">
+          <img
+            src={avatar}
+            onClick={toggleMenu} // Mostramos el menú al hacer clic
           />
-          {loading && <p className="avatar-loading">Cargando imagen...</p>}
-        </form>
+          {showMenu && (
+            <div className="profile-avatar-menu">
+              {avatar !== '../images/default.png' ? ( // Si hay una imagen actual
+                <>
+                  <button
+                    onClick={() =>
+                      document.getElementById('profileAvatarInput').click()
+                    }
+                  >
+                    Cambiar
+                  </button>
+                  <button onClick={handleDeleteAvatar}>Eliminar</button>
+                </>
+              ) : (
+                <button
+                  onClick={() =>
+                    document.getElementById('profileAvatarInput').click()
+                  }
+                >
+                  Subir foto
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+        <input
+          type="file"
+          id="profileAvatarInput"
+          accept="image/*"
+          style={{ display: 'none' }}
+          onChange={handleFileChange}
+        />
+        {loading && (
+          <p className="profile-avatar-loading">Cargando imagen...</p>
+        )}
       </div>
     );
   };
@@ -49,9 +89,10 @@ function ProfilePage() {
   return (
     <BaseDashboardPage
       content={
-        <div className="display-content">
-          <div className="display-content-progress">
-            <AvatarForm /> {/* Formulario para cargar el avatar */}
+        <div className="dashboard-content">
+          <AvatarSection /> {/* Contenedor del avatar */}
+          <div className="dashboard-main-content">
+            <div className="dashboard-main-content-goals">Logros</div>
           </div>
         </div>
       }

@@ -14,8 +14,8 @@ const FoodTable = ({ foods, handleEditFood, handleDeleteFood }) => (
       </thead>
       <tbody>
         {foods.length > 0 ? (
-          foods.map((food) => (
-            <tr key={food._id}>
+          foods.map((food, index) => (
+            <tr key={index}>
               <td className="text-left">{food.name}</td>
               <td className="text-left">{food.ingredients || 'None'}</td>
               <td className="text-left">{food.calories || 'None'}</td>

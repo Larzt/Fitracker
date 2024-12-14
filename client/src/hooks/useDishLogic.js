@@ -30,7 +30,7 @@ export const useDishLogic = () => {
         : true
     );
     setFilteredDishes(filtered);
-  }, []); // dishes, filterCategory
+  }, [dishes, filterCategory]); // dishes, filterCategory
 
   const toggleAddMode = () => setAddDish(!addDish);
 

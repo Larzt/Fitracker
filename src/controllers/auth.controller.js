@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import nfs from 'node:fs';
+import path from 'path';
 
 export const register = async (req, res) => {
   const { email, password, username, age, weight, gender } = req.body;
@@ -113,13 +114,43 @@ const saveAvatarImage = (file, userId) => {
 };
 
 export const uploadAvatar = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userFound = await User.findById(userId);
+    if (!userFound) return res.status(400).json({ message: 'User not found' });
+
+    const fileFound = req.file;
+    if (!fileFound) return res.status(400).json({ message: 'File not found' });
+
+    saveAvatarImage(fileFound, userId);
+
+    res.status(200).send({ user: userId });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: 'Error uploading avatar', error: error.message });
+  }
+};
+
+export const deleteAvatar = async (req, res) => {
   const userId = req.user.id;
   const userFound = await User.findById(userId);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
-  const fileFound = req.file;
-  if (!fileFound) return res.status(400).json({ message: 'File not found' });
-  saveAvatarImage(fileFound, userId);
-  res.send({ user: userId });
+
+  const avatarPath = `./client/uploads/${userId}.png`;
+
+  if (fs.existsSync(avatarPath)) {
+    try {
+      fs.unlinkSync(avatarPath);
+      return res.status(200).json({ message: 'Avatar deleted successfully' });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: 'Error deleting avatar', error: error.message });
+    }
+  } else {
+    return res.status(400).json({ message: 'Avatar not found' });
+  }
 };
 
 export const verifyToken = async (req, res) => {

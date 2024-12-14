@@ -8,6 +8,7 @@ import {
   avatar,
   uploadAvatar,
   verifyToken,
+  deleteAvatar,
 } from '../controllers/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -22,6 +23,8 @@ router.post('/logout', logout);
 router.get('/profile', authRequired, profile);
 
 router.get('/profile/avatar', authRequired, avatar);
+
+router.delete('/profile/avatar', authRequired, deleteAvatar);
 
 router.post(
   '/profile/avatar',

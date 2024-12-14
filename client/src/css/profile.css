@@ -1,59 +1,93 @@
 /* Contenedor principal del avatar */
-.avatar-form-container {
+.profile-avatar-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin: 2rem auto;
-  padding: 1.5rem;
-  width: 100%;
-  max-width: 400px; /* Ajusta el ancho máximo */
+  align-items: center;
+  /* margin: 1rem 0; Aumento el margen superior para crear más espacio */
+  margin-bottom: 2rem;
 }
 
-/* Imagen de avatar */
-.avatar-form-container img {
+/* Contenedor del avatar con menú */
+.profile-avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+/* Imagen del avatar */
+.profile-avatar-wrapper img {
   width: 150px;
   height: 150px;
-  border-radius: 50%; /* Forma circular */
-  object-fit: cover; /* Mantiene las proporciones */
-  border: 2px solid #3b82f6; /* Borde azul */
-  cursor: pointer; /* Cursor interactivo */
-  transition: border-color 0.3s ease;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    transform 0.2s ease;
 }
 
-.avatar-form-container img:hover {
-  border-color: #34d399; /* Cambia el borde a verde al pasar el ratón */
+.profile-avatar-wrapper img:hover {
+  border-color: #34d399;
+  transform: scale(1.1);
 }
 
-/* Input de archivo oculto */
-.avatar-form-container input[type='file'] {
-  display: none; /* Ocultamos el input de archivo */
+/* Menú emergente para las opciones del avatar */
+.profile-avatar-menu {
+  position: absolute;
+  top: 160px; /* Ajusta según el tamaño de la imagen */
+  background-color: #1f1f26; /* Fondo oscuro */
+  border: 1px solid #374151;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10; /* Asegura que el menú esté por encima */
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
 }
 
-/* Botón de guardar */
-.avatar-save-btn {
-  margin-top: 1rem;
-  background-color: #34d399; /* Verde brillante */
+/* Botones dentro del menú del avatar */
+.profile-avatar-menu button {
+  background-color: #3b82f6; /* Azul */
   color: #ffffff;
-  font-weight: bold;
   border: none;
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: bold;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
-    color 0.3s ease;
+    transform 0.2s ease;
 }
 
-.avatar-save-btn:hover {
-  background-color: #ffffff; /* Cambia el fondo a blanco */
-  color: #34d399; /* Texto verde */
+.profile-avatar-menu button:hover {
+  background-color: #34d399; /* Verde */
+  transform: scale(1.05);
 }
 
 /* Mensaje de carga */
-.avatar-loading {
+.profile-avatar-loading {
   margin-top: 1rem;
-  color: #f3f3f3; /* Texto gris claro */
+  color: #f3f3f3;
   font-size: 0.9rem;
   text-align: center;
+}
+
+/* Contenedor principal de la página */
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Contenido principal del dashboard */
+.dashboard-main-content {
+  background-color: #1f1f26;
+  width: 100%;
+  padding: 1rem;
+  margin-top: 3rem;
+  border-radius: 0.3rem;
 }
