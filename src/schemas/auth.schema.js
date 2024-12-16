@@ -15,9 +15,15 @@ export const registerSchema = z.object({
     .min(0, { message: 'Edad must be a non-negative number' })
     .max(150, { message: 'Edad must be realistic (less than 150)' }),
   weight: z
-    .string({ required_error: 'Peso is required' })
-    .min(0, { message: 'Peso must be a positive number' })
-    .max(500, { message: 'Peso must be realistic (less than 500 kg)' }),
+    .string({ required_error: 'Weight is required' })
+    .min(0, { message: 'Weight must be a positive number' })
+    .max(500, { message: 'Weight must be realistic (less than 500 kg)' }),
+  calories: z
+    .string({ required_error: 'Calories is required' })
+    .min(0, { message: 'Calories must be a positive number' })
+    .max(10000, {
+      message: 'Calories must be realistic (less than 10000 kcal)',
+    }),
   gender: z
     .string({ required_error: 'Sexo is required' })
     .refine((value) => ['masculino', 'femenino'].includes(value), {

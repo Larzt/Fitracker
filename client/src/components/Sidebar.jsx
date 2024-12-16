@@ -44,7 +44,7 @@ export const DashBar = ({ isOpen }) => {
 
   // Verifica si el avatar existe y tiene un valor válido, en caso contrario, usa una imagen predeterminada
   const avatarUrl = avatar ? avatar : './client/images/default-avatar.png'; // Ruta de la imagen predeterminada
-  console.log(avatar);
+  // console.log(avatar);
 
   return (
     <div className={`dash-container ${isOpen ? 'open' : 'closed'}`}>

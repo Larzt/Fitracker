@@ -6,7 +6,6 @@ import {
   updateFoodRequest,
   deleteFoodRequest,
 } from '../../api/food';
-import foodData from '../../data/foodData.json';
 
 const FoodContext = createContext();
 
@@ -21,26 +20,10 @@ export const useFood = () => {
 export function FoodProvider({ children }) {
   const [foods, setFoods] = useState([]);
 
-  const loadFood = async () => {
-    try {
-      setFoods((prevFoods) => {
-        const ids = new Set(prevFoods.map((food) => food.name));
-        const newFoods = foodData.filter((food) => !ids.has(food.name));
-        return [...prevFoods, ...newFoods];
-      });
-    } catch (error) {
-      console.log('Error loading exercises from JSON file:', error);
-    }
-  };
-
   const getFoods = async () => {
     try {
       const res = await getFoodsRequest();
-      setFoods((prevfoods) => {
-        const ids = new Set(prevfoods.map((food) => food.name));
-        const newfoods = res.data.filter((food) => !ids.has(food.name));
-        return [...prevfoods, ...newfoods];
-      });
+      setFoods(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +73,6 @@ export function FoodProvider({ children }) {
         updateFood,
         deleteFood,
         getFoods,
-        loadFood,
         getFood,
       }}
     >

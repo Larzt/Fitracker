@@ -6,6 +6,10 @@ import {
   loadAvatarRequest,
   uploadAvatarRequest,
   deleteAvatarRequest,
+  getWeightRequest,
+  getCaloriesRequest,
+  updateCaloriesRequest,
+  updateWeightRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -25,6 +29,23 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [avatar, setAvatar] = useState('../images/default.png');
+  const [weight, setWeight] = useState('');
+  const [calories, setCalories] = useState('');
+
+  useEffect(() => {
+    async function getMetrics() {
+      const responseWeight = await getWeightRequest();
+      const responseCalories = await getCaloriesRequest();
+
+      const newWeight = responseWeight.data.weight;
+      const newCalories = responseCalories.data.calories;
+
+      // Actualizar estados
+      setWeight(newWeight);
+      setCalories(newCalories);
+    }
+    getMetrics();
+  }, []);
 
   const signup = async (user) => {
     try {
@@ -73,7 +94,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loadAvatarRequest();
       const avatarFileName = res.data.avatar;
-      const pathFile = `/uploads/${avatarFileName}.png`;
+      const pathFile = `/public/uploads/${avatarFileName}.png`;
       setAvatar(pathFile);
     } catch (error) {
       console.log(error.message);
@@ -105,6 +126,18 @@ export const AuthProvider = ({ children }) => {
       console.error('Error uploading avatar:', error.message);
       setErrors(['Error al subir el avatar']);
     }
+  };
+
+  const updateCalories = async (value) => {
+    console.log('Updating calories with:', value); // Verifica el valor enviado
+    const res = await updateCaloriesRequest(value);
+    console.log(res.data.calories);
+  };
+
+  const updateWeight = async (value) => {
+    console.log('Updating weight with:', value); // Verifica el valor enviado
+    const res = await updateWeightRequest(value);
+    console.log(res.data.weight);
   };
 
   useEffect(() => {
@@ -152,6 +185,10 @@ export const AuthProvider = ({ children }) => {
         signin,
         logout,
         loading,
+        calories,
+        updateCalories,
+        weight,
+        updateWeight,
         user,
         avatar,
         getAvatar,

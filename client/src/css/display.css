@@ -45,7 +45,7 @@ body {
 .display-content-header-button {
   color: #131318; /* Cambia el color de fondo al pasar el mouse */
   padding: 1rem;
-  background-color: #34d399;
+  background-color: #3b82f6;
   font-size: 1.2rem;
   max-height: 3rem;
   display: flex;
@@ -53,11 +53,15 @@ body {
   border-radius: 0.3rem;
   cursor: pointer; /* Cambia el cursor al pasar por encima */
   justify-content: center; /* Centra el contenido dentro del contenedor */
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 /* Hover sobre el botón */
 .display-content-header-button:hover {
-  color: #fff; /* Cambia el color de fondo al pasar el mouse */
+  background-color: #34d399;
+  transform: scale(1.02);
 }
 
 /* Estilo del contenido dentro del botón */
@@ -147,6 +151,7 @@ body {
   border-radius: 0.5rem;
   padding: 1.5rem;
   margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Estilo para los inputs del formulario */
@@ -187,7 +192,7 @@ body {
 
 /* Estilo para el botón Save */
 .save-btn {
-  background-color: #34d399; /* Verde brillante */
+  background-color: #3b82f6; /* Verde brillante */
   color: #ffffff; /* Texto blanco */
   font-weight: bold;
   border: none;
@@ -195,10 +200,14 @@ body {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .save-btn:hover {
-  color: #131318;
+  background-color: #34d399;
+  transform: scale(1.02);
 }
 
 .cancel-btn {
@@ -253,8 +262,12 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem 1rem;
   cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
 }
 
 .display-content-add-btn:hover {
-  color: #131318; /* Azul más oscuro al pasar el ratón */
+  background-color: #34d399;
+  transform: scale(1.05);
 }

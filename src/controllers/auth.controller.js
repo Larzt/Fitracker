@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import nfs from 'node:fs';
-import path from 'path';
 
 export const register = async (req, res) => {
   const { email, password, username, age, weight, gender } = req.body;
@@ -70,6 +69,64 @@ export const logout = async (req, res) => {
   return res.sendStatus(200);
 };
 
+export const getWeight = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+  if (!userFound) return res.status(400).json({ message: 'User not found' });
+  return res.json({
+    weight: userFound.weight,
+  });
+};
+
+export const getCalories = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+  if (!userFound) return res.status(400).json({ message: 'User not found' });
+  return res.json({
+    calories: userFound.calories,
+  });
+};
+
+export const updateWeight = async (req, res) => {
+  const { weight } = req.body; // Accede al valor de 'weight' en el body
+  console.log('Received weight:', weight); // Log del valor recibido
+  // Aquí, puedes agregar más lógica de negocio, como buscar al usuario y actualizar sus datos
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    if (weight) {
+      userFound.weight = weight; // Actualizar los datos de 'weight'
+    }
+    const updatedUser = await userFound.save();
+    console.log('Updated user:', updatedUser); // Log del usuario actualizado
+    return res.status(200).json(updatedUser); // Responde con el usuario actualizado
+  } catch (error) {
+    console.error('Error updating weight:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const updateCalories = async (req, res) => {
+  const { calories } = req.body; // Accede al valor de 'calories' en el body
+  console.log('Received calories:', calories); // Log del valor recibido
+  // Aquí, puedes agregar más lógica de negocio, como buscar al usuario y actualizar sus datos
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    if (calories) {
+      userFound.calories = calories; // Actualizar los datos de 'calories'
+    }
+    const updatedUser = await userFound.save();
+    console.log('Updated user:', updatedUser); // Log del usuario actualizado
+    return res.status(200).json(updatedUser); // Responde con el usuario actualizado
+  } catch (error) {
+    console.error('Error updating calories:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
@@ -89,7 +146,7 @@ export const avatar = async (req, res) => {
     if (!userFound) return res.status(400).json({ message: 'User not found' });
 
     // Ruta del archivo del avatar
-    const avatarPath = `./client/uploads/${userId}.png`;
+    const avatarPath = `./client/public/uploads/${userId}.png`;
 
     // Comprobamos si el archivo existe
     fs.access(avatarPath, fs.constants.F_OK, (err) => {
@@ -108,7 +165,7 @@ export const avatar = async (req, res) => {
 };
 
 const saveAvatarImage = (file, userId) => {
-  const newPath = `./client/uploads/${userId}.png`;
+  const newPath = `./client/public/uploads/${userId}.png`;
   nfs.renameSync(file.path, newPath);
   return newPath;
 };
@@ -137,7 +194,7 @@ export const deleteAvatar = async (req, res) => {
   const userFound = await User.findById(userId);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
 
-  const avatarPath = `./client/uploads/${userId}.png`;
+  const avatarPath = `./client/public/uploads/${userId}.png`;
 
   if (fs.existsSync(avatarPath)) {
     try {

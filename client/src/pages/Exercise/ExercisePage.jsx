@@ -4,14 +4,12 @@ import { useExers } from '../../context/Exercise/ExerciseContext';
 import ExerciseForm from '../../components/Exercise/ExerciseForm';
 
 function ExercisePage() {
-  const { exers, getExers, createExer, updateExer, deleteExer, loadExer } =
-    useExers();
+  const { exers, getExers, createExer, updateExer, deleteExer } = useExers();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentExer, setCurrentExer] = useState({});
 
   useEffect(() => {
-    loadExer();
     getExers();
   }, []);
 
@@ -123,7 +121,6 @@ function ExercisePage() {
                 </button>
               </div>
             </div>
-            <ExerciseTable />
             <ExerciseForm
               isVisible={isFormVisible}
               currentExer={currentExer}
@@ -132,6 +129,7 @@ function ExercisePage() {
               resetForm={resetForm}
               isEditing={isEditing}
             />
+            <ExerciseTable />
           </div>
         }
       />

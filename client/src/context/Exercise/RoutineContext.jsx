@@ -10,7 +10,6 @@ import {
   getRoutinesByMuscleRequest,
   getRoutinesByCategoryRequest,
 } from '../../api/routine';
-import { useExers } from './ExerciseContext';
 
 const RoutineContext = createContext();
 
@@ -24,11 +23,6 @@ export const useRoutine = () => {
 
 export function RoutineProvider({ children }) {
   const [routines, setRoutine] = useState([]);
-  const { loadExer } = useExers();
-
-  useEffect(() => {
-    loadExer();
-  }, []);
 
   const getRoutines = async () => {
     try {

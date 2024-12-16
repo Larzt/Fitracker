@@ -6,6 +6,7 @@ import {
   createExer,
   updateExer,
   deleteExer,
+  loadExers,
 } from '../controllers/exercise.controller.js';
 import { createSchema, updateSchema } from '../schemas/exercise.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -26,6 +27,8 @@ router.put(
   validateSchema(updateSchema),
   updateExer
 );
+
 router.delete('/exercise/:id', authRequired, deleteExer);
+router.post('/exercise/load/data', authRequired, loadExers);
 
 export default router;

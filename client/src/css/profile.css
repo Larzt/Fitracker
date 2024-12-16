@@ -37,7 +37,7 @@
   position: absolute;
   top: 160px; /* Ajusta según el tamaño de la imagen */
   background-color: #1f1f26; /* Fondo oscuro */
-  border: 1px solid #374151;
+  /* border: 1px solid #; */
   border-radius: 0.5rem;
   padding: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -85,9 +85,68 @@
 
 /* Contenido principal del dashboard */
 .dashboard-main-content {
-  background-color: #1f1f26;
-  width: 100%;
-  padding: 1rem;
+  /* background-color: #3b82f6; */ /* Para debugear */
+  width: 80%;
+
   margin-top: 3rem;
+}
+
+.dashboard-main-content-body {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-main-content-goals,
+.dashboard-main-content-metrics {
+  width: 45%;
+  background-color: #1f1f26;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.dashboard-main-content-goals h1,
+.dashboard-main-content-metrics h1 {
+  font-weight: bold;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.metrics-calories,
+.metrics-weight {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.metrics-calories input,
+.metrics-weight input {
+  background-color: #131318;
+  color: #fff;
+  border: 0.1rem solid #1f1f26;
   border-radius: 0.3rem;
+  padding: 1rem;
+}
+
+.metrics-calories input:focus,
+.metrics-weight input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.metrics-calories button,
+.metrics-weight button {
+  border-radius: 0.3rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background: #3b82f6;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.metrics-calories button:hover,
+.metrics-weight button:hover {
+  background-color: #34d399;
+  transform: scale(1.02);
 }

@@ -5,15 +5,13 @@ import FoodForm from '../../components/Food/FoodForm';
 import FoodTable from '../../components/Food/FoodTable';
 
 function FoodPage() {
-  const { foods, loadFood, getFoods, createFood, updateFood, deleteFood } =
-    useFood();
+  const { foods, getFoods, createFood, updateFood, deleteFood } = useFood();
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [currentFood, setCurrentFood] = useState({});
 
   useEffect(() => {
     getFoods();
-    loadFood();
   }, []);
 
   const resetForm = () => {
@@ -73,11 +71,6 @@ function FoodPage() {
               </button>
             </div>
           </div>
-          <FoodTable
-            foods={foods}
-            handleEditFood={handleEditFood}
-            handleDeleteFood={handleDeleteFood}
-          />
           <FoodForm
             isVisible={isFormVisible}
             currentFood={currentFood}
@@ -85,6 +78,11 @@ function FoodPage() {
             handleSaveFood={handleSaveFood}
             resetForm={resetForm}
             isEditing={isEditing}
+          />
+          <FoodTable
+            foods={foods}
+            handleEditFood={handleEditFood}
+            handleDeleteFood={handleDeleteFood}
           />
         </div>
       }

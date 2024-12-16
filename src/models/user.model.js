@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema(
       min: 1,
     },
 
+    calories: {
+      type: String,
+    },
+
     gender: {
       type: String,
       required: true,
