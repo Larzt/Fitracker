@@ -8,7 +8,7 @@ import {
   getDishesByDateRequest,
   getDishesByCategoryRequest,
 } from '../../api/dish';
-import { useFood } from './FoodContext';
+// import { useFood } from './FoodContext';
 
 const DishContext = createContext();
 

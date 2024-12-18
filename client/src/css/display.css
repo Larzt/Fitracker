@@ -74,11 +74,14 @@ body {
 .display-content-header-button button {
   display: flex;
   align-items: center;
-  gap: 1rem;
   padding: 0; /* Elimina el padding para el botón, ya que el padding principal es del contenedor */
   border: none; /* Elimina los bordes del botón */
   background: transparent; /* Elimina el fondo del botón */
   width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+}
+
+.display-content-header-button i {
+  padding-right: 0.5rem;
 }
 
 /* Estilos para el h1 */
