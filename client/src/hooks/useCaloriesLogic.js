@@ -25,6 +25,14 @@ export const useCaloriesLogic = () => {
       0
     );
     setCurrentCalories(totalCalories);
+  }, []);
+
+  useEffect(() => {
+    const totalCalories = dishes.reduce(
+      (total, dish) => total + Number(dish.food.calories),
+      0
+    );
+    setCurrentCalories(totalCalories);
   }, [dishes]);
 
   return {

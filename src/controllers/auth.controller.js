@@ -6,6 +6,24 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import nfs from 'node:fs';
 
+// TODO: Move to user.controller.js
+export const getUsers = async (req, res) => {
+  try {
+    const usersFounded = await User.find();
+    return res.status(200).json({
+      message: [
+        usersFounded.map((user) => {
+          return { id: user._id, name: user.username, email: user.email };
+        }),
+      ],
+    });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ message: `Could not resolve the request: ${error}` });
+  }
+};
+
 export const register = async (req, res) => {
   const { email, password, username, age, weight, gender } = req.body;
   try {
@@ -69,6 +87,7 @@ export const logout = async (req, res) => {
   return res.sendStatus(200);
 };
 
+// TODO: Move to user.controller.js
 export const getWeight = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
@@ -77,6 +96,7 @@ export const getWeight = async (req, res) => {
   });
 };
 
+// TODO: Move to user.controller.js
 export const getCalories = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
@@ -85,6 +105,7 @@ export const getCalories = async (req, res) => {
   });
 };
 
+// TODO: Move to user.controller.js
 export const updateWeight = async (req, res) => {
   const { weight } = req.body; // Accede al valor de 'weight' en el body
   console.log('Received weight:', weight); // Log del valor recibido
@@ -106,6 +127,7 @@ export const updateWeight = async (req, res) => {
   }
 };
 
+// TODO: Move to user.controller.js
 export const updateCalories = async (req, res) => {
   const { calories } = req.body; // Accede al valor de 'calories' en el body
   console.log('Received calories:', calories); // Log del valor recibido
@@ -127,6 +149,7 @@ export const updateCalories = async (req, res) => {
   }
 };
 
+// TODO: Move to user.controller.js
 export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
@@ -139,6 +162,7 @@ export const profile = async (req, res) => {
   });
 };
 
+// TODO: Move to user.controller.js
 export const avatar = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -164,12 +188,14 @@ export const avatar = async (req, res) => {
   }
 };
 
+// TODO: Move to user.controller.js
 const saveAvatarImage = (file, userId) => {
   const newPath = `./client/public/uploads/${userId}.png`;
   nfs.renameSync(file.path, newPath);
   return newPath;
 };
 
+// TODO: Move to user.controller.js
 export const uploadAvatar = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -189,6 +215,7 @@ export const uploadAvatar = async (req, res) => {
   }
 };
 
+// TODO: Move to user.controller.js
 export const deleteAvatar = async (req, res) => {
   const userId = req.user.id;
   const userFound = await User.findById(userId);

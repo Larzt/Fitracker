@@ -14,16 +14,26 @@ const foodSchema = new mongoose.Schema(
       trim: true,
     },
 
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      // required: true,
-    },
-
     ingredients: {
       type: String,
       required: false,
       trim: true,
+    },
+
+    favourite: {
+      type: Boolean,
+      default: false,
+    },
+
+    public: {
+      type: Boolean,
+      default: false,
+    },
+
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      // required: true,
     },
   },
   {

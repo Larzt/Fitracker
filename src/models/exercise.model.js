@@ -19,6 +19,16 @@ const exerSchema = new mongoose.Schema(
       default: '',
     },
 
+    favourite: {
+      type: Boolean,
+      default: false,
+    },
+
+    public: {
+      type: Boolean,
+      default: false,
+    },
+
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
