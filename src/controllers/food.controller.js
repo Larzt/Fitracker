@@ -115,3 +115,36 @@ export const updateFood = async (req, res) => {
     });
   }
 };
+
+export const setVisible = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { visibility } = req.body; // "public" o "private"
+    
+    // Validar el valor de visibility
+    if (!["public", "private"].includes(visibility)) {
+      return res.status(400).json({
+        message: 'Invalid visibility value. Use "public" or "private".',
+      });
+    }
+
+    const food = await Food.findById(id);
+    if (!food) {
+      return res.status(404).json({ message: 'Food not found' });
+    }
+
+    // Actualizar el campo `public`
+    food.public = visibility === "public";
+    const updatedFood = await food.save();
+
+    res.status(200).json({
+      message: `Food visibility updated to ${visibility}`,
+      food: updatedFood,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error updating food visibility',
+      error: error.message,
+    });
+  }
+};
