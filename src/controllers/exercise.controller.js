@@ -110,3 +110,58 @@ export const updateExer = async (req, res) => {
     });
   }
 };
+
+export const setVisible = async (req, res) => {
+  try {
+    const { id} = req.params;
+    const { visibility } = req.body;
+
+    // Validar el valor de visibility
+    if (!["public", "private"].includes(visibility)) {
+      return res.status(400).json({
+        message: 'Invalid visibility value. Use "public" or "private".',
+      });
+    }
+
+    const exer = await Exer.findById(id);
+    if (!exer) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    exer.public = visibility === 'public';
+    const updatedExer = await exer.save();
+
+    res.status(200).json({
+      message: `Exercise visibility updated to ${visibility}`,
+      exer: updatedExer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error updating exercise visibility',
+      error: error.message,
+    });
+  }
+};
+
+export const toggleFavourite = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const exer = await Exer.findById(id);
+    if (!exer) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    exer.favourite = !exer.favourite;
+    const updatedExer = await exer.save();
+
+    res.status(200).json({
+      message: `Exercise favourite status toggled to ${exer.favourite}`,
+      exer: updatedExer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error toggling exercise favourite status',
+      error: error.message,
+    });
+  }
+};

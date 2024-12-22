@@ -47,12 +47,13 @@ export const loadFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { name, calories, ingredients } = req.body;
+    const { name, calories, ingredients, favourite } = req.body;
 
     const newFood = new Food({
       name,
       calories,
       ingredients,
+      favourite: favourite || false, //predeterminado si no se pone
       user: req.user.id,
     });
 
@@ -113,5 +114,60 @@ export const updateFood = async (req, res) => {
       message: 'Error processing food update',
       error: error.message,
     });
+  }
+};
+
+export const setVisible = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { visibility } = req.body; // "public" o "private"
+    
+    // Validar el valor de visibility
+    if (!["public", "private"].includes(visibility)) {
+      return res.status(400).json({
+        message: 'Invalid visibility value. Use "public" or "private".',
+      });
+    }
+
+    const food = await Food.findById(id);
+    if (!food) {
+      return res.status(404).json({ message: 'Food not found' });
+    }
+
+    // Actualizar el campo `public`
+    food.public = visibility === "public";
+    const updatedFood = await food.save();
+
+    res.status(200).json({
+      message: `Food visibility updated to ${visibility}`,
+      food: updatedFood,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error updating food visibility',
+      error: error.message,
+    });
+  }
+};
+
+export const toggleFavourite = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const food = await Food.findById(id);
+    if (!food) {
+      return res.status(404).json({ message: 'Food not found' });
+    }
+
+    // Alternar el valor de `favourite`
+    food.favourite = !food.favourite;
+    const updatedFood = await food.save();
+
+    res.status(200).json({
+      message: `Food favourite status toggled to ${food.favourite}`,
+      food: updatedFood,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error toggling favourite', error: error.message });
   }
 };
