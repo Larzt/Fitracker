@@ -8,6 +8,7 @@ import {
   deleteExer,
   loadExers,
   setVisible,
+  toggleFavourite,
 } from '../controllers/exercise.controller.js';
 import { createSchema, updateSchema } from '../schemas/exercise.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -32,5 +33,6 @@ router.put(
 router.delete('/exercise/:id', authRequired, deleteExer);
 router.post('/exercise/load/data', authRequired, loadExers);
 router.put('/exercise/visible/:id', setVisible);
+router.patch('/exercise/favourite/:id', toggleFavourite);
 
 export default router;

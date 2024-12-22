@@ -142,3 +142,26 @@ export const setVisible = async (req, res) => {
     });
   }
 };
+
+export const toggleFavourite = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const exer = await Exer.findById(id);
+    if (!exer) {
+      return res.status(404).json({ message: 'Exercise not found' });
+    }
+
+    exer.favourite = !exer.favourite;
+    const updatedExer = await exer.save();
+
+    res.status(200).json({
+      message: `Exercise favourite status toggled to ${exer.favourite}`,
+      exer: updatedExer,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error toggling exercise favourite status',
+      error: error.message,
+    });
+  }
+};
