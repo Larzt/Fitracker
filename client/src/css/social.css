@@ -1,0 +1,76 @@
+/* Button Transition Display */
+.display-header button.friend-btn {
+  margin-left: auto;
+  margin-right: 1rem;
+  transition: transform 0.4s ease; /* Cambiar a transform para mayor control */
+}
+.display-header button.friend-btn.open {
+  transform: translateX(
+    -13rem
+  ); /* Mover horizontalmente en lugar de cambiar margin */
+}
+
+/* Sidebar principal de amigos */
+.friend-list {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Fuera del viewport */
+  width: 220px;
+  height: 100%;
+  background-color: #1f1f26; /* Color oscuro acorde con el diseño */
+  color: #fff;
+  box-shadow: -0.125rem 0 0.3125rem rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out; /* Transición suave */
+  z-index: 1000; /* Asegurar que está por encima de otros elementos */
+}
+
+.friend-list.open {
+  right: 0; /* Aparece en pantalla */
+}
+
+.friend-list.closed {
+  right: -300px; /* Oculto */
+}
+
+.friend-list div {
+  padding: 1rem;
+}
+
+.friend-list h2 {
+  font-weight: bold;
+  color: #3b82f6;
+  padding-bottom: 1.1rem;
+}
+
+.friend-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 0.1rem solid #36363e;
+}
+
+.friend-list img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
+  /* cursor: pointer; */
+  transition:
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+/* .friend-list img:hover {
+  border-color: #34d399;
+  transform: scale(1.1);
+} */
+
+.friend-list button:hover {
+  color: #3b82f6;
+}
+
+.add-friends {
+  border-bottom: 0.1rem solid #36363e;
+}

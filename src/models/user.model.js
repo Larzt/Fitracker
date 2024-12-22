@@ -35,6 +35,7 @@ const userSchema = new mongoose.Schema(
 
     calories: {
       type: String,
+      required: false,
     },
 
     gender: {

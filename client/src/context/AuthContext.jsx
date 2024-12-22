@@ -10,6 +10,8 @@ import {
   getCaloriesRequest,
   updateCaloriesRequest,
   updateWeightRequest,
+  usersListRequest,
+  searchAvatarRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -25,6 +27,8 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [users, setUsersList] = useState([]);
+  const [userFriends, setUsersFriendList] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       setCalories(newCalories);
     }
     getMetrics();
+    usersList();
   }, []);
 
   const signup = async (user) => {
@@ -178,9 +183,50 @@ export const AuthProvider = ({ children }) => {
     checkLogin();
   }, []);
 
+  const usersList = async () => {
+    const res = await usersListRequest();
+    const resUsers = res.data.users;
+
+    resUsers.forEach((group) => {
+      group.forEach(async (user) => {
+        if (user) {
+          try {
+            let res = await searchAvatarRequest(user.id);
+            let avatar = '../images/default.png';
+            if (res.status === 200) {
+              avatar = `/public/uploads/${res.data.avatar}.png`;
+            }
+            const resUser = {
+              id: user.id,
+              name: user.name,
+              avatar: avatar,
+            };
+
+            console.log(resUser);
+
+            // Evita duplicados comprobando si el ID ya existe
+            setUsersList((prevUsers) => {
+              if (
+                prevUsers.find((existingUser) => existingUser.id === resUser.id)
+              ) {
+                return prevUsers; // Si el usuario ya existe, no lo agregues
+              }
+              return [...prevUsers, resUser];
+            });
+          } catch (error) {
+            console.error('Error fetching avatar:', error);
+          }
+        }
+      });
+    });
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        usersList,
+        userFriends,
+        users,
         signup,
         signin,
         logout,
