@@ -268,6 +268,93 @@ export const deleteAvatar = async (req, res) => {
   }
 };
 
+// TODO: Move to user.controller.js
+export const getFriends = async (req, res) => {
+  try {
+    // Obtener el usuario autenticado
+    const userFound = await User.findById(req.user.id).populate(
+      'friends',
+      'username email'
+    );
+
+    if (!userFound) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Construir la lista de amigos desde el array 'friends'
+    const friends = userFound.friends.map((friend) => ({
+      id: friend._id,
+      name: friend.username,
+      email: friend.email,
+    }));
+
+    return res.status(200).json({
+      friends,
+    });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ message: `Could not resolve the request: ${error.message}` });
+  }
+};
+
+// TODO: Move to user.controller.js
+export const addFriend = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userFound = await User.findById(userId);
+    const friendId = req.params.id;
+    const friendFound = await User.findById(friendId);
+    if (!friendFound) {
+      return res.status(400).json({ message: 'Friend user not found' });
+    }
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    userFound.friends.push(friendFound);
+    userFound.save();
+    return res.status(200).json({ message: 'Friend has been added' });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Friend could not be added', error: error.message });
+  }
+};
+
+// TODO: Move to user.controller.js
+export const removeFriend = async (req, res) => {
+  try {
+    const userId = req.user.id; // ID del usuario autenticado
+    const friendId = req.params.id; // ID del amigo a eliminar
+
+    // Encontrar al usuario autenticado
+    const userFound = await User.findById(userId);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    // Verificar si el amigo existe en la base de datos
+    const friendFound = await User.findById(friendId);
+    if (!friendFound) {
+      return res.status(400).json({ message: 'Friend user not found' });
+    }
+
+    // Remover el amigo del array de 'friends'
+    userFound.friends = userFound.friends.filter(
+      (friend) => friend.toString() !== friendId // Comparación de IDs como cadenas
+    );
+
+    // Guardar los cambios en la base de datos
+    await userFound.save();
+
+    return res.status(200).json({ message: 'Friend has been removed' });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Friend could not be removed', error: error.message });
+  }
+};
+
 export const verifyToken = async (req, res) => {
   const { token } = req.cookies;
   if (!token) return res.status(401).json({ message: 'Unauthorized ' });

@@ -12,6 +12,9 @@ import {
   updateWeightRequest,
   usersListRequest,
   searchAvatarRequest,
+  friendsListRequest,
+  addFriendsRequest,
+  removeFriendsRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -49,8 +52,19 @@ export const AuthProvider = ({ children }) => {
       setCalories(newCalories);
     }
     getMetrics();
-    usersList();
   }, []);
+
+  useEffect(() => {
+    async function initializeData() {
+      try {
+        await friendList(); // Espera a que la lista de amigos esté completamente cargada
+        await usersList(); // Ahora ejecuta la lógica de usuarios
+      } catch (error) {
+        console.error('Error initializing data:', error);
+      }
+    }
+    initializeData();
+  }, [userFriends]);
 
   const signup = async (user) => {
     try {
@@ -184,41 +198,102 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const usersList = async () => {
-    const res = await usersListRequest();
-    const resUsers = res.data.users;
+    try {
+      const res = await usersListRequest();
+      const resUsers = res.data.users;
+      const allUsers = [];
 
-    resUsers.forEach((group) => {
-      group.forEach(async (user) => {
-        if (user) {
+      for (const group of resUsers) {
+        for (const user of group) {
+          if (user) {
+            try {
+              const resAvatar = await searchAvatarRequest(user.id);
+              let avatar = '../images/default.png';
+              if (resAvatar.status === 200) {
+                avatar = `/public/uploads/${resAvatar.data.avatar}.png`;
+              }
+
+              const resUser = {
+                id: user.id,
+                name: user.name,
+                avatar: avatar,
+              };
+
+              allUsers.push(resUser);
+            } catch (error) {
+              console.error('Error fetching avatar:', error);
+            }
+          }
+        }
+      }
+
+      // Filtra usuarios para excluir a los amigos
+      const filteredUsers = allUsers.filter(
+        (user) =>
+          !userFriends.some((friend) => String(friend.id) === String(user.id))
+      );
+
+      console.log('filteredUsers: ', filteredUsers);
+
+      setUsersList(filteredUsers); // Actualiza la lista final
+    } catch (error) {
+      console.error('Error fetching users list:', error);
+    }
+  };
+
+  const friendList = async () => {
+    try {
+      const res = await friendsListRequest();
+      const resFriends = res.data.friends; // Asegúrate de que el endpoint devuelva esta estructura.
+
+      resFriends.map(async (friend) => {
+        if (friend) {
           try {
-            let res = await searchAvatarRequest(user.id);
+            let res = await searchAvatarRequest(friend.id);
             let avatar = '../images/default.png';
             if (res.status === 200) {
               avatar = `/public/uploads/${res.data.avatar}.png`;
             }
-            const resUser = {
-              id: user.id,
-              name: user.name,
+            const friendUser = {
+              id: friend.id,
+              name: friend.name,
               avatar: avatar,
             };
 
-            console.log(resUser);
-
             // Evita duplicados comprobando si el ID ya existe
-            setUsersList((prevUsers) => {
+            setUsersFriendList((prevFriends) => {
               if (
-                prevUsers.find((existingUser) => existingUser.id === resUser.id)
+                prevFriends.find(
+                  (existingFriend) => existingFriend.id === friendUser.id
+                )
               ) {
-                return prevUsers; // Si el usuario ya existe, no lo agregues
+                return prevFriends; // Si el amigo ya existe, no lo agregues
               }
-              return [...prevUsers, resUser];
+              return [...prevFriends, friendUser];
             });
           } catch (error) {
-            console.error('Error fetching avatar:', error);
+            console.error('Error fetching avatar for friend:', error);
           }
         }
       });
-    });
+    } catch (error) {
+      console.error('Error fetching friends list:', error);
+      setErrors(['Error al cargar la lista de amigos']);
+    }
+  };
+
+  const addFriend = async (id) => {
+    console.log('addFriend');
+
+    const res = await addFriendsRequest(id);
+    console.log(res);
+  };
+
+  const removeFriend = async (id) => {
+    console.log('removeFriend');
+
+    const res = await removeFriendsRequest(id);
+    console.log(res);
   };
 
   return (
@@ -226,6 +301,8 @@ export const AuthProvider = ({ children }) => {
       value={{
         usersList,
         userFriends,
+        addFriend,
+        removeFriend,
         users,
         signup,
         signin,

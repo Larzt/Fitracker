@@ -3,6 +3,10 @@ import axios from './axios.js';
 export const usersListRequest = () => axios.get('/users');
 export const searchAvatarRequest = (id) => axios.get(`/search/avatar/${id}`);
 
+export const friendsListRequest = () => axios.get('/friends');
+export const addFriendsRequest = (id) => axios.post(`/friend/add/${id}`);
+export const removeFriendsRequest = (id) => axios.post(`/friend/remove/${id}`);
+
 export const registerRequest = (user) => axios.post(`/register`, user);
 export const loginRequest = (user) => axios.post(`/login`, user);
 export const verifyTokenRequest = () => axios.get('/verify');

@@ -15,6 +15,9 @@ import {
   updateCalories,
   getUsers,
   searchAvatar,
+  addFriend,
+  removeFriend,
+  getFriends,
 } from '../controllers/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -24,6 +27,10 @@ const upload = multer({ dest: 'client/public/uploads/' });
 
 router.get('/users', authRequired, getUsers);
 router.get('/search/avatar/:id', authRequired, searchAvatar);
+
+router.get('/friends', authRequired, getFriends);
+router.post('/friend/add/:id', authRequired, addFriend);
+router.post('/friend/remove/:id', authRequired, removeFriend);
 
 router.post('/register', validateSchema(registerSchema), register);
 router.post('/login', validateSchema(loginSchema), login);

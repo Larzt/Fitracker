@@ -67,7 +67,11 @@
   transform: scale(1.1);
 } */
 
-.friend-list button:hover {
+.remove-friend-btn i:hover {
+  color: #f63b3b;
+}
+
+.add-friend-btn i:hover {
   color: #3b82f6;
 }
 

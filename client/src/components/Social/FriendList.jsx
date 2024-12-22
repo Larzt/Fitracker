@@ -3,26 +3,46 @@ import { useAuth } from '../../context/AuthContext';
 import '../../css/social.css';
 
 export const FriendList = ({ isFriendOpen }) => {
-  const { users: authUsers } = useAuth();
-  const { userFriends } = useAuth();
+  const {
+    users: authUsers,
+    userFriends: authFriends,
+    removeFriend,
+    addFriend,
+  } = useAuth();
   const [users, setUsers] = useState([]);
+  const [friends, setFriends] = useState([]);
 
+  // Actualiza el estado de usuarios recomendados
   useEffect(() => {
     if (authUsers) setUsers(authUsers);
   }, [authUsers]);
-  console.log(users);
+
+  // Actualiza el estado de amigos
+  useEffect(() => {
+    if (authFriends) setFriends(authFriends);
+  }, [authFriends]);
+
+  console.log(friends);
 
   return (
     <div className={`friend-list ${isFriendOpen ? 'open' : 'closed'}`}>
+      {/* Lista de amigos */}
       <div className="add-friends">
         <h2>Amigos</h2>
-        {userFriends?.length > 0 ? (
+        {friends?.length > 0 ? (
           <ul>
-            {userFriends.map((user, index) => {
-              if (!user) return null;
+            {friends.map((friend, index) => {
+              if (!friend) return null;
               return (
-                <li key={user.id || index} className="friend-item">
-                  <p>@{user.name}</p>
+                <li key={friend.id || index} className="friend-item">
+                  <img src={friend.avatar} alt="Avatar" />
+                  <p>@{friend.name}</p>
+                  <button
+                    className="remove-friend-btn"
+                    onClick={() => removeFriend(friend.id)}
+                  >
+                    <i className="fa-solid fa-user-minus"></i>
+                  </button>
                 </li>
               );
             })}
@@ -31,6 +51,8 @@ export const FriendList = ({ isFriendOpen }) => {
           <p>No tienes amigos actualmente.</p>
         )}
       </div>
+
+      {/* Lista de usuarios recomendados */}
       <div className="recommended-friends">
         <h2>Recomendados</h2>
         {users?.length > 0 ? (
@@ -41,7 +63,10 @@ export const FriendList = ({ isFriendOpen }) => {
                 <li key={user.id || index} className="friend-item">
                   <img src={user.avatar} alt="Avatar" />
                   <p>@{user.name}</p>
-                  <button>
+                  <button
+                    className="add-friend-btn"
+                    onClick={() => addFriend(user.id)}
+                  >
                     <i className="fa-solid fa-user-plus"></i>
                   </button>
                 </li>

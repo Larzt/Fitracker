@@ -43,6 +43,13 @@ const userSchema = new mongoose.Schema(
       required: true,
       enum: ['masculino', 'femenino'],
     },
+
+    friends: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
     timestamps: true,
