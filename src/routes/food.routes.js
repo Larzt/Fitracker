@@ -8,6 +8,7 @@ import {
   deleteFood,
   loadFood,
   setVisible,
+  toggleFavourite,
 } from '../controllers/food.controller.js';
 import { createSchema, updateSchema } from '../schemas/food.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -20,6 +21,7 @@ router.post('/food', authRequired, validateSchema(createSchema), createFood);
 router.put('/food/:id', authRequired, validateSchema(updateSchema), updateFood);
 router.delete('/food/:id', authRequired, deleteFood);
 router.put('/food/visible/:id', setVisible);
+router.patch('/food/favourite/:id', toggleFavourite);
 
 router.post('/food/load/data', authRequired, loadFood);
 

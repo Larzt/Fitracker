@@ -47,12 +47,13 @@ export const loadFood = async (req, res) => {
 
 export const createFood = async (req, res) => {
   try {
-    const { name, calories, ingredients } = req.body;
+    const { name, calories, ingredients, favourite } = req.body;
 
     const newFood = new Food({
       name,
       calories,
       ingredients,
+      favourite: favourite || false, //predeterminado si no se pone
       user: req.user.id,
     });
 
@@ -146,5 +147,27 @@ export const setVisible = async (req, res) => {
       message: 'Error updating food visibility',
       error: error.message,
     });
+  }
+};
+
+export const toggleFavourite = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const food = await Food.findById(id);
+    if (!food) {
+      return res.status(404).json({ message: 'Food not found' });
+    }
+
+    // Alternar el valor de `favourite`
+    food.favourite = !food.favourite;
+    const updatedFood = await food.save();
+
+    res.status(200).json({
+      message: `Food favourite status toggled to ${food.favourite}`,
+      food: updatedFood,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error toggling favourite', error: error.message });
   }
 };
