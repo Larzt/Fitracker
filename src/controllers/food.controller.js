@@ -121,9 +121,9 @@ export const setVisible = async (req, res) => {
   try {
     const { id } = req.params;
     const { visibility } = req.body; // "public" o "private"
-    
+
     // Validar el valor de visibility
-    if (!["public", "private"].includes(visibility)) {
+    if (!['public', 'private'].includes(visibility)) {
       return res.status(400).json({
         message: 'Invalid visibility value. Use "public" or "private".',
       });
@@ -135,7 +135,7 @@ export const setVisible = async (req, res) => {
     }
 
     // Actualizar el campo `public`
-    food.public = visibility === "public";
+    food.public = visibility === 'public';
     const updatedFood = await food.save();
 
     res.status(200).json({
@@ -168,6 +168,8 @@ export const toggleFavourite = async (req, res) => {
       food: updatedFood,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error toggling favourite', error: error.message });
+    res
+      .status(500)
+      .json({ message: 'Error toggling favourite', error: error.message });
   }
 };

@@ -113,11 +113,11 @@ export const updateExer = async (req, res) => {
 
 export const setVisible = async (req, res) => {
   try {
-    const { id} = req.params;
+    const { id } = req.params;
     const { visibility } = req.body;
 
     // Validar el valor de visibility
-    if (!["public", "private"].includes(visibility)) {
+    if (!['public', 'private'].includes(visibility)) {
       return res.status(400).json({
         message: 'Invalid visibility value. Use "public" or "private".',
       });

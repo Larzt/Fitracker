@@ -20,9 +20,10 @@ router.get('/food/:id', authRequired, getFood);
 router.post('/food', authRequired, validateSchema(createSchema), createFood);
 router.put('/food/:id', authRequired, validateSchema(updateSchema), updateFood);
 router.delete('/food/:id', authRequired, deleteFood);
-router.put('/food/visible/:id', setVisible);
-router.patch('/food/favourite/:id', toggleFavourite);
 
 router.post('/food/load/data', authRequired, loadFood);
+
+router.put('/food/visible/:id', setVisible);
+router.patch('/food/favourite/:id', toggleFavourite);
 
 export default router;
