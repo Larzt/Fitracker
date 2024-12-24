@@ -30,6 +30,7 @@
     "nodemon": "^3.1.7",
     "react-big-calendar": "^1.16.3",
     "react-chartjs-2": "^5.2.0",
+    "react-switch": "^7.1.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {

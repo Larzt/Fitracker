@@ -1,5 +1,6 @@
 import axios from './axios.js';
 
+export const getUserRequest = (id) => axios.get(`/user/${id}`);
 export const usersListRequest = () => axios.get('/users');
 export const searchAvatarRequest = (id) => axios.get(`/search/avatar/${id}`);
 

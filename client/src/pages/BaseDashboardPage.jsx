@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DashBar } from '../components/Sidebar';
 import '../css/display.css';
-import { FriendList } from '../components/Social/FriendList';
+import { SocialList } from '../components/Social/SocialList';
 
 export const BaseDashboardPage = ({ content }) => {
   const [isNavOpen, setIsNavOpen] = useState(true);
@@ -11,7 +11,7 @@ export const BaseDashboardPage = ({ content }) => {
     setIsNavOpen(!isNavOpen);
   };
 
-  const toggleFriendList = () => {
+  const toggleSocialList = () => {
     setIsFriendOpen(!isFriendOpen);
   };
 
@@ -20,7 +20,7 @@ export const BaseDashboardPage = ({ content }) => {
   return (
     <div className="dashboard">
       <DashBar isOpen={isNavOpen} />
-      <FriendList isFriendOpen={isFriendOpen} />
+      <SocialList isFriendOpen={isFriendOpen} />
 
       <div className={`display-container ${isNavOpen ? 'open' : 'closed'}`}>
         <div className="display-header">
@@ -29,7 +29,7 @@ export const BaseDashboardPage = ({ content }) => {
           </button>
           <button
             className={`friend-btn ${isFriendOpen ? 'open' : ''}`}
-            onClick={toggleFriendList}
+            onClick={toggleSocialList}
           >
             <i className="fa-solid fa-user-group"></i>
           </button>

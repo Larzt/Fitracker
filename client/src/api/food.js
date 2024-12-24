@@ -1,5 +1,7 @@
 import axios from './axios.js';
 
+export const getFoodFromUserRequest = (id) => axios.get(`/user/food/${id}`);
+
 export const getFoodsRequest = () => axios.get('/food');
 
 export const getFoodRequest = (id) => axios.get(`/food/${id}`);

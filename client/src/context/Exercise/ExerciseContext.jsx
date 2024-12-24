@@ -5,6 +5,7 @@ import {
   createExerRequest,
   updateExerRequest,
   deleteExerRequest,
+  getExerciseFromUserRequest,
 } from '../../api/exercise.js';
 
 const ExersContext = createContext();
@@ -62,6 +63,15 @@ export function ExersProvider({ children }) {
     }
   };
 
+  const exerciseFromUser = async (id) => {
+    try {
+      const res = await getExerciseFromUserRequest(id);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ExersContext.Provider
       value={{
@@ -71,6 +81,7 @@ export function ExersProvider({ children }) {
         getExers,
         getExer,
         updateExer,
+        exerciseFromUser,
       }}
     >
       {children}

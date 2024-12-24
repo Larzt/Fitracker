@@ -274,3 +274,82 @@ body {
   background-color: #34d399;
   transform: scale(1.05);
 }
+
+/* visibility */
+.display-visibility-toggle {
+  margin: 1rem 0;
+}
+
+.display-switch-label {
+  font-size: 1rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.display-visibility-text-private {
+  color: #3b82f6;
+  background-color: #131318;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.display-visibility-text-public {
+  color: #34d399;
+  background-color: #131318;
+  padding: 0.2rem 1rem;
+  border-radius: 1rem;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.display-custom-switch {
+  display: inline-block;
+}
+
+.display-content-public-header {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.display-content-public-header img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #3b82f6;
+  cursor: pointer;
+  transition:
+    border-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.display-content-public-header img:hover {
+  border-color: #34d399;
+  transform: scale(1.1);
+}
+
+.display-content-public-exercise,
+.display-content-public-food {
+  margin-top: 2rem;
+}
+
+.display-content-public h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0;
+}
+
+.display-content-public h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}

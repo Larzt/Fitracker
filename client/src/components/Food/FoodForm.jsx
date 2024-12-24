@@ -1,4 +1,5 @@
 import React from 'react';
+import Switch from 'react-switch';
 
 const FoodForm = ({
   isVisible,
@@ -9,6 +10,7 @@ const FoodForm = ({
   isEditing,
 }) => {
   if (!isVisible) return null;
+  const isPublic = currentFood.public;
 
   return (
     <div className="display-content-form">
@@ -33,6 +35,31 @@ const FoodForm = ({
         value={currentFood.calories || ''}
         onChange={handleInputChange}
       />
+
+      {/* Toggle usando react-switch */}
+      <div className="display-visibility-toggle">
+        <label htmlFor="isPublic" className="display-switch-label">
+          <p
+            className={`display-visibility-text-${
+              isPublic ? 'public' : 'private'
+            }`}
+          >
+            {isPublic ? 'Public' : 'Private'}
+          </p>
+          <Switch
+            onChange={(checked) =>
+              handleInputChange({
+                target: { name: 'public', value: checked },
+              })
+            }
+            checked={isPublic || false}
+            onColor="#3b82f6"
+            offColor="#ccc"
+            className="display-custom-switch"
+          />
+        </label>
+      </div>
+
       <div className="form-buttons">
         <button onClick={handleSaveFood} className="save-btn">
           <p>{isEditing ? 'Update' : 'Save'}</p>

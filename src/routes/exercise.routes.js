@@ -9,11 +9,14 @@ import {
   loadExers,
   setVisible,
   toggleFavourite,
+  getExercisesFromUser,
 } from '../controllers/exercise.controller.js';
 import { createSchema, updateSchema } from '../schemas/exercise.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
 
 const router = Router();
+
+router.get('/user/exercise/:id', authRequired, getExercisesFromUser);
 
 router.get('/exercise', authRequired, getExers);
 router.get('/exercise/:id', authRequired, getExer);

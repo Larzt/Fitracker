@@ -9,11 +9,14 @@ import {
   loadFood,
   setVisible,
   toggleFavourite,
+  getFoodsFromUser,
 } from '../controllers/food.controller.js';
 import { createSchema, updateSchema } from '../schemas/food.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
 
 const router = Router();
+
+router.get('/user/food/:id', authRequired, getFoodsFromUser);
 
 router.get('/food', authRequired, getFoods);
 router.get('/food/:id', authRequired, getFood);

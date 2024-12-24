@@ -8,6 +8,19 @@ import nfs from 'node:fs';
 const defaultImage = `./client/images/default.png`;
 
 // TODO: Move to user.controller.js
+export const getUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const userFound = await User.findById(userId);
+    return res.status(200).json({ user: userFound });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ message: `Could not resolve the request: ${error}` });
+  }
+};
+
+// TODO: Move to user.controller.js
 export const getUsers = async (req, res) => {
   try {
     const userFound = await User.findById(req.user.id);

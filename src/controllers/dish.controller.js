@@ -131,6 +131,7 @@ export const getDishesByDate = async (req, res) => {
     // Buscar platos en ese rango
     const dishes = await Dish.find({
       createdAt: { $gte: startOfDay, $lte: endOfDay },
+      user: req.user.id,
     }).populate('food user'); // Popula las referencias si es necesario
 
     res.json(dishes);

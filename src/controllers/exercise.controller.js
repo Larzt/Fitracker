@@ -22,6 +22,28 @@ export const getExer = async (req, res) => {
   res.json(exer);
 };
 
+export const getExercisesFromUser = async (req, res) => {
+  try {
+    // Buscar las comidas asociadas al usuario (por userId) y con propiedad 'public: true'
+    const exercises = await Exer.find({
+      user: req.params.id, // Suponiendo que el modelo de comida tiene una referencia a 'userId'
+      public: true, // Filtrar comidas donde 'public' es true
+    });
+
+    if (exercises.length === 0) {
+      return res
+        .status(204)
+        .json({ message: 'No exercises found for this user' });
+    }
+
+    res.json(exercises); // Devuelve todas las comidas encontradas
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error retrieving exercises: ' + error.message });
+  }
+};
+
 export const loadExers = async (req, res) => {
   try {
     // Insertar los datos directamente desde la importación
@@ -70,13 +92,12 @@ export const deleteExer = async (req, res) => {
 
 export const updateExer = async (req, res) => {
   try {
-    const newExerData = req.data;
+    const newExerData = req.body;
     const originalExer = await Exer.findById(req.params.id);
     if (!originalExer) {
       return res.status(404).json({ message: 'Exercise not found' });
     }
 
-    // Si la comida ya tiene un usuario asociado, actualizar de forma normal
     if (originalExer.user) {
       const updatedExer = await Exer.findByIdAndUpdate(
         req.params.id,
@@ -90,6 +111,8 @@ export const updateExer = async (req, res) => {
     }
 
     // Si la comida no tiene usuario asociado, crear una nueva comida
+    console.log(newExerData);
+
     const { name, description, equipment } = newExerData;
     const newExer = new Exer({
       name,

@@ -15,6 +15,7 @@ import {
   friendsListRequest,
   addFriendsRequest,
   removeFriendsRequest,
+  getUserRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -296,9 +297,15 @@ export const AuthProvider = ({ children }) => {
     console.log(res);
   };
 
+  const getUser = async (id) => {
+    const res = await getUserRequest(id);
+    return res.data.user;
+  };
+
   return (
     <AuthContext.Provider
       value={{
+        getUser,
         usersList,
         userFriends,
         addFriend,

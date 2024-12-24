@@ -5,6 +5,7 @@ import {
   createFoodRequest,
   updateFoodRequest,
   deleteFoodRequest,
+  getFoodFromUserRequest,
 } from '../../api/food';
 
 const FoodContext = createContext();
@@ -65,6 +66,15 @@ export function FoodProvider({ children }) {
     }
   };
 
+  const foodFromUser = async (id) => {
+    try {
+      const res = await getFoodFromUserRequest(id);
+      return res.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <FoodContext.Provider
       value={{
@@ -74,6 +84,7 @@ export function FoodProvider({ children }) {
         deleteFood,
         getFoods,
         getFood,
+        foodFromUser,
       }}
     >
       {children}

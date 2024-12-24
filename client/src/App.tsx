@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
 import CalendarPage from './pages/Calendar/DExerCalendar.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import UserPublicPage from './pages/UserPublicPage.jsx';
 
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ExersProvider } from './context/Exercise/ExerciseContext.jsx';
@@ -35,6 +36,7 @@ function App() {
                     <Route element={<ProtectedRoute />}>
                       <Route path="/dashboard" element={<MainPage />} />
                       <Route path="/profile" element={<ProfilePage />} />
+                      <Route path="/public/:id" element={<UserPublicPage />} />
 
                       {/* Exercise */}
                       <Route

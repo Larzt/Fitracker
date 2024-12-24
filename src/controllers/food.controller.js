@@ -28,6 +28,26 @@ export const getFood = async (req, res) => {
   }
 };
 
+export const getFoodsFromUser = async (req, res) => {
+  try {
+    // Buscar las comidas asociadas al usuario (por userId) y con propiedad 'public: true'
+    const foods = await Food.find({
+      user: req.params.id, // Suponiendo que el modelo de comida tiene una referencia a 'userId'
+      public: true, // Filtrar comidas donde 'public' es true
+    });
+
+    if (foods.length === 0) {
+      return res.status(204).json({ message: 'No foods found for this user' });
+    }
+
+    res.json(foods); // Devuelve todas las comidas encontradas
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error retrieving foods: ' + error.message });
+  }
+};
+
 export const loadFood = async (req, res) => {
   try {
     // Insertar los datos directamente desde la importación
