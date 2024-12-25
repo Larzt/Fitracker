@@ -124,3 +124,38 @@
 .users-search input::placeholder {
   color: #8b8b93;
 }
+
+/* Message Button Transition Display */
+.display-header button.message-btn {
+  margin-left: auto;
+  margin-right: 1rem;
+  transition: transform 0.4s ease; /* Igual que friend-btn */
+}
+
+.display-header button.message-btn.open {
+  transform: translateX(
+    -13rem
+  ); /* Igual que friend-btn, mover horizontalmente */
+}
+
+/* Sidebar principal de mensajes */
+.message-list {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Fuera del viewport */
+  width: 220px;
+  height: 100%;
+  background-color: #1f1f26; /* Color oscuro acorde con el diseño */
+  color: #fff;
+  box-shadow: -0.125rem 0 0.3125rem rgba(0, 0, 0, 0.5);
+  transition: right 0.3s ease-in-out; /* Transición suave */
+  z-index: 1000; /* Asegurar que está por encima de otros elementos */
+}
+
+.message-list.open {
+  right: 0; /* Aparece en pantalla */
+}
+
+.message-list.closed {
+  right: -300px; /* Oculto */
+}

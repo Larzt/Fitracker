@@ -24,9 +24,20 @@ export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
   const options = {
     responsive: true,
     plugins: {
+      title: {
+        display: true,
+        text: 'Gráfico de Calorias consumidas', // Título del gráfico
+        color: '#fff', // Color blanco para el título
+      },
       legend: {
         display: true, // Mostrar leyenda
         position: 'top', // Posición de la leyenda
+        labels: {
+          color: '#fff', // Color blanco para las etiquetas de la leyenda
+          font: {
+            weight: 'bold', // Poner en negrita
+          },
+        },
       },
       tooltip: {
         callbacks: {
@@ -36,12 +47,35 @@ export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
             return `${label}: ${value} calorías`;
           },
         },
+        titleColor: '#fff', // Color blanco para el título del tooltip
+        bodyColor: '#fff', // Color blanco para el cuerpo del tooltip
+        borderColor: '#fff', // Color blanco para el borde del tooltip
+        borderWidth: 1, // Ancho del borde del tooltip
       },
+    },
+    elements: {
+      arc: {
+        borderColor: '#fff', // Color blanco para los bordes de las secciones
+      },
+    },
+    scales: {
+      // Configuración para las escalas (si fuese necesario)
+      // Puede añadirse más configuraciones si se desea cambiar estilos para las escalas
+    },
+    animation: {
+      duration: 1000, // Duración de la animación
     },
   };
 
   return (
-    <div style={{ width: '100%', height: '300px' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '250px',
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <Doughnut data={data} options={options} />
     </div>
   );

@@ -14,11 +14,15 @@ function MainPage() {
       content={
         <div className="display-content">
           <div className="display-content-progress">
-            <WeightChart />
-            <CaloriesDoughnut
-              currentValue={currentCalories}
-              targetCalories={calories}
-            />
+            <div className="WeightChart">
+              <WeightChart />
+            </div>
+            <div className="CaloriesDoughnut">
+              <CaloriesDoughnut
+                currentValue={currentCalories}
+                targetCalories={calories}
+              />
+            </div>
           </div>
         </div>
       }

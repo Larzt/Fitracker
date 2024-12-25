@@ -2,21 +2,19 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { useAuth } from '../context/AuthContext';
 
 // Registrar los componentes necesarios de Chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
@@ -25,40 +23,33 @@ ChartJS.register(
 export const WeightChart = () => {
   const { user } = useAuth();
 
-  // Datos de ejemplo, con el objetivo de peso y el peso actual
   const weightObjective = 80; // Peso objetivo
-  const currentWeight = user.weight; // Peso actual del usuario
 
-  // Suponiendo que el peso del usuario cambia a lo largo del tiempo, usaremos datos ficticios
-  const weightData = [
-    { time: 'Semana 1', weight: 85 },
-    { time: 'Semana 2', weight: 84 },
-    { time: 'Semana 3', weight: 83 },
-    { time: 'Semana 4', weight: 82 },
-    { time: 'Semana 5', weight: 81 },
-    { time: 'Semana 6', weight: currentWeight }, // Peso actual
-  ];
+  // Datos de ejemplo, suponiendo que user.weightDate contiene varios valores de peso
+  const weightData = user.weightDate?.map((item) => {
+    const [weight, date] = item.split('-');
+    return {
+      weight: parseFloat(weight),
+      date: date,
+    };
+  });
+
+  // Generamos etiquetas para todas las fechas disponibles
+  const labels = weightData?.map((point) => point.date);
 
   // Datos para el gráfico
   const data = {
-    labels: weightData.map((point) => point.time), // Eje X: Semanas
+    labels: labels, // Fechas como etiquetas en el eje X
     datasets: [
       {
         label: 'Progreso de Peso',
-        data: weightData.map((point) => point.weight), // Eje Y: Peso
-        fill: true, // Rellenar el área bajo la línea
-        backgroundColor: 'rgba(56, 189, 248, 0.2)', // Color de relleno (azul claro)
-        borderColor: '#3B82F6', // Color de la línea
-        borderWidth: 2, // Ancho de la línea
-        tension: 0.4, // Curvatura de la línea
-      },
-      {
-        label: 'Objetivo de Peso',
-        data: new Array(weightData.length).fill(weightObjective), // Línea del objetivo
-        fill: false, // No rellenar área para la línea del objetivo
-        borderColor: '#EF4444', // Color de la línea del objetivo (rojo)
-        borderWidth: 2, // Ancho de la línea
-        borderDash: [5, 5], // Línea punteada
+        data: weightData?.map((point) => point.weight), // Eje Y: Peso
+        backgroundColor: 'rgba(56, 189, 248, 0.8)', // Color de las barras
+        borderColor: '#3B82F6', // Color de las barras
+        borderWidth: 2, // Ancho del borde
+        barThickness: 30, // Ancho de la barra
+        categoryPercentage: 0.6, // Controla el ancho total ocupado por las barras dentro de cada categoría
+        barPercentage: 0.8, // Controla el tamaño relativo de las barras dentro del espacio de la categoría
       },
     ],
   };
@@ -66,34 +57,66 @@ export const WeightChart = () => {
   const options = {
     responsive: true,
     plugins: {
+      title: {
+        display: true,
+        text: 'Gráfico de Progreso de Peso', // Título del gráfico
+        color: '#fff', // Color blanco para el título
+      },
       legend: {
-        display: true, // Mostrar leyenda
-        position: 'top', // Posición de la leyenda
+        labels: {
+          color: '#fff', // Color blanco para las etiquetas de la leyenda
+        },
       },
     },
     scales: {
       x: {
+        type: 'category', // Usamos 'category' para que cada fecha sea una categoría
         title: {
           display: true,
-          text: 'Tiempo',
-          color: '#e4e4f0',
+          text: 'Fecha',
+          color: '#fff', // Color blanco para el título del eje X
         },
+        ticks: {
+          color: '#fff', // Color blanco para los ticks en el eje X
+        },
+        grid: {
+          color: '#36363e', // Línea de la cuadrícula del eje X en blanco
+        },
+        // Habilitar el desplazamiento horizontal
+        offset: true,
+        min: 0,
+        max: 10, // Limita las barras que se muestran al principio
+        // Permite scroll si hay demasiados datos
+        beginAtZero: true,
       },
       y: {
         title: {
           display: true,
           text: 'Peso (kg)',
-          color: '#e4e4f0',
+          color: '#fff', // Color blanco para el título del eje Y
         },
+        stacked: true, // Activar las barras apiladas en el eje Y
         suggestedMin: weightObjective - 5, // Sugerir un valor mínimo por debajo del objetivo
-        suggestedMax: weightObjective + 5, // Sugerir un valor máximo por encima del objetivo
+        suggestedMax: weightObjective + 10, // Sugerir un valor máximo por encima del objetivo
+        ticks: {
+          color: '#fff', // Color blanco para los ticks en el eje Y
+          stepSize: 5, // Tamaño de paso de los valores del eje Y
+        },
+        grid: {
+          color: '#36363e', // Línea de la cuadrícula del eje Y en blanco
+        },
+      },
+    },
+    elements: {
+      bar: {
+        borderColor: '#fff', // Bordes blancos para las barras
       },
     },
   };
 
   return (
-    <div style={{ width: '100%', height: '300px' }}>
-      <Line data={data} options={options} />
+    <div style={{ width: '100%', height: '300px', overflowX: 'auto' }}>
+      <Bar data={data} options={options} />
     </div>
   );
 };

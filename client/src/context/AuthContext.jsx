@@ -42,14 +42,14 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function getMetrics() {
-      const responseWeight = await getWeightRequest();
+      const responseWeightAndDate = await getWeightRequest();
       const responseCalories = await getCaloriesRequest();
 
-      const newWeight = responseWeight.data.weight;
+      const newWeightAndDate = responseWeightAndDate.data;
       const newCalories = responseCalories.data.calories;
 
       // Actualizar estados
-      setWeight(newWeight);
+      setWeight(newWeightAndDate);
       setCalories(newCalories);
     }
     getMetrics();
@@ -154,10 +154,16 @@ export const AuthProvider = ({ children }) => {
     console.log(res.data.calories);
   };
 
+  // Función que actualiza el peso
   const updateWeight = async (value) => {
     console.log('Updating weight with:', value); // Verifica el valor enviado
-    const res = await updateWeightRequest(value);
-    console.log(res.data.weight);
+    try {
+      const res = await updateWeightRequest(value);
+      console.log('Updated weight:', res.data.weight);
+      setWeight(res.data.weight);
+    } catch (error) {
+      console.error('Failed to update weight:', error);
+    }
   };
 
   useEffect(() => {

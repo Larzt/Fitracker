@@ -10,7 +10,7 @@ function ProfilePage() {
   const [loading, setLoading] = useState(false);
   const { avatar, getAvatar } = useAuth();
   const {
-    weight: initialWeight,
+    weight: initialWeightAndDate,
     updateWeight,
     calories: initialCalories,
     updateCalories,
@@ -34,6 +34,8 @@ function ProfilePage() {
     window.location.reload();
   });
 
+  console.log(initialWeightAndDate);
+
   const Metrics = () => {
     return (
       <div className="dashboard-main-content-body">
@@ -44,7 +46,7 @@ function ProfilePage() {
             <input
               type="text"
               {...register('weight')}
-              placeholder={initialWeight || 'Weight'}
+              placeholder={initialWeightAndDate.weight || 'Weight'}
             />
             <button type="submit">Save</button>
           </form>

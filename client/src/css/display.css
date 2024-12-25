@@ -227,11 +227,56 @@ body {
   font-weight: bold;
 }
 
+/* Contenedor principal de los gráficos */
 .display-content-progress {
   display: flex;
-  justify-content: space-between;
-  background-color: #1f1f26;
+  justify-content: center;
+  gap: 3rem; /* Espaciado entre los gráficos */
+  flex-wrap: wrap; /* Permite que los gráficos se ajusten en pantallas pequeñas */
   margin: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo común para los gráficos (WeightChart y CaloriesDoughnut) */
+.WeightChart,
+.CaloriesDoughnut {
+  background-color: #1f1f26; /* Fondo oscuro para ambos gráficos */
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); /* Sombra suave */
+  width: 100%;
+  max-width: 32rem; /* Limitar el ancho máximo a 512px */
+  height: 20rem; /* Altura estándar para los gráficos */
+  box-sizing: border-box;
+}
+
+/* Responsive: ajustar el tamaño y distribución en pantallas más pequeñas */
+@media (max-width: 48rem) {
+  /* 768px o menos */
+  .display-content-progress {
+    gap: 2rem; /* Menos espacio entre los gráficos */
+  }
+
+  /* Reducir la altura de los gráficos en pantallas más pequeñas */
+  .WeightChart,
+  .CaloriesDoughnut {
+    height: 16rem; /* Reducimos la altura de los gráficos */
+  }
+}
+
+@media (max-width: 30rem) {
+  /* 480px o menos */
+  .display-content-progress {
+    gap: 1.5rem; /* Aún menos espacio en pantallas muy pequeñas */
+    flex-direction: column; /* Colocamos los gráficos en columna */
+  }
+
+  /* Ajustamos el tamaño de los gráficos para que se vean bien en pantallas pequeñas */
+  .WeightChart,
+  .CaloriesDoughnut {
+    height: 14rem; /* Menor altura para los gráficos */
+  }
 }
 
 /* Tabla general */

@@ -106,11 +106,53 @@ export const logout = async (req, res) => {
 
 // TODO: Move to user.controller.js
 export const getWeight = async (req, res) => {
-  const userFound = await User.findById(req.user.id);
-  if (!userFound) return res.status(400).json({ message: 'User not found' });
-  return res.json({
-    weight: userFound.weight,
-  });
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    return res.json({
+      weight: userFound.weight,
+      weightDate: userFound.weightDate, // Incluimos el campo weightDate
+    });
+  } catch (error) {
+    console.error('Error fetching user weight:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// TODO: Move to user.controller.js
+export const updateWeight = async (req, res) => {
+  const { weight } = req.body; // Accede al valor de 'weight' en el body
+  console.log('Received weight:', weight); // Log del valor recibido
+
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+
+    if (weight) {
+      userFound.weight = weight; // Actualiza el peso
+
+      // Generar la fecha actual en formato 'día/mes' (por ejemplo, '25/12')
+      const currentDate = new Date().toLocaleDateString('es-ES', {
+        day: '2-digit',
+        month: '2-digit',
+      });
+
+      // Concatenar el peso con la fecha
+      userFound.weightDate = `${weight}-${currentDate}`; // Ejemplo: '65-25/12'
+    }
+
+    const updatedUser = await userFound.save();
+    console.log('Updated user:', updatedUser); // Log del usuario actualizado
+    return res.status(200).json(updatedUser); // Responde con el usuario actualizado
+  } catch (error) {
+    console.error('Error updating weight:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 // TODO: Move to user.controller.js
@@ -120,28 +162,6 @@ export const getCalories = async (req, res) => {
   return res.json({
     calories: userFound.calories,
   });
-};
-
-// TODO: Move to user.controller.js
-export const updateWeight = async (req, res) => {
-  const { weight } = req.body; // Accede al valor de 'weight' en el body
-  console.log('Received weight:', weight); // Log del valor recibido
-  // Aquí, puedes agregar más lógica de negocio, como buscar al usuario y actualizar sus datos
-  try {
-    const userFound = await User.findById(req.user.id);
-    if (!userFound) {
-      return res.status(400).json({ message: 'User not found' });
-    }
-    if (weight) {
-      userFound.weight = weight; // Actualizar los datos de 'weight'
-    }
-    const updatedUser = await userFound.save();
-    console.log('Updated user:', updatedUser); // Log del usuario actualizado
-    return res.status(200).json(updatedUser); // Responde con el usuario actualizado
-  } catch (error) {
-    console.error('Error updating weight:', error);
-    return res.status(500).json({ message: 'Internal server error' });
-  }
 };
 
 // TODO: Move to user.controller.js
@@ -376,11 +396,20 @@ export const verifyToken = async (req, res) => {
     if (err) return res.status(401).json({ message: 'Unauthorized ' });
     const userFound = await User.findById(user.id);
     if (!userFound) return res.status(401).json({ message: 'Unauthorized ' });
+    let weightData = [];
+    if (Array.isArray(userFound.weightDate)) {
+      // Si es un arreglo, lo usamos tal cual
+      weightData = userFound.weightDate;
+    } else if (userFound.weightDate) {
+      // Si no es un arreglo pero existe 'weightDate', creamos un arreglo con ese único valor
+      weightData = [userFound.weightDate];
+    }
     return res.json({
       id: userFound._id,
       username: userFound.username,
       email: userFound.email,
       weight: userFound.weight,
+      weightDate: weightData,
     });
   });
 };

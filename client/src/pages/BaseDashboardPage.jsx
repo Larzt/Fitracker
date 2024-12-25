@@ -27,12 +27,17 @@ export const BaseDashboardPage = ({ content }) => {
           <button onClick={toggleNavbar}>
             <i className={`fa-solid fa-bars${navState()}`}></i>
           </button>
-          <button
-            className={`friend-btn ${isFriendOpen ? 'open' : ''}`}
-            onClick={toggleSocialList}
-          >
-            <i className="fa-solid fa-user-group"></i>
-          </button>
+          <div className="display-container-social">
+            {/* <button className={`message-btn ${isFriendOpen ? 'open' : ''}`}> */}
+            {/* <i className="fa-solid fa-inbox"></i> */}
+            {/* </button> */}
+            <button
+              className={`friend-btn ${isFriendOpen ? 'open' : ''}`}
+              onClick={toggleSocialList}
+            >
+              <i className="fa-solid fa-user-group"></i>
+            </button>
+          </div>
         </div>
         <div>{content}</div>
       </div>
