@@ -1,5 +1,9 @@
 import axios from './axios.js';
 
+export const getNotificationsRequest = () => axios.get(`/notifications`);
+export const markNotificationsRequest = (index) =>
+  axios.put(`/notifications/read/${index}`);
+
 export const getUserRequest = (id) => axios.get(`/user/${id}`);
 export const usersListRequest = () => axios.get('/users');
 export const searchAvatarRequest = (id) => axios.get(`/search/avatar/${id}`);

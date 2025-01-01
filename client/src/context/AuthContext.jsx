@@ -24,6 +24,7 @@ import {
   addFriendsRequest,
   removeFriendsRequest,
   getUserRequest,
+  getNotificationsRequest,
 } from '../api/auth.js';
 import Cookies from 'js-cookie';
 
@@ -48,6 +49,39 @@ export const AuthProvider = ({ children }) => {
   const [weight, setWeight] = useState('');
   const [calories, setCalories] = useState('');
   const [height, setHeight] = useState('');
+  const [notifications, setNotifications] = useState([]);
+
+  // Cuando recibes las notificaciones del backend
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const response = await getNotificationsRequest();
+
+        const notifications = await response.data.notifications;
+
+        notifications.map((noti) => {
+          setNotifications(noti);
+        });
+      } catch (error) {
+        console.error('Error fetching notifications:', error);
+      }
+    };
+    fetchNotifications();
+  }, []);
+
+  const updateNotificationStatus = (index) => {
+    setNotifications((prevNotifications) => {
+      // Actualiza el estado asegurando que notifications sea un array
+      if (Array.isArray(prevNotifications)) {
+        const updatedNotifications = [...prevNotifications];
+        updatedNotifications.splice(index, 1); // Elimina la notificación en el índice dado
+        return updatedNotifications;
+      }
+      return prevNotifications;
+    });
+  };
+
+  console.log(notifications);
 
   // Obtener métricas del usuario
   useEffect(() => {
@@ -320,6 +354,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        updateNotificationStatus,
         getUser,
         usersList,
         userFriends,
@@ -343,6 +378,7 @@ export const AuthProvider = ({ children }) => {
         deleteAvatar,
         isAuthenticated,
         errors,
+        notifications,
       }}
     >
       {children}

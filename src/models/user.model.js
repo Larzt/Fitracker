@@ -56,6 +56,13 @@ const userSchema = new mongoose.Schema(
       enum: ['masculino', 'femenino'],
     },
 
+    messages: [
+      {
+        message: { type: String, required: true },
+        isRead: { type: Boolean, default: false },
+      },
+    ],
+
     friends: [
       {
         type: mongoose.Schema.Types.ObjectId,

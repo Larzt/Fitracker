@@ -21,6 +21,8 @@ import {
   removeFriend,
   getFriends,
   getUser,
+  getUserNotifications,
+  markNotificationAsRead,
 } from '../controllers/auth.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -31,6 +33,9 @@ const upload = multer({ dest: 'client/public/uploads/' });
 router.get('/user/:id', authRequired, getUser);
 router.get('/users', authRequired, getUsers);
 router.get('/search/avatar/:id', authRequired, searchAvatar);
+
+router.get('/notifications', authRequired, getUserNotifications);
+router.put('/notifications/read/:index', authRequired, markNotificationAsRead);
 
 router.get('/friends', authRequired, getFriends);
 router.post('/friend/add/:id', authRequired, addFriend);

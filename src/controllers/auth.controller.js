@@ -337,6 +337,54 @@ export const deleteAvatar = async (req, res) => {
 };
 
 // TODO: Move to user.controller.js
+export const getUserNotifications = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json({ notifications: user.messages });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error fetching notifications', error: error.message });
+  }
+};
+
+// TODO: Move to user.controller.js
+export const markNotificationAsRead = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const { index } = req.params; // Suponiendo que se envía el índice de la notificación
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (index < 0 || index >= user.messages.length) {
+      return res.status(400).json({ message: 'Invalid notification index' });
+    }
+
+    // Elimina la notificación del array de mensajes
+    user.messages.splice(index, 1); // Esto elimina la notificación en la posición `index`
+    await user.save();
+
+    return res
+      .status(200)
+      .json({ message: 'Notification deleted successfully' });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error deleting notification', error: error.message });
+  }
+};
+
+// TODO: Move to user.controller.js
 export const getFriends = async (req, res) => {
   try {
     // Obtener el usuario autenticado
@@ -373,14 +421,34 @@ export const addFriend = async (req, res) => {
     const userFound = await User.findById(userId);
     const friendId = req.params.id;
     const friendFound = await User.findById(friendId);
+
     if (!friendFound) {
       return res.status(400).json({ message: 'Friend user not found' });
     }
+
     if (!userFound) {
       return res.status(400).json({ message: 'User not found' });
     }
-    userFound.friends.push(friendFound);
-    userFound.save();
+
+    // Evitar duplicados
+    if (userFound.friends.includes(friendId)) {
+      return res.status(400).json({ message: 'Friend already added' });
+    }
+
+    // Agregar al amigo
+    userFound.friends.push(friendId);
+    await userFound.save();
+
+    // Crear notificación para el usuario destinatario
+    const notification = {
+      message: `${userFound.username} te ha agregado como amigo.`,
+      isRead: false,
+      createdAt: new Date(),
+    };
+
+    friendFound.messages.push(notification);
+    await friendFound.save();
+
     return res.status(200).json({ message: 'Friend has been added' });
   } catch (error) {
     return res
