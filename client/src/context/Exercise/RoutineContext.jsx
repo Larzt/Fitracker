@@ -9,6 +9,7 @@ import {
   getRoutinesByDateRequest,
   getRoutinesByMuscleRequest,
   getRoutinesByCategoryRequest,
+  addExtraDataRequest,
 } from '../../api/routine';
 
 const RoutineContext = createContext();
@@ -23,6 +24,23 @@ export const useRoutine = () => {
 
 export function RoutineProvider({ children }) {
   const [routines, setRoutine] = useState([]);
+
+  const addExtraData = async (routineId, additionalData) => {
+    try {
+      const res = await addExtraDataRequest(routineId, { additionalData });
+      console.log(res);
+      // Opcional: actualizar la rutina en el estado local si es necesario
+      setRoutine((prevRoutines) =>
+        prevRoutines.map((routine) =>
+          routine._id === routineId
+            ? { ...routine, additionalData: res.data.additionalData }
+            : routine
+        )
+      );
+    } catch (error) {
+      console.error('Error adding additional data:', error);
+    }
+  };
 
   const getRoutines = async () => {
     try {
@@ -101,6 +119,7 @@ export function RoutineProvider({ children }) {
         getRoutinesByDate,
         getRoutinesByCategory,
         getRoutinesByMuscle,
+        addExtraData,
       }}
     >
       {children}

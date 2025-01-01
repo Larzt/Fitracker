@@ -1,4 +1,10 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  useCallback,
+} from 'react';
 import {
   registerRequest,
   loginRequest,
@@ -10,6 +16,8 @@ import {
   getCaloriesRequest,
   updateCaloriesRequest,
   updateWeightRequest,
+  getHeightRequest,
+  updateHeightRequest,
   usersListRequest,
   searchAvatarRequest,
   friendsListRequest,
@@ -24,7 +32,7 @@ export const AuthContext = createContext();
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth ust be used within an AuthProvider');
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
@@ -39,32 +47,46 @@ export const AuthProvider = ({ children }) => {
   const [avatar, setAvatar] = useState('../images/default.png');
   const [weight, setWeight] = useState('');
   const [calories, setCalories] = useState('');
+  const [height, setHeight] = useState('');
 
+  // Obtener métricas del usuario
   useEffect(() => {
     async function getMetrics() {
+      const responseHeight = await getHeightRequest();
       const responseWeightAndDate = await getWeightRequest();
       const responseCalories = await getCaloriesRequest();
 
+      const newHeight = responseHeight.data.height;
       const newWeightAndDate = responseWeightAndDate.data;
       const newCalories = responseCalories.data.calories;
 
-      // Actualizar estados
+      setHeight(newHeight);
       setWeight(newWeightAndDate);
       setCalories(newCalories);
     }
     getMetrics();
   }, []);
 
+  // Inicialización de datos de amigos y usuarios
   useEffect(() => {
+    let isMounted = true;
+
     async function initializeData() {
       try {
-        await friendList(); // Espera a que la lista de amigos esté completamente cargada
-        await usersList(); // Ahora ejecuta la lógica de usuarios
+        await Promise.all([friendList(), usersList()]);
+        if (isMounted) {
+          console.log('Data initialized');
+        }
       } catch (error) {
         console.error('Error initializing data:', error);
       }
     }
+
     initializeData();
+
+    return () => {
+      isMounted = false;
+    };
   }, [userFriends]);
 
   const signup = async (user) => {
@@ -74,33 +96,18 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       setUser(res.data);
     } catch (error) {
-      if (Array.isArray(error.response.data)) {
-        setErrors(error.response.data);
-      }
-      setErrors([error.response.data]);
+      setErrors(error.response.data ? [error.response.data] : []);
     }
   };
 
   const signin = async (user) => {
     try {
       const res = await loginRequest(user);
-      console.log(res);
       setUser(res.data);
       setIsAuthenticated(true);
-      setErrors([]); // Limpia errores anteriores
+      setErrors([]);
     } catch (error) {
-      // Comprueba si hay una respuesta y si data contiene errores
-      if (error.response && error.response.data) {
-        if (Array.isArray(error.response.data)) {
-          setErrors(error.response.data); // Establece los errores si es un array
-        } else if (error.response.data.message) {
-          setErrors([error.response.data.message]); // Si es un objeto con un mensaje, lo convierte en un array
-        } else {
-          setErrors(['Ocurrió un error desconocido']); // Caso de error inesperado
-        }
-      } else {
-        setErrors(['No se pudo conectar con el servidor']); // Error de red o sin respuesta
-      }
+      setErrors([error.response.data.message || 'Error desconocido']);
     }
   };
 
@@ -110,7 +117,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  const getAvatar = async () => {
+  const getAvatar = useCallback(async () => {
     try {
       const res = await loadAvatarRequest();
       const avatarFileName = res.data.avatar;
@@ -119,11 +126,11 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, []);
 
   const deleteAvatar = async () => {
     try {
-      deleteAvatarRequest();
+      await deleteAvatarRequest();
       window.location.reload();
     } catch (error) {
       console.log(error.message);
@@ -132,49 +139,47 @@ export const AuthProvider = ({ children }) => {
 
   const uploadAvatar = async (file) => {
     try {
-      // Crea un FormData y agrega el archivo al formulario
       const formData = new FormData();
       formData.append('avatarImage', file);
 
-      // Llama a la función `uploadAvatarRequest` para subir el avatar
       const res = await uploadAvatarRequest(formData);
-      // Si la carga es exitosa, actualizamos el avatar en el estado
       if (res.status === 200) {
         setAvatar(file);
       }
+      window.location.reload();
     } catch (error) {
-      console.error('Error uploading avatar:', error.message);
       setErrors(['Error al subir el avatar']);
     }
   };
 
   const updateCalories = async (value) => {
-    console.log('Updating calories with:', value); // Verifica el valor enviado
-    const res = await updateCaloriesRequest(value);
-    console.log(res.data.calories);
+    try {
+      const res = await updateCaloriesRequest(value);
+      console.log(res.data.calories);
+    } catch (error) {
+      console.error('Failed to update calories:', error);
+    }
   };
 
-  // Función que actualiza el peso
+  const updateHeight = async (value) => {
+    try {
+      const res = await updateHeightRequest(value);
+      setHeight(res.data.height);
+    } catch (error) {
+      console.error('Failed to update height:', error);
+    }
+  };
+
   const updateWeight = async (value) => {
-    console.log('Updating weight with:', value); // Verifica el valor enviado
     try {
       const res = await updateWeightRequest(value);
-      console.log('Updated weight:', res.data.weight);
       setWeight(res.data.weight);
     } catch (error) {
       console.error('Failed to update weight:', error);
     }
   };
 
-  useEffect(() => {
-    if (errors.length > 0) {
-      const timer = setTimeout(() => {
-        setErrors([]);
-      }, 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [errors]);
-
+  // Check if user is authenticated using cookies
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
@@ -204,79 +209,78 @@ export const AuthProvider = ({ children }) => {
     checkLogin();
   }, []);
 
+  // Obtener la lista de usuarios
   const usersList = async () => {
     try {
       const res = await usersListRequest();
       const resUsers = res.data.users;
-      const allUsers = [];
 
-      for (const group of resUsers) {
-        for (const user of group) {
+      const allUsers = await Promise.all(
+        resUsers.flat().map(async (user) => {
           if (user) {
             try {
               const resAvatar = await searchAvatarRequest(user.id);
-              let avatar = '../images/default.png';
-              if (resAvatar.status === 200) {
-                avatar = `/public/uploads/${resAvatar.data.avatar}.png`;
-              }
+              const avatar =
+                resAvatar.status === 200
+                  ? `/public/uploads/${resAvatar.data.avatar}.png`
+                  : '../images/default.png';
 
-              const resUser = {
+              return {
                 id: user.id,
                 name: user.name,
-                avatar: avatar,
+                avatar,
               };
-
-              allUsers.push(resUser);
-            } catch (error) {
-              console.error('Error fetching avatar:', error);
+            } catch {
+              return null;
             }
           }
-        }
-      }
+          return null;
+        })
+      );
 
       // Filtra usuarios para excluir a los amigos
       const filteredUsers = allUsers.filter(
         (user) =>
+          user &&
           !userFriends.some((friend) => String(friend.id) === String(user.id))
       );
 
-      console.log('filteredUsers: ', filteredUsers);
-
-      setUsersList(filteredUsers); // Actualiza la lista final
+      setUsersList(filteredUsers);
     } catch (error) {
       console.error('Error fetching users list:', error);
     }
   };
 
+  // Obtener la lista de amigos
   const friendList = async () => {
     try {
       const res = await friendsListRequest();
-      const resFriends = res.data.friends; // Asegúrate de que el endpoint devuelva esta estructura.
+      const resFriends = res.data.friends;
 
-      resFriends.map(async (friend) => {
+      resFriends.forEach(async (friend) => {
         if (friend) {
           try {
-            let res = await searchAvatarRequest(friend.id);
-            let avatar = '../images/default.png';
-            if (res.status === 200) {
-              avatar = `/public/uploads/${res.data.avatar}.png`;
-            }
+            const resAvatar = await searchAvatarRequest(friend.id);
+            const avatar =
+              resAvatar.status === 200
+                ? `/public/uploads/${resAvatar.data.avatar}.png`
+                : '../images/default.png';
+
             const friendUser = {
               id: friend.id,
               name: friend.name,
-              avatar: avatar,
+              avatar,
             };
 
-            // Evita duplicados comprobando si el ID ya existe
             setUsersFriendList((prevFriends) => {
               if (
-                prevFriends.find(
+                !prevFriends.some(
                   (existingFriend) => existingFriend.id === friendUser.id
                 )
               ) {
-                return prevFriends; // Si el amigo ya existe, no lo agregues
+                return [...prevFriends, friendUser];
               }
-              return [...prevFriends, friendUser];
+              return prevFriends;
             });
           } catch (error) {
             console.error('Error fetching avatar for friend:', error);
@@ -289,18 +293,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Funciones para agregar y quitar amigos
   const addFriend = async (id) => {
-    console.log('addFriend');
-
-    const res = await addFriendsRequest(id);
-    console.log(res);
+    try {
+      await addFriendsRequest(id);
+      await friendList(); // Recarga la lista de amigos después de agregar
+    } catch (error) {
+      console.error('Error adding friend:', error);
+    }
   };
 
   const removeFriend = async (id) => {
-    console.log('removeFriend');
-
-    const res = await removeFriendsRequest(id);
-    console.log(res);
+    try {
+      await removeFriendsRequest(id);
+      await friendList(); // Recarga la lista de amigos después de quitar
+    } catch (error) {
+      console.error('Error removing friend:', error);
+    }
   };
 
   const getUser = async (id) => {
@@ -325,6 +334,8 @@ export const AuthProvider = ({ children }) => {
         updateCalories,
         weight,
         updateWeight,
+        height,
+        updateHeight,
         user,
         avatar,
         getAvatar,

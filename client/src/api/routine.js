@@ -9,9 +9,12 @@ export const createRoutineRequest = (id, exer) =>
 
 export const deleteRoutineRequest = (id) => axios.delete(`/routine/${id}`);
 
-// TOOD: No esta implementado
+// TOOD: No esta implementado ??
 export const updateRoutineRequest = (id, body) =>
   axios.put(`/routine/${id}`, body);
+
+export const addExtraDataRequest = (id, body) =>
+  axios.put(`/routine/add-extra/${id}`, body);
 
 export const getRoutinesByDateRequest = async (date) => {
   return await axios.get(`/routine/date/${date}`);

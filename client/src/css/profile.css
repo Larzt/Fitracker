@@ -112,6 +112,7 @@
   margin-bottom: 1rem;
 }
 
+.metrics-height,
 .metrics-calories,
 .metrics-weight {
   display: flex;
@@ -119,6 +120,7 @@
   padding: 1rem;
 }
 
+.metrics-height input,
 .metrics-calories input,
 .metrics-weight input {
   background-color: #131318;
@@ -128,12 +130,14 @@
   padding: 1rem;
 }
 
+.metrics-height input:focus,
 .metrics-calories input:focus,
 .metrics-weight input:focus {
   outline: none;
   border-color: #3b82f6;
 }
 
+.metrics-height button,
 .metrics-calories button,
 .metrics-weight button {
   border-radius: 0.3rem;
@@ -145,8 +149,81 @@
     transform 0.2s ease;
 }
 
+.metrics-height button:hover,
 .metrics-calories button:hover,
 .metrics-weight button:hover {
   background-color: #34d399;
   transform: scale(1.02);
+}
+
+.up-weight,
+.stay-weight,
+.low-weight {
+  display: flex;
+  justify-content: center;
+  background-color: #3b82f6;
+  padding: 0.75rem;
+  margin: 1rem;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.up-weight:hover,
+.stay-weight:hover,
+.low-weight:hover {
+  background-color: #34d399;
+  transform: scale(1.02);
+}
+
+.goal-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar contenido horizontalmente */
+  justify-content: center;
+  padding: 1rem;
+}
+
+.goal-info-content {
+  background-color: #131318;
+  color: #ffffff; /* Mejor contraste */
+  padding: 1.5rem;
+  /* margin: 1rem 1rem; */
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+  text-align: center;
+}
+
+.goal-info-content h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.goal-info-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #b3b3b3; /* Texto menos importante */
+}
+
+.goal-info button {
+  width: 100%;
+  max-width: 200px; /* Limita el ancho del botón */
+  padding: 0.7rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f63b3b;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.goal-info button:hover {
+  transform: scale(1.05);
+  background-color: #f63b3b;
 }

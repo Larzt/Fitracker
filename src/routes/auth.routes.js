@@ -10,9 +10,11 @@ import {
   verifyToken,
   deleteAvatar,
   getWeight,
-  getCalories,
   updateWeight,
+  getCalories,
   updateCalories,
+  getHeight,
+  updateHeight,
   getUsers,
   searchAvatar,
   addFriend,
@@ -42,6 +44,8 @@ router.get('/metrics/weight', authRequired, getWeight);
 router.put('/metrics/weight', authRequired, updateWeight);
 router.get('/metrics/calories', authRequired, getCalories);
 router.put('/metrics/calories', authRequired, updateCalories);
+router.get('/metrics/height', authRequired, getHeight);
+router.put('/metrics/height/:height', authRequired, updateHeight);
 
 router.get('/profile', authRequired, profile);
 router.get('/profile/avatar', authRequired, avatar);

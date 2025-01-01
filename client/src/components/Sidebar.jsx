@@ -50,7 +50,7 @@ export const DashBar = ({ isOpen }) => {
     <div className={`dash-container ${isOpen ? 'open' : 'closed'}`}>
       {/* HEADER */}
       <div className="dash-header">
-        <Link to={'/dashboard'}>
+        <Link to={'/profile'}>
           <button className="dash-header-button">
             <img src={avatarUrl} />
           </button>
@@ -63,6 +63,17 @@ export const DashBar = ({ isOpen }) => {
 
       {/* CONTENT */}
       <div className="dash-content">
+        {/* Homepage */}
+
+        <div className="dash-home">
+          <Link to={'/dashboard'}>
+            <button className="">
+              <i className="fa-solid fa-house"></i>
+              <p>Homepage</p>
+            </button>
+          </Link>
+        </div>
+
         {/* Calendar */}
         <div className="dash-calendar">
           <button onClick={toggleCalendar}>
@@ -133,11 +144,6 @@ export const DashBar = ({ isOpen }) => {
 
       {/* Settings */}
       <div className="dash-setting">
-        <Link to={'/profile'}>
-          <button className="dash-setting-profile-btn">
-            <i className="fa-solid fa-cog"></i>
-          </button>
-        </Link>
         <Link>
           <button className="dash-setting-logout-btn" onClick={() => logout()}>
             <i className="fa-solid fa-right-from-bracket"></i>

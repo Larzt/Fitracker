@@ -75,6 +75,23 @@ export const updateRoutine = async (req, res) => {
   }
 };
 
+export const addExtraData = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updates = req.body;
+
+    const updatedRoutine = await Routine.findByIdAndUpdate(
+      id,
+      { $set: updates },
+      { new: true }
+    );
+
+    res.status(200).json(updatedRoutine);
+  } catch (error) {
+    res.status(500).json({ error: `Error updating routine: ${error}` });
+  }
+};
+
 export const deleteRoutine = async (req, res) => {
   try {
     const routine = await Routine.findByIdAndDelete(req.params.id);

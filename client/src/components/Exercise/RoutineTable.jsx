@@ -1,11 +1,35 @@
 import React, { useState } from 'react';
+import { addExtraDataRequest } from '../../api/routine';
+import { useRoutine } from '../../context/Exercise/RoutineContext';
 
 function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
   const [editRow, setEditRow] = useState(null);
+  const { addExtraData } = useRoutine();
   const [editedCategory, setEditedCategory] = useState('');
   const [editedMuscle, setEditedMuscle] = useState('');
   const [expandedRow, setExpandedRow] = useState(null);
+  const [newLabel, setNewLabel] = useState('');
+  const [newValue, setNewValue] = useState('');
 
+  const handleAddAdditionalData = async (e, routineId) => {
+    e.preventDefault();
+
+    const additionalDataItem = {
+      label: newLabel,
+      value: newValue,
+    };
+
+    try {
+      await addExtraData(routineId, [
+        ...filteredRoutines.find((r) => r._id === routineId).additionalData,
+        additionalDataItem,
+      ]);
+      setNewLabel(''); // Restablecer el formulario
+      setNewValue('');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const categoryOptions = ['other', 'strength', 'cardio', 'flexibility'];
   const muscleOptions = ['other', 'chest', 'back', 'legs', 'arms', 'abs'];
 
@@ -166,35 +190,59 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                       </button>
                     </td>
                   </tr>
-                  {expandedRow === routine._id && routine.exercises && (
+                  {expandedRow === routine._id && (
                     <tr>
                       <td colSpan="6" className="exercise-details">
-                        <table className="nested-table">
-                          <thead>
-                            <tr>
-                              <th>Exercise Name</th>
-                              <th>Reps</th>
-                              <th>Sets</th>
-                              <th>Weight</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {routine.exercises.length > 0 ? (
-                              routine.exercises.map((exercise, index) => (
-                                <tr key={index}>
-                                  <td>{exercise.name || 'N/A'}</td>
-                                  <td>{exercise.reps || 'N/A'}</td>
-                                  <td>{exercise.sets || 'N/A'}</td>
-                                  <td>{exercise.weight || 'N/A'}</td>
-                                </tr>
-                              ))
-                            ) : (
-                              <tr>
-                                <td colSpan="4">No exercises added</td>
-                              </tr>
-                            )}
-                          </tbody>
-                        </table>
+                        {/* Additional Data Section */}
+                        {routine.additionalData &&
+                          routine.additionalData.length > 0 && (
+                            <div className="additional-data">
+                              <h3>Additional Data</h3>
+                              <table className="nested-table">
+                                <thead>
+                                  <tr>
+                                    <th>Label</th>
+                                    <th>Value</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {routine.additionalData.map((data, index) => (
+                                    <tr key={index}>
+                                      <td>{data.label}</td>
+                                      <td>{data.value}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          )}
+
+                        {/* Formulario para añadir datos adicionales */}
+                        <div className="additional-data-form">
+                          <h3>Add Additional Data</h3>
+                          <form
+                            onSubmit={(e) =>
+                              handleAddAdditionalData(e, routine._id)
+                            }
+                            className="nested-form"
+                          >
+                            <input
+                              type="text"
+                              placeholder="Name"
+                              value={newLabel}
+                              onChange={(e) => setNewLabel(e.target.value)}
+                              required
+                            />
+                            <input
+                              type="text"
+                              placeholder="Value"
+                              value={newValue}
+                              onChange={(e) => setNewValue(e.target.value)}
+                              required
+                            />
+                            <button type="submit">Add</button>
+                          </form>
+                        </div>
                       </td>
                     </tr>
                   )}

@@ -187,6 +187,41 @@ export const updateCalories = async (req, res) => {
 };
 
 // TODO: Move to user.controller.js
+export const getHeight = async (req, res) => {
+  const userFound = await User.findById(req.user.id);
+  if (!userFound) return res.status(400).json({ message: 'User not found' });
+  return res.json({
+    height: userFound.height,
+  });
+};
+
+// TODO: Move to user.controller.js
+export const updateHeight = async (req, res) => {
+  const { height } = req.params; // Accede al valor de 'height' en el body
+  console.log(req.body);
+
+  console.log(height);
+
+  console.log('Received height:', height); // Log del valor recibido
+  // Aquí, puedes agregar más lógica de negocio, como buscar al usuario y actualizar sus datos
+  try {
+    const userFound = await User.findById(req.user.id);
+    if (!userFound) {
+      return res.status(400).json({ message: 'User not found' });
+    }
+    if (height) {
+      userFound.height = height; // Actualizar los datos de 'height'
+    }
+    const updatedUser = await userFound.save();
+    console.log('Updated user:', updatedUser); // Log del usuario actualizado
+    return res.status(200).json(updatedUser); // Responde con el usuario actualizado
+  } catch (error) {
+    console.error('Error updating height:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+// TODO: Move to user.controller.js
 export const profile = async (req, res) => {
   const userFound = await User.findById(req.user.id);
   if (!userFound) return res.status(400).json({ message: 'User not found' });
@@ -409,6 +444,8 @@ export const verifyToken = async (req, res) => {
       username: userFound.username,
       email: userFound.email,
       weight: userFound.weight,
+      age: userFound.age,
+      height: userFound.height,
       weightDate: weightData,
     });
   });

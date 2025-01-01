@@ -27,3 +27,7 @@ export const updateWeightRequest = (value) =>
 export const getCaloriesRequest = () => axios.get('/metrics/calories');
 export const updateCaloriesRequest = (value) =>
   axios.put('/metrics/calories', value);
+
+export const getHeightRequest = () => axios.get('/metrics/height');
+export const updateHeightRequest = (value) =>
+  axios.put(`/metrics/height/${value}`);

@@ -9,11 +9,14 @@ import {
   getRoutinesByCategory,
   getRoutinesByMuscle,
   updateRoutine,
+  addExtraData,
 } from '../controllers/routine.controller.js';
 
 const router = Router();
 
 router.get('/routine/', authRequired, getRoutines);
+
+router.put('/routine/add-extra/:id', authRequired, addExtraData);
 
 router.get('/routine/:id', authRequired, getRoutine);
 

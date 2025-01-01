@@ -27,6 +27,13 @@ const userSchema = new mongoose.Schema(
       min: 18,
     },
 
+    height: {
+      type: String,
+      required: false,
+      min: 1,
+      default: '0',
+    },
+
     weight: {
       type: String,
       required: true,

@@ -75,6 +75,15 @@ h2 {
   margin: 1rem;
 }
 
+.dash-home button {
+  margin-top: 0.3rem;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
+  gap: 2.6rem;
+}
+
 .dash-calendar button,
 .dash-exercises button,
 .dash-dishes button {
@@ -86,6 +95,7 @@ h2 {
   width: 100%; /* Asegura que el botón ocupe todo el espacio disponible */
 }
 
+.dash-home button:hover,
 .dash-calendar button:hover,
 .dash-exercises button:hover,
 .dash-dishes button:hover {

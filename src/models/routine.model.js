@@ -27,6 +27,13 @@ const routineSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
+
+    additionalData: [
+      {
+        label: { type: String, required: false },
+        value: { type: String, required: false },
+      },
+    ],
   },
   {
     timestamps: true,

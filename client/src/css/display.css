@@ -398,3 +398,75 @@ body {
   font-weight: bold;
   margin-bottom: 1rem;
 }
+
+/* EXPANDED ROW ROUTINE  */
+/* Expanded row styles */
+.exercise-details {
+  border-top: 0.1rem solid #36363e;
+}
+
+.additional-data {
+  /* background-color: #131318; */
+  /* border-radius: 0.3rem; */
+  /* padding: 1rem; */
+}
+
+.nested-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #131318;
+}
+
+.nested-table th,
+.nested-table td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 0.01rem solid #36363e;
+}
+
+.nested-table th {
+  font-weight: bold;
+}
+
+.additional-data-form h3,
+.additional-data h3 {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.additional-data-form {
+  margin-top: 1rem;
+}
+
+.nested-form {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.nested-form input {
+  padding: 0.4rem;
+  /* border: 1px solid #3b82f6; */
+  border-radius: 0.3rem;
+  width: calc(50% - 15px); /* Ajustar el tamaño de los inputs */
+  color: #131318;
+}
+
+.nested-form button {
+  padding: 0.4rem 1rem;
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.nested-form button:hover {
+  background-color: #34d399;
+  transform: scale(1.02);
+}
