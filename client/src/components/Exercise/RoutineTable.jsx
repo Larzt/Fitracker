@@ -215,7 +215,6 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                                   <tr>
                                     <th>Label</th>
                                     <th>Value</th>
-                                    <th>Delete</th>
                                   </tr>
                                 </thead>
                                 <tbody>
