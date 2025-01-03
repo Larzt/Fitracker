@@ -10,6 +10,7 @@ import {
   getRoutinesByMuscle,
   updateRoutine,
   addExtraData,
+  deleteAdditionalData,
 } from '../controllers/routine.controller.js';
 
 const router = Router();
@@ -31,5 +32,7 @@ router.get('/routine/date/:date', authRequired, getRoutinesByDate);
 router.get('/routine/category/:category', authRequired, getRoutinesByCategory);
 
 router.get('/routine/muscle/:muscle', authRequired, getRoutinesByMuscle);
+
+router.patch('/routine/:id/additional-data', deleteAdditionalData);
 
 export default router;
