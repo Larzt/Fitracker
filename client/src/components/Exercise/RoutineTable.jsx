@@ -74,6 +74,17 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
     window.location.reload();
   };
 
+  const handleDeleteAdditionalData = async (routineId, label) => {
+    try {
+      await addExtraData(routineId, 
+        filteredRoutines.find((r) => r._id === routineId).additionalData.filter(data => data.label !== label)
+      );
+      console.log('Deleted additional data successfully');
+    } catch (error) {
+      console.error('Error deleting additional data:', error);
+    }
+  };  
+
   return (
     <div className="display-content-table">
       <table>
@@ -197,12 +208,14 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                         {routine.additionalData &&
                           routine.additionalData.length > 0 && (
                             <div className="additional-data">
+                            <>
                               <h3>Additional Data</h3>
                               <table className="nested-table">
                                 <thead>
                                   <tr>
                                     <th>Label</th>
                                     <th>Value</th>
+                                    <th>Delete</th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -210,10 +223,19 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                                     <tr key={index}>
                                       <td>{data.label}</td>
                                       <td>{data.value}</td>
+                                      <td>
+                                        <button
+                                          className="delete-btn"
+                                          onClick={() => handleDeleteAdditionalData(routine._id, data.label)}
+                                        >
+                                          <i className="fas fa-trash"></i>
+                                        </button>
+                                      </td>
                                     </tr>
                                   ))}
                                 </tbody>
                               </table>
+                            </>
                             </div>
                           )}
 
