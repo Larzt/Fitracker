@@ -4,7 +4,9 @@ export const getDishes = async (req, res) => {
   try {
     const dishes = await Dish.find({
       user: req.user.id,
-    }).populate('user');
+    })
+      .populate('food')
+      .populate('user');
     if (!dishes) return res.status(404).json({ message: 'Dishes not found' });
     res.json(dishes);
   } catch (error) {

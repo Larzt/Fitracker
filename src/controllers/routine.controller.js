@@ -4,12 +4,18 @@ export const getRoutines = async (req, res) => {
   try {
     const routines = await Routine.find({
       user: req.user.id,
-    }).populate('user');
-    if (!routines)
+    })
+      .populate('exer') // Descomentamos esta línea para hacer el populate del campo 'exer'
+      .populate('user');
+
+    console.log('getRoutines:', routines);
+    if (!routines || routines.length === 0)
       return res.status(404).json({ message: 'Routines not found' });
     res.json(routines);
   } catch (error) {
-    if (error) return res.status(404).json({ message: 'Routines not found' });
+    return res
+      .status(500)
+      .json({ message: 'Error fetching routines', error: error.message });
   }
 };
 

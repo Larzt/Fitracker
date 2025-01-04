@@ -59,6 +59,13 @@ function ExercisePage() {
     }
   };
 
+  const handleInputChange = ({ target: { name, value } }) => {
+    setCurrentExer((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleSetFavourite = async (exer) => {
     try {
       const updatedExer = { ...exer, favourite: !exer.favourite };
@@ -77,13 +84,6 @@ function ExercisePage() {
     } catch (error) {
       console.error('Error updating isPublic:', error);
     }
-  };
-
-  const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentExer((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
   };
 
   return (

@@ -1,46 +1,50 @@
 import { BaseDashboardPage } from '../BaseDashboardPage';
-import { useExers } from '../../context/Exercise/ExerciseContext';
 import { useRoutine } from '../../context/Exercise/RoutineContext';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../../css/calendar.css';
-import { useNavigate } from 'react-router-dom';
-import { all } from 'axios';
-import CustomDateCell from './CustomDateCell';
-import { set } from 'mongoose';
 
 const localizer = momentLocalizer(moment);
-const today = new Date().toISOString().split('T')[0];
 
 function ExerCalendarPage() {
-  const { exers, getExers } = useExers();
-  const { routines, getRoutinesByDate } = useRoutine();
+  const { routines, getRoutines } = useRoutine();
   const [events, setEvents] = useState([]);
-  const navigate = useNavigate();
+  const [view, setView] = useState('month'); // Estado para controlar la vista actual
+  const [date, setDate] = useState(new Date()); // Estado para controlar la fecha seleccionada
 
   useEffect(() => {
     const fetchData = async () => {
-      await getRoutinesByDate(today);
+      await getRoutines();
     };
     fetchData();
   }, []);
+
+
   useEffect(() => {
     if (routines && routines.length > 0) {
-      const events = routines.map((routine) => ({
-        title: routine.exer.name,
-        //la fecha viene en el timestamp de la base de datos
-        start: moment(routine.date).toDate(),
-        end: moment(routine.date).add(1, 'hour').toDate(),
-        allDay: true,
-      }));
-      setEvents(events);
-      console.log(events);
-    }
-  }, [exers]);
+      const events = routines.map((routine) => {
+        console.log(routine);
 
-  const handleSelectSlot = () => {
+        const startDate = moment(routine.createdAt).toDate(); // Asegurarte de que la fecha sea correcta
+        return {
+          id: routine.id,
+          title: routine.exer.name,
+          start: startDate,
+          end: moment(startDate).add(1, 'hour').toDate(), // Aquí le das 1 hora como duración al evento
+          allDay: true, // Cambiar esto a false si no es un evento todo el día
+          details: routine.details,
+        };
+      });
+      setEvents(events);
+    }
+  }, [routines]);
+
+
+  const handleSelectEvent = (event) => {
+    setView('day');
+    setDate(event.start);
   };
 
   return (
@@ -52,10 +56,15 @@ function ExerCalendarPage() {
             <Calendar
               localizer={localizer}
               events={events}
-              style={{ height: 500 }}
+              style={{ height: 750 }}
               views={['month', 'week', 'day']}
               selectable={true}
-              onSelectSlot={handleSelectSlot}
+              onSelectSlot={handleSelectEvent}
+              onSelectEvent={handleSelectEvent} // Evento para manejar clics en eventos
+              onView={setView} // Cambiar la vista desde el calendario
+              view={view} // Vista actual
+              date={date} // Fecha actual
+              onNavigate={(newDate) => setDate(newDate)} // Actualizar fecha al navegar
             />
           </div>
         </div>

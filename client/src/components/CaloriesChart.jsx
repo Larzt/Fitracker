@@ -5,18 +5,16 @@ import { Doughnut } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
 export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
-  // Calcular el restante para alcanzar el total
-  const remainingValue = Math.max(targetCalories - currentValue, 0); // Evitar valores negativos
+  const remainingValue = Math.max(targetCalories - currentValue, 0);
 
-  // Datos para el gráfico
   const data = {
-    labels: ['Consumido', 'Restante'], // Etiquetas para las porciones
+    labels: ['Consumido', 'Restante'],
     datasets: [
       {
-        data: [currentValue, remainingValue], // Valores del gráfico
-        backgroundColor: ['#34d399', '#131318'], // Colores de las porciones
-        borderColor: ['#fff', '#fff'], // Colores de los bordes
-        borderWidth: 1, // Ancho de los bordes
+        data: [currentValue, remainingValue],
+        backgroundColor: ['#34d399', '#131318'],
+        borderColor: ['#fff', '#fff'],
+        borderWidth: 1,
       },
     ],
   };
@@ -26,16 +24,26 @@ export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
     plugins: {
       title: {
         display: true,
-        text: 'Gráfico de Calorias consumidas', // Título del gráfico
-        color: '#fff', // Color blanco para el título
+        text: 'Gráfico de Calorías consumidas',
+        color: '#fff', // Blanco para el título
       },
       legend: {
-        display: true, // Mostrar leyenda
-        position: 'top', // Posición de la leyenda
+        display: true,
+        position: 'top',
         labels: {
-          color: '#fff', // Color blanco para las etiquetas de la leyenda
+          color: '#fff', // Blanco para el texto de la leyenda
           font: {
-            weight: 'bold', // Poner en negrita
+            weight: 'bold',
+          },
+          generateLabels: (chart) => {
+            const dataset = chart.data.datasets[0];
+            return chart.data.labels.map((label, index) => ({
+              text: `${label}: ${dataset.data[index]} calorías`,
+              fillStyle: dataset.backgroundColor[index],
+              strokeStyle: dataset.borderColor[index],
+              lineWidth: dataset.borderWidth,
+              fontColor: '#fff', // Garantiza que el texto sea blanco
+            }));
           },
         },
       },
@@ -47,23 +55,19 @@ export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
             return `${label}: ${value} calorías`;
           },
         },
-        titleColor: '#fff', // Color blanco para el título del tooltip
-        bodyColor: '#fff', // Color blanco para el cuerpo del tooltip
-        borderColor: '#fff', // Color blanco para el borde del tooltip
-        borderWidth: 1, // Ancho del borde del tooltip
+        titleColor: '#fff',
+        bodyColor: '#fff',
+        borderColor: '#fff',
+        borderWidth: 1,
       },
     },
     elements: {
       arc: {
-        borderColor: '#fff', // Color blanco para los bordes de las secciones
+        borderColor: '#fff',
       },
     },
-    scales: {
-      // Configuración para las escalas (si fuese necesario)
-      // Puede añadirse más configuraciones si se desea cambiar estilos para las escalas
-    },
     animation: {
-      duration: 1000, // Duración de la animación
+      duration: 1000,
     },
   };
 

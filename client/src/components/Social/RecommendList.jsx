@@ -2,19 +2,25 @@ import { useState } from 'react';
 
 export const RecommendedFriends = ({ users, addFriend }) => {
   const [visibleCount, setVisibleCount] = useState(5); // Número inicial de usuarios visibles
+  const [isExpanded, setIsExpanded] = useState(false); // Estado para controlar si la lista está expandida
 
   const handleAddFriend = (id) => {
     addFriend(id);
     window.location.reload();
   };
 
-  const handleShowMore = () => {
-    setVisibleCount((prevCount) => prevCount + 5); // Incrementa el número de usuarios visibles en 5
+  const handleToggleVisibility = () => {
+    if (isExpanded) {
+      setVisibleCount(5); // Vuelve al número inicial de usuarios visibles
+    } else {
+      setVisibleCount(users.length); // Muestra todos los usuarios
+    }
+    setIsExpanded(!isExpanded); // Alterna el estado
   };
 
   return (
     <div className="recommended-friends">
-      <h2>Users</h2>
+      <h2>Recommended</h2>
       {users?.length > 0 ? (
         <>
           <ul>
@@ -34,12 +40,11 @@ export const RecommendedFriends = ({ users, addFriend }) => {
               );
             })}
           </ul>
-          {/* Botón "Más" si hay más usuarios por mostrar */}
-          {visibleCount < users.length && (
-            <button className="show-more-btn" onClick={handleShowMore}>
-              Mostrar más
-            </button>
-          )}
+
+          {/* Botón para alternar entre mostrar más o mostrar menos */}
+          <button className="show-more-btn" onClick={handleToggleVisibility}>
+            {isExpanded ? 'Mostrar menos' : 'Mostrar más'}
+          </button>
         </>
       ) : (
         <p>No hay amigos recomendados actualmente.</p>

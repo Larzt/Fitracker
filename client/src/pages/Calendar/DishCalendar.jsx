@@ -1,44 +1,49 @@
 import { BaseDashboardPage } from '../BaseDashboardPage';
 import { useDish } from '../../context/Food/DishContext';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../../css/calendar.css';
-import { useNavigate } from 'react-router-dom';
-import { all } from 'axios';
-import CustomDateCell from './CustomDateCell';
-import { set } from 'mongoose';
 
 const localizer = momentLocalizer(moment);
-const today = new Date().toISOString().split('T')[0];
 
 function DishCalendarPage() {
-  const { dishes, getDishesByDate } = useDish();
+  const { dishes, getDishes } = useDish();
   const [events, setEvents] = useState([]);
-  const navigate = useNavigate();
+  const [view, setView] = useState('month'); // Estado para controlar la vista actual
+  const [date, setDate] = useState(new Date()); // Estado para controlar la fecha seleccionada
 
   useEffect(() => {
     const fetchData = async () => {
-      await getDishesByDate(today);
+      await getDishes();
     };
     fetchData();
   }, []);
+  console.log(dishes);
+
   useEffect(() => {
     if (dishes && dishes.length > 0) {
-      const events = dishes.map((dish) => ({
-        title: dish.food.name,
-        //la fecha viene en el timestamp de la base de datos
-        start: moment(dish.date).toDate(),
-        end: moment(dish.date).add(1, 'hour').toDate(),
-        allDay: true,
-      }));
+      const events = dishes.map((dish) => {
+        console.log(dish);
+
+        const startDate = moment(dish.createdAt).toDate(); // Asegurarte de que la fecha sea correcta
+        return {
+          id: dish.id,
+          title: dish.food.name,
+          start: startDate,
+          end: moment(startDate).add(1, 'hour').toDate(), // Aquí le das 1 hora como duración al evento
+          allDay: true, // Cambiar esto a false si no es un evento todo el día
+          details: dish.details,
+        };
+      });
       setEvents(events);
-      console.log(events);
     }
   }, [dishes]);
 
-  const handleSelectSlot = () => {
+  const handleSelectEvent = (event) => {
+    setView('day');
+    setDate(event.start);
   };
 
   return (
@@ -50,10 +55,15 @@ function DishCalendarPage() {
             <Calendar
               localizer={localizer}
               events={events}
-              style={{ height: 500 }}
+              style={{ height: 750 }}
               views={['month', 'week', 'day']}
               selectable={true}
-              onSelectSlot={handleSelectSlot}
+              onSelectSlot={handleSelectEvent}
+              onSelectEvent={handleSelectEvent} // Evento para manejar clics en eventos
+              onView={setView} // Cambiar la vista desde el calendario
+              view={view} // Vista actual
+              date={date} // Fecha actual
+              onNavigate={(newDate) => setDate(newDate)} // Actualizar fecha al navegar
             />
           </div>
         </div>

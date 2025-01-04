@@ -24,7 +24,6 @@ export const useRoutine = () => {
 
 export function RoutineProvider({ children }) {
   const [routines, setRoutine] = useState([]);
-
   const addExtraData = async (routineId, additionalData) => {
     try {
       const res = await addExtraDataRequest(routineId, { additionalData });

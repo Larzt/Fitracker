@@ -15,7 +15,7 @@ import {
 
 const router = Router();
 
-router.get('/routine/', authRequired, getRoutines);
+router.get('/routine', authRequired, getRoutines);
 
 router.put('/routine/add-extra/:id', authRequired, addExtraData);
 

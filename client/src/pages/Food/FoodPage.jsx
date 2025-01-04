@@ -68,6 +68,16 @@ function FoodPage() {
     }
   };
 
+  const handleSetPublic = async (food) => {
+    try {
+      const updatedFood = { ...food, isPublic: !food.isPublic };
+      await updateFood(food._id, updatedFood);
+      await getFoods(); // Actualiza la lista después de modificar
+    } catch (error) {
+      console.error('Error updating isPublic:', error);
+    }
+  };
+
   return (
     <BaseDashboardPage
       content={
@@ -94,6 +104,7 @@ function FoodPage() {
             handleEditFood={handleEditFood}
             handleDeleteFood={handleDeleteFood}
             handleSetFavourite={handleSetFavourite}
+            handleSetPublic={handleSetPublic}
           />
         </div>
       }

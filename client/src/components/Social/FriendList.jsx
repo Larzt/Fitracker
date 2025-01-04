@@ -8,7 +8,7 @@ export const FriendList = ({ friends, removeFriend }) => {
 
   return (
     <div className="add-friends">
-      <h2>Amigos</h2>
+      <h2>Friends</h2>
       {friends?.length > 0 ? (
         <ul>
           {friends.map((friend, index) => {

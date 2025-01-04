@@ -15,7 +15,6 @@ export const BaseDashboardPage = ({ content }) => {
   };
 
   const { notifications } = useAuth(); // Aquí asumimos que tienes esta función en el contexto
-  console.log(notifications.length);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);

@@ -6,6 +6,22 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import nfs from 'node:fs';
 const defaultImage = `./client/images/default.png`;
+import usersData from '../../data/usersData.js';
+
+export const loadUser = async (req, res) => {
+  try {
+    const creatRandomUsers = await User.insertMany(usersData);
+    res.status(201).json({
+      message: 'User loaded successfully',
+      users: creatRandomUsers,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: 'Error loading users from file',
+      error: error.message,
+    });
+  }
+};
 
 // TODO: Move to user.controller.js
 export const getUser = async (req, res) => {

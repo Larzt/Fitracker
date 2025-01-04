@@ -20,9 +20,7 @@
 
 /* Cuando está cerrado, movemos la barra lateral fuera de la pantalla */
 .dash-container.closed {
-  transform: translateX(
-    -100%
-  ); /* Desplaza la barra lateral fuera de la pantalla */
+  transform: translateX(-100%);
 }
 
 /* Cuando está abierto, mostramos la barra lateral */
