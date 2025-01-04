@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ExerciseTable = ({ exers, handleEditExer, handleDeleteExer }) => (
+const ExerciseTable = ({ exers, handleEditExer, handleDeleteExer, handleSetFavourite, handleSetPublic }) => (
   <div className="display-content-table">
     <table>
       <thead>
@@ -8,6 +8,8 @@ const ExerciseTable = ({ exers, handleEditExer, handleDeleteExer }) => (
           <th>Name</th>
           <th>Description</th>
           <th>Equipment</th>
+          <th className="text-center">Favourite</th>
+          <th className="text-center">Public</th>
           <th className="text-center">Edit</th>
           <th className="text-center">Delete</th>
         </tr>
@@ -21,6 +23,40 @@ const ExerciseTable = ({ exers, handleEditExer, handleDeleteExer }) => (
               <td className="text-left">
                 {exer.equipment != '' ? exer.equipment : 'N/A'}
               </td>
+              <td className="text-center">
+                {exer.user ? (
+                  <button
+                    onClick={() => handleSetFavourite(exer)}
+                    className="edit-btn"
+                  >
+                    {exer.favourite ? (
+                      <i className="fa-solid fa-star"></i> // Solid star for favourite
+                    ) : (
+                      <i className="fa-regular fa-star"></i> // Regular star for not favourite
+                    )}
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </td>
+
+              <td className="text-center">
+                {exer.user ? (
+                  <button
+                    onClick={() => handleSetPublic(exer)}
+                    className="edit-btn"
+                  >
+                    {exer.isPublic ? (
+                      <i className="fa-solid fa-eye"></i> // Solid eye for favourite
+                    ) : (
+                      <i className="fa-regular fa-eye"></i> // Regular eye for not favourite
+                    )}
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </td>
+
               <td className="text-center">
                 <button
                   onClick={() => handleEditExer(exer)}

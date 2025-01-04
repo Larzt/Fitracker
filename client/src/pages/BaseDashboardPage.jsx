@@ -15,6 +15,7 @@ export const BaseDashboardPage = ({ content }) => {
   };
 
   const { notifications } = useAuth(); // Aquí asumimos que tienes esta función en el contexto
+  console.log(notifications.length);
 
   const toggleNavbar = () => {
     setIsNavOpen(!isNavOpen);
@@ -44,7 +45,7 @@ export const BaseDashboardPage = ({ content }) => {
               onClick={toggleNotifications}
             >
               <i className="fa-solid fa-inbox"></i>
-              {notifications && <span className="noti-badge"></span>}
+              {notifications.length > 0 && <span className="noti-badge"></span>}
             </button>
 
             {/* FRIEND LIST */}

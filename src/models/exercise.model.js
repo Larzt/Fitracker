@@ -24,7 +24,7 @@ const exerSchema = new mongoose.Schema(
       default: false,
     },
 
-    public: {
+    isPublic: {
       type: Boolean,
       default: false,
     },

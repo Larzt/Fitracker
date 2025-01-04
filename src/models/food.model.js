@@ -5,7 +5,6 @@ const foodSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true,
     },
 
     calories: {
@@ -25,7 +24,7 @@ const foodSchema = new mongoose.Schema(
       default: false,
     },
 
-    public: {
+    isPublic: {
       type: Boolean,
       default: false,
     },

@@ -53,56 +53,57 @@ export const AuthProvider = ({ children }) => {
 
   // Cuando recibes las notificaciones del backend
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     const fetchNotifications = async () => {
       try {
         const response = await getNotificationsRequest();
-
-        const notifications = await response.data.notifications;
-
-        notifications.map((noti) => {
-          setNotifications(noti);
-        });
+        const notifications = response.data.notifications;
+        setNotifications(notifications);
       } catch (error) {
         console.error('Error fetching notifications:', error);
       }
     };
+
     fetchNotifications();
-  }, []);
+  }, [isAuthenticated]);
 
   const updateNotificationStatus = (index) => {
     setNotifications((prevNotifications) => {
-      // Actualiza el estado asegurando que notifications sea un array
       if (Array.isArray(prevNotifications)) {
         const updatedNotifications = [...prevNotifications];
-        updatedNotifications.splice(index, 1); // Elimina la notificación en el índice dado
+        updatedNotifications.splice(index, 1);
         return updatedNotifications;
       }
       return prevNotifications;
     });
   };
 
-  console.log(notifications);
-
   // Obtener métricas del usuario
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     async function getMetrics() {
-      const responseHeight = await getHeightRequest();
-      const responseWeightAndDate = await getWeightRequest();
-      const responseCalories = await getCaloriesRequest();
+      try {
+        const responseHeight = await getHeightRequest();
+        const responseWeightAndDate = await getWeightRequest();
+        const responseCalories = await getCaloriesRequest();
 
-      const newHeight = responseHeight.data.height;
-      const newWeightAndDate = responseWeightAndDate.data;
-      const newCalories = responseCalories.data.calories;
-
-      setHeight(newHeight);
-      setWeight(newWeightAndDate);
-      setCalories(newCalories);
+        setHeight(responseHeight.data.height);
+        setWeight(responseWeightAndDate.data);
+        setCalories(responseCalories.data.calories);
+      } catch (error) {
+        console.error('Error fetching metrics:', error);
+      }
     }
+
     getMetrics();
-  }, []);
+  }, [isAuthenticated]);
 
   // Inicialización de datos de amigos y usuarios
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     let isMounted = true;
 
     async function initializeData() {
@@ -121,12 +122,11 @@ export const AuthProvider = ({ children }) => {
     return () => {
       isMounted = false;
     };
-  }, [userFriends]);
+  }, [isAuthenticated, userFriends]);
 
   const signup = async (user) => {
     try {
       const res = await registerRequest(user);
-      console.log(res);
       setIsAuthenticated(true);
       setUser(res.data);
     } catch (error) {
@@ -152,17 +152,20 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getAvatar = useCallback(async () => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await loadAvatarRequest();
       const avatarFileName = res.data.avatar;
-      const pathFile = `/public/uploads/${avatarFileName}.png`;
-      setAvatar(pathFile);
+      setAvatar(`/public/uploads/${avatarFileName}.png`);
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  }, [isAuthenticated]);
 
   const deleteAvatar = async () => {
+    if (!isAuthenticated) return;
+
     try {
       await deleteAvatarRequest();
       window.location.reload();
@@ -172,6 +175,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const uploadAvatar = async (file) => {
+    if (!isAuthenticated) return;
+
     try {
       const formData = new FormData();
       formData.append('avatarImage', file);
@@ -187,6 +192,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateCalories = async (value) => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await updateCaloriesRequest(value);
       console.log(res.data.calories);
@@ -196,6 +203,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateHeight = async (value) => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await updateHeightRequest(value);
       setHeight(res.data.height);
@@ -205,6 +214,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const updateWeight = async (value) => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await updateWeightRequest(value);
       setWeight(res.data.weight);
@@ -213,7 +224,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Check if user is authenticated using cookies
   useEffect(() => {
     async function checkLogin() {
       const cookies = Cookies.get();
@@ -243,8 +253,9 @@ export const AuthProvider = ({ children }) => {
     checkLogin();
   }, []);
 
-  // Obtener la lista de usuarios
   const usersList = async () => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await usersListRequest();
       const resUsers = res.data.users;
@@ -272,7 +283,6 @@ export const AuthProvider = ({ children }) => {
         })
       );
 
-      // Filtra usuarios para excluir a los amigos
       const filteredUsers = allUsers.filter(
         (user) =>
           user &&
@@ -285,8 +295,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Obtener la lista de amigos
   const friendList = async () => {
+    if (!isAuthenticated) return;
+
     try {
       const res = await friendsListRequest();
       const resFriends = res.data.friends;
@@ -327,26 +338,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Funciones para agregar y quitar amigos
   const addFriend = async (id) => {
+    if (!isAuthenticated) return;
+
     try {
       await addFriendsRequest(id);
-      await friendList(); // Recarga la lista de amigos después de agregar
+      await friendList();
     } catch (error) {
       console.error('Error adding friend:', error);
     }
   };
 
   const removeFriend = async (id) => {
+    if (!isAuthenticated) return;
+
     try {
       await removeFriendsRequest(id);
-      await friendList(); // Recarga la lista de amigos después de quitar
+      await friendList();
     } catch (error) {
       console.error('Error removing friend:', error);
     }
   };
 
   const getUser = async (id) => {
+    if (!isAuthenticated) return;
+
     const res = await getUserRequest(id);
     return res.data.user;
   };

@@ -11,7 +11,7 @@ function ExercisePage() {
   const [currentExer, setCurrentExer] = useState({});
 
   useEffect(() => {
-    getExers();
+    getExers(); // Carga inicial de ejercicios
   }, []);
 
   const resetForm = () => {
@@ -25,20 +25,23 @@ function ExercisePage() {
     if (!isFormVisible) setIsEditing(false);
   };
 
-  const handleSaveExer = () => {
+  const handleSaveExer = async () => {
     if (!currentExer.name) {
       alert('Please fill out the name field!');
       return;
     }
 
-    if (isEditing) {
-      updateExer(currentExer._id, currentExer);
-    } else {
-      createExer(currentExer);
+    try {
+      if (isEditing) {
+        await updateExer(currentExer._id, currentExer);
+      } else {
+        await createExer(currentExer);
+      }
+      resetForm();
+      await getExers(); // Refresca la lista de ejercicios
+    } catch (error) {
+      console.error('Error saving exercise:', error);
     }
-    resetForm();
-    getExers(); // Refresca la lista sin recargar la página
-    window.location.reload();
   };
 
   const handleEditExer = (exer) => {
@@ -47,16 +50,40 @@ function ExercisePage() {
     setIsFormVisible(true);
   };
 
-  const handleDeleteExer = (id) => {
-    deleteExer(id);
-    getExers(); // Actualiza la lista sin recargar la página
+  const handleDeleteExer = async (id) => {
+    try {
+      await deleteExer(id);
+      await getExers(); // Actualiza la lista después de eliminar
+    } catch (error) {
+      console.error('Error deleting exercise:', error);
+    }
+  };
+
+  const handleSetFavourite = async (exer) => {
+    try {
+      const updatedExer = { ...exer, favourite: !exer.favourite };
+      await updateExer(exer._id, updatedExer);
+      await getExers(); // Actualiza la lista después de modificar
+    } catch (error) {
+      console.error('Error updating favourite:', error);
+    }
+  };
+
+  const handleSetPublic = async (exer) => {
+    try {
+      const updatedExer = { ...exer, isPublic: !exer.isPublic };
+      await updateExer(exer._id, updatedExer);
+      await getExers(); // Actualiza la lista después de modificar
+    } catch (error) {
+      console.error('Error updating isPublic:', error);
+    }
   };
 
   const handleInputChange = ({ target: { name, value } }) => {
-    setCurrentExer((prev) => {
-      if (prev[name] === value) return prev; // Evita renders innecesarios
-      return { ...prev, [name]: value };
-    });
+    setCurrentExer((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
@@ -82,9 +109,11 @@ function ExercisePage() {
               isEditing={isEditing}
             />
             <ExerciseTable
-              exers={exers}
+              exers={exers} // Pasamos los ejercicios del contexto directamente
               handleEditExer={handleEditExer}
               handleDeleteExer={handleDeleteExer}
+              handleSetFavourite={handleSetFavourite}
+              handleSetPublic={handleSetPublic}
             />
           </div>
         }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FoodTable = ({ foods, handleEditFood, handleDeleteFood }) => (
+const FoodTable = ({ foods, handleEditFood, handleDeleteFood, handleSetFavourite }) => (
   <div className="display-content-table">
     <table>
       <thead>
@@ -8,6 +8,7 @@ const FoodTable = ({ foods, handleEditFood, handleDeleteFood }) => (
           <th>Name</th>
           <th>Ingredients</th>
           <th>Calories</th>
+          <th className="text-center">Favourite</th>
           <th className="text-center">Edit</th>
           <th className="text-center">Delete</th>
         </tr>
@@ -19,6 +20,22 @@ const FoodTable = ({ foods, handleEditFood, handleDeleteFood }) => (
               <td className="text-left">{food.name}</td>
               <td className="text-left">{food.ingredients || 'None'}</td>
               <td className="text-left">{food.calories || 'None'}</td>
+              <td className="text-center">
+                {food.user ? (
+                  <button
+                    onClick={() => handleSetFavourite(food)}
+                    className="edit-btn"
+                  >
+                    {food.favourite ? (
+                      <i className="fa-solid fa-star"></i> // Solid star for favourite
+                    ) : (
+                      <i className="fa-regular fa-star"></i> // Regular star for not favourite
+                    )}
+                  </button>
+                ) : (
+                  <></>
+                )}
+              </td>
               <td className="text-center">
                 <button
                   onClick={() => handleEditFood(food)}

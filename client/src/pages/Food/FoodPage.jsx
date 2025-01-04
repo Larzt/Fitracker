@@ -58,6 +58,16 @@ function FoodPage() {
     }));
   };
 
+  const handleSetFavourite = async (food) => {
+    try {
+      const updatedFood = { ...food, favourite: !food.favourite };
+      await updateFood(food._id, updatedFood);
+      await getFoods(); // Actualiza la lista después de modificar
+    } catch (error) {
+      console.error('Error updating favourite:', error);
+    }
+  };
+
   return (
     <BaseDashboardPage
       content={
@@ -83,6 +93,7 @@ function FoodPage() {
             foods={foods}
             handleEditFood={handleEditFood}
             handleDeleteFood={handleDeleteFood}
+            handleSetFavourite={handleSetFavourite}
           />
         </div>
       }

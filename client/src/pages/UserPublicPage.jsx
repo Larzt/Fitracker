@@ -8,9 +8,9 @@ import { searchAvatarRequest } from '../api/auth';
 
 function UserPublicPage() {
   const { id } = useParams(); // Extrae el parámetro id de la URL.
-  const { getUser } = useAuth();
-  const { foodFromUser } = useFood();
-  const { exerciseFromUser } = useExers();
+  const { user, getUser } = useAuth();
+  const { foodFromUser, copyFood } = useFood();
+  const { exerciseFromUser, createExer } = useExers();
   const [currentUser, setUser] = useState(null); // Inicializa el estado como null.
   const [foods, setFood] = useState([]); // Inicializa el estado como un arreglo vacío.
   const [exers, setExers] = useState([]); // Inicializa el estado como un arreglo vacío.
@@ -50,6 +50,15 @@ function UserPublicPage() {
   if (!currentUser) {
     return <div className="loading-message">Loading...</div>; // Muestra un mensaje de carga mientras esperas la respuesta.
   }
+
+  const handleCopyFood = async (data) => {
+    console.log(user);
+    copyFood(data, user.id);
+  }
+  // const handleCopyExer = (data) => {
+  //   console.log(data);
+  //   createExer(data);
+  // }
 
   function PublicFood() {
     return (

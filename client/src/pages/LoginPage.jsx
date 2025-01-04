@@ -16,7 +16,9 @@ function LoginPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/dashboard');
+    if (isAuthenticated) {
+      navigate('/dashboard');
+    }
   }, [isAuthenticated]);
 
   const onSubmit = handleSubmit(async (values) => {
