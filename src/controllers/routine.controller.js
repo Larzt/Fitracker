@@ -17,6 +17,7 @@ export const getRoutine = async (req, res) => {
   try {
     const routine = await Routine.find({ exer: req.params.id })
       .populate('exer')
+      .populate('name')
       .populate('user');
 
     if (!routine) return res.status(404).json({ message: 'Routine not found' });

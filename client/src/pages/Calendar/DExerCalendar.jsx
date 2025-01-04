@@ -1,6 +1,6 @@
 import { BaseDashboardPage } from '../BaseDashboardPage';
 import { useExers } from '../../context/Exercise/ExerciseContext';
-
+import { useRoutine } from '../../context/Exercise/RoutineContext';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -14,22 +14,24 @@ const localizer = momentLocalizer(moment);
 
 function CalendarPage() {
   const { exers, getExers } = useExers();
+  const { routines, getRoutines } = useRoutine();
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       await getExers();
+      await getRoutines();
     };
     fetchData();
   }, []);
   useEffect(() => {
-    if (exers && exers.length > 0) {
-      const events = exers.map((exer) => ({
-        title: exer.name,
+    if (routines && routines.length > 0) {
+      const events = routines.map((routine) => ({
+        title: routine.exer.name,
         //la fecha viene en el timestamp de la base de datos
-        start: moment(exer.date).toDate(),
-        end: moment(exer.date).add(1, 'hour').toDate(),
+        start: moment(routine.date).toDate(),
+        end: moment(routine.date).add(1, 'hour').toDate(),
         allDay: true,
       }));
       setEvents(events);
@@ -38,7 +40,6 @@ function CalendarPage() {
   }, [exers]);
 
   const handleSelectSlot = () => {
-    navigate('/dashboard/exercise/');
   };
 
   return (
