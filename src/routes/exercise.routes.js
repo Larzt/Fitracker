@@ -34,7 +34,7 @@ router.put(
 );
 
 router.delete('/exercise/:id', authRequired, deleteExer);
-router.post('/exercise/load/data', authRequired, loadExers);
+router.post('/exercise/load/data', loadExers);
 
 router.put('/exercise/visible/:id', setVisible);
 router.patch('/exercise/favourite/:id', toggleFavourite);

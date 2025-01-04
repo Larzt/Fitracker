@@ -73,16 +73,41 @@ export const createFood = async (req, res) => {
       name,
       calories,
       ingredients,
-      favourite: favourite || false, //predeterminado si no se pone
       user: req.user.id,
     });
 
     const savedFood = await newFood.save();
     res.json(savedFood);
   } catch (error) {
-    if (error) return res.status(404).json({ message: 'Food not created' });
+    if (error) return res.status(404).json({ message: 'Food not created', error: error });
   }
 };
+
+export const copyFood = async (req, res) => {
+  try {
+    const { name, calories, ingredients } = req.body;
+    
+    // Validación básica
+    if (!name || !calories || !req.params.id) {
+      return res.status(400).json({ message: 'Faltan datos obligatorios' });
+    }
+
+    const newFood = new Food({
+      name,
+      calories,
+      ingredients,
+      user: req.params.id,
+    });
+
+    const savedFood = await newFood.save();
+    console.log('Comida guardada exitosamente:', savedFood);
+    res.json(savedFood);
+  } catch (error) {
+    console.error('Error al guardar la comida:', error);
+    res.status(500).json({ message: 'Error interno del servidor', error });
+  }
+};
+
 
 export const deleteFood = async (req, res) => {
   try {
@@ -96,14 +121,16 @@ export const deleteFood = async (req, res) => {
 
 export const updateFood = async (req, res) => {
   try {
+    console.log('Request body:', req.body);
     const newFoodData = req.body;
     const originalFood = await Food.findById(req.params.id);
     if (!originalFood) {
+      console.log('Food not found');
       return res.status(404).json({ message: 'Food not found' });
     }
 
-    // Si la comida ya tiene un usuario asociado, actualizar de forma normal
     if (originalFood.user) {
+      console.log('Updating existing food:', req.body);
       const updatedFood = await Food.findByIdAndUpdate(
         req.params.id,
         req.body,
@@ -115,27 +142,32 @@ export const updateFood = async (req, res) => {
       });
     }
 
-    // Si la comida no tiene usuario asociado, crear una nueva comida
-    const { name, calories, ingredients } = newFoodData;
+    console.log('Creating new food...');
+    const { name, calories, ingredients, isPublic } = newFoodData;
+
     const newFood = new Food({
       name,
       calories,
       ingredients,
+      isPublic,
       user: req.user.id,
     });
+    console.log('New food to be saved:', newFood);
 
     const createdFood = await newFood.save();
-    res.status(201).json({
+    return res.status(201).json({
       message: 'New food created and associated with user',
       createdFood,
     });
   } catch (error) {
-    res.status(500).json({
+    console.error('Error:', error.message);
+    return res.status(500).json({
       message: 'Error processing food update',
       error: error.message,
     });
   }
 };
+
 
 export const setVisible = async (req, res) => {
   try {

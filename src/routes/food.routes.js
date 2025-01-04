@@ -10,6 +10,7 @@ import {
   setVisible,
   toggleFavourite,
   getFoodsFromUser,
+  copyFood,
 } from '../controllers/food.controller.js';
 import { createSchema, updateSchema } from '../schemas/food.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -20,11 +21,14 @@ router.get('/user/food/:id', authRequired, getFoodsFromUser);
 
 router.get('/food', authRequired, getFoods);
 router.get('/food/:id', authRequired, getFood);
+
 router.post('/food', authRequired, validateSchema(createSchema), createFood);
+router.post('/copy/food/:id', authRequired, copyFood);
+
 router.put('/food/:id', authRequired, validateSchema(updateSchema), updateFood);
 router.delete('/food/:id', authRequired, deleteFood);
 
-router.post('/food/load/data', authRequired, loadFood);
+router.post('/food/load/data', loadFood);
 
 router.put('/food/visible/:id', setVisible);
 router.patch('/food/favourite/:id', toggleFavourite);

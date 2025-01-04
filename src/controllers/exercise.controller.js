@@ -113,11 +113,12 @@ export const updateExer = async (req, res) => {
     // Si la comida no tiene usuario asociado, crear una nueva comida
     console.log(newExerData);
 
-    const { name, description, equipment } = newExerData;
+    const { name, description, equipment, isPublic } = newExerData;
     const newExer = new Exer({
       name,
       description,
       equipment,
+      isPublic,
       user: req.user.id,
     });
 

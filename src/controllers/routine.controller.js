@@ -164,3 +164,30 @@ export const getRoutinesByMuscle = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const deleteAdditionalData = async (req, res) => {
+  try {
+    const { id } = req.params; // ID de la rutina
+    const { label } = req.body; // Label del dato a eliminar
+
+    if (!label) {
+      return res.status(400).json({ message: 'Label is required' });
+    }
+
+    // Buscar la rutina por ID y eliminar el dato del campo additionalData
+    const routine = await Routine.findByIdAndUpdate(
+      id,
+      { $pull: { additionalData: { label } } }, // Eliminar el dato con el label especificado
+      { new: true } // Retornar el documento actualizado
+    );
+
+    if (!routine) {
+      return res.status(404).json({ message: 'Routine not found' });
+    }
+
+    res.status(200).json(routine);
+  } catch (error) {
+    console.error('Error deleting additional data:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};

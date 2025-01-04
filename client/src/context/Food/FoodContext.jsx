@@ -6,6 +6,7 @@ import {
   updateFoodRequest,
   deleteFoodRequest,
   getFoodFromUserRequest,
+  copyFoodRequest,
 } from '../../api/food';
 
 const FoodContext = createContext();
@@ -48,6 +49,18 @@ export function FoodProvider({ children }) {
     }
   };
 
+  const copyFood = async (food, id) => {
+    try {
+      const { name, ingredients, calories } = food;
+      const res = await copyFoodRequest({
+        name, ingredients, calories
+      }, id);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const updateFood = async (id, food) => {
     try {
       const res = await updateFoodRequest(id, food);
@@ -81,6 +94,7 @@ export function FoodProvider({ children }) {
         foods,
         createFood,
         updateFood,
+        copyFood,
         deleteFood,
         getFoods,
         getFood,

@@ -10,7 +10,7 @@ const FoodForm = ({
   isEditing,
 }) => {
   if (!isVisible) return null;
-  const isPublic = currentFood.public;
+  const isPublic = currentFood.isPublic;
 
   return (
     <div className="display-content-form">
@@ -40,16 +40,15 @@ const FoodForm = ({
       <div className="display-visibility-toggle">
         <label htmlFor="isPublic" className="display-switch-label">
           <p
-            className={`display-visibility-text-${
-              isPublic ? 'public' : 'private'
-            }`}
+            className={`display-visibility-text-${isPublic ? 'public' : 'private'
+              }`}
           >
             {isPublic ? 'Public' : 'Private'}
           </p>
           <Switch
             onChange={(checked) =>
               handleInputChange({
-                target: { name: 'public', value: checked },
+                target: { name: 'isPublic', value: checked },
               })
             }
             checked={isPublic || false}
