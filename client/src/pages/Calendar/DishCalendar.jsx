@@ -1,6 +1,5 @@
 import { BaseDashboardPage } from '../BaseDashboardPage';
-import { useExers } from '../../context/Exercise/ExerciseContext';
-import { useRoutine } from '../../context/Exercise/RoutineContext';
+import { useDish } from '../../context/Food/DishContext';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
@@ -14,31 +13,30 @@ import { set } from 'mongoose';
 const localizer = momentLocalizer(moment);
 const today = new Date().toISOString().split('T')[0];
 
-function ExerCalendarPage() {
-  const { exers, getExers } = useExers();
-  const { routines, getRoutinesByDate } = useRoutine();
+function DishCalendarPage() {
+  const { dishes, getDishesByDate } = useDish();
   const [events, setEvents] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      await getRoutinesByDate(today);
+      await getDishesByDate(today);
     };
     fetchData();
   }, []);
   useEffect(() => {
-    if (routines && routines.length > 0) {
-      const events = routines.map((routine) => ({
-        title: routine.exer.name,
+    if (dishes && dishes.length > 0) {
+      const events = dishes.map((dish) => ({
+        title: dish.food.name,
         //la fecha viene en el timestamp de la base de datos
-        start: moment(routine.date).toDate(),
-        end: moment(routine.date).add(1, 'hour').toDate(),
+        start: moment(dish.date).toDate(),
+        end: moment(dish.date).add(1, 'hour').toDate(),
         allDay: true,
       }));
       setEvents(events);
       console.log(events);
     }
-  }, [exers]);
+  }, [dishes]);
 
   const handleSelectSlot = () => {
   };
@@ -47,7 +45,7 @@ function ExerCalendarPage() {
     <BaseDashboardPage
       content={
         <div className="display-content">
-          <h1>Exercise Calendar</h1>
+          <h1>Dish Calendar</h1>
           <div className="remove-time">
             <Calendar
               localizer={localizer}
@@ -64,4 +62,4 @@ function ExerCalendarPage() {
   );
 }
 
-export default ExerCalendarPage;
+export default DishCalendarPage;

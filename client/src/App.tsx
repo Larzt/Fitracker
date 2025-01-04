@@ -8,7 +8,8 @@ import DishPage from './pages/Food/DishPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import ProtectedRoute from './ProtectedRoute.jsx';
-import CalendarPage from './pages/Calendar/DExerCalendar.jsx';
+import ExerCalendarPage from './pages/Calendar/DExerCalendar.jsx';
+import DishCalendarPage from './pages/Calendar/DishCalendar.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 import UserPublicPage from './pages/UserPublicPage.jsx';
 
@@ -54,8 +55,12 @@ function App() {
 
                       {/* Exercise Calendar */}
                       <Route
-                        path="/dashboard/calendar"
-                        element={<CalendarPage />}
+                        path="/dashboard/exer-calendar"
+                        element={<ExerCalendarPage />}
+                      />
+                      <Route
+                        path="/dashboard/dish-calendar"
+                        element={<DishCalendarPage />}
                       />
                     </Route>
                   </Routes>
