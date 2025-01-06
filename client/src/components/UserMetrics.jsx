@@ -47,7 +47,7 @@ const Metrics = ({
           <input
             type="text"
             {...register('height')}
-            placeholder={initialHeight || 'Height'} // Usa el valor desde el contexto
+            placeholder={initialHeight || 'cm'} // Usa el valor desde el contexto
           />
           <button type="submit">Save</button>
         </form>
@@ -61,7 +61,7 @@ const Metrics = ({
           <input
             type="text"
             {...register('weight')}
-            placeholder={initialWeightAndDate.weight || 'Weight'} // Usa el valor desde el contexto
+            placeholder={initialWeightAndDate.weight || 'kg'} // Usa el valor desde el contexto
           />
           <button type="submit">Save</button>
         </form>
@@ -75,7 +75,7 @@ const Metrics = ({
           <input
             type="text"
             {...register('calories')}
-            placeholder={initialCalories || 'Calories'} // Usa el valor desde el contexto
+            placeholder={initialCalories || 'kcal'} // Usa el valor desde el contexto
           />
           <button type="submit">Save</button>
         </form>
