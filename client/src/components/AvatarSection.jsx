@@ -42,7 +42,7 @@ const AvatarSection = ({ avatar }) => {
         />
         {showMenu && (
           <div className="profile-avatar-menu">
-            {avatar !== '../images/default.png' ? ( // Si hay una imagen actual
+            {avatar !== '/uploads/default.png' ? ( // Si hay una imagen actual
               <>
                 <button
                   onClick={() =>

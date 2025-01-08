@@ -193,8 +193,8 @@ function RoutineTable({ filteredRoutines, deleteRoutine, updateRoutine }) {
                       >
                         <i
                           className={`fas ${expandedRow === routine._id
-                              ? 'fa-chevron-up'
-                              : 'fa-chevron-down'
+                            ? 'fa-chevron-up'
+                            : 'fa-chevron-down'
                             }`}
                         ></i>
                       </button>

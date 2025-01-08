@@ -29,7 +29,7 @@ const Metrics = ({
 
   const handleWeightSubmit = async (data) => {
     await updateWeight(data.weight); // Actualiza el peso usando el contexto
-    // window.location.reload();
+    window.location.reload();
   };
 
   const handleCaloriesSubmit = async (data) => {

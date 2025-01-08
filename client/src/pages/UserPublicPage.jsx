@@ -14,7 +14,7 @@ function UserPublicPage() {
   const [currentUser, setUser] = useState(null); // Inicializa el estado como null.
   const [foods, setFood] = useState([]); // Inicializa el estado como un arreglo vacío.
   const [exers, setExers] = useState([]); // Inicializa el estado como un arreglo vacío.
-  const [avatar, setAvatar] = useState('../images/default.png'); // Inicializa el estado como un arreglo vacío.
+  const [avatar, setAvatar] = useState('/uploads/default.png'); // Inicializa el estado como un arreglo vacío.
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,8 +36,9 @@ function UserPublicPage() {
       let res = await searchAvatarRequest(id);
       if (res.status === 200) {
         setAvatar(`/uploads/${res.data.avatar}.png`);
+      } else if (res.status === 204) {
+        setAvatar(`/uploads/default.png`);
       }
-      console.log(res.status);
     };
 
     fetchUser();

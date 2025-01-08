@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [avatar, setAvatar] = useState('../images/default.png');
+  const [avatar, setAvatar] = useState('/uploads/default.png');
   const [weight, setWeight] = useState('');
   const [calories, setCalories] = useState('');
   const [height, setHeight] = useState('');
@@ -141,7 +141,9 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       setErrors([]);
     } catch (error) {
-      setErrors([error.response.data.message || 'Error desconocido']);
+      console.log(error.response);
+
+      setErrors([error.response.data.message || `${error.response.data}`]);
     }
   };
 
@@ -270,7 +272,7 @@ export const AuthProvider = ({ children }) => {
               const avatar =
                 resAvatar.status === 200
                   ? `/uploads/${resAvatar.data.avatar}.png`
-                  : '../images/default.png';
+                  : '/uploads/default.png';
 
               return {
                 id: user.id,
@@ -311,7 +313,7 @@ export const AuthProvider = ({ children }) => {
             const avatar =
               resAvatar.status === 200
                 ? `/uploads/${resAvatar.data.avatar}.png`
-                : '../images/default.png';
+                : '/uploads/default.png';
 
             const friendUser = {
               id: friend.id,

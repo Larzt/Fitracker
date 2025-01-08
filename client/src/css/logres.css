@@ -28,7 +28,7 @@
 .form-container select {
   width: 100%;
   padding: 1rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
   background-color: transparent;
   color: #fff;
   border-radius: 0.3rem;
@@ -68,7 +68,7 @@
 .error-message {
   color: #f63b3b;
   font-size: 0.875rem;
-  margin-top: 0.5rem;
+  /* margin-bottom: 0.5rem; */
 }
 
 .form-container button {
