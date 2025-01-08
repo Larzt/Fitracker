@@ -140,9 +140,8 @@ export const getWeight = async (req, res) => {
 
 // TODO: Move to user.controller.js
 export const updateWeight = async (req, res) => {
-  const { weight } = req.body; // Accede al valor de 'weight' en el body
+  const { weight } = req.params; // Accede al valor de 'weight' en el body
   console.log('Received weight:', weight); // Log del valor recibido
-
   try {
     const userFound = await User.findById(req.user.id);
     if (!userFound) {
@@ -182,7 +181,7 @@ export const getCalories = async (req, res) => {
 
 // TODO: Move to user.controller.js
 export const updateCalories = async (req, res) => {
-  const { calories } = req.body; // Accede al valor de 'calories' en el body
+  const { calories } = req.params; // Accede al valor de 'calories' en el body
   console.log('Received calories:', calories); // Log del valor recibido
   // Aquí, puedes agregar más lógica de negocio, como buscar al usuario y actualizar sus datos
   try {

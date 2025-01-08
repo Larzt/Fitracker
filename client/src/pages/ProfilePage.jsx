@@ -37,6 +37,8 @@ function ProfilePage() {
     window.location.reload();
   });
 
+
+
   return (
     <BaseDashboardPage
       content={

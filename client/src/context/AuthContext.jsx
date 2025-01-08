@@ -157,7 +157,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await loadAvatarRequest();
       const avatarFileName = res.data.avatar;
-      setAvatar(`/public/uploads/${avatarFileName}.png`);
+      setAvatar(`/uploads/${avatarFileName}.png`);
     } catch (error) {
       console.log(error.message);
     }
@@ -218,6 +218,8 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const res = await updateWeightRequest(value);
+      console.log(res);
+
       setWeight(res.data.weight);
     } catch (error) {
       console.error('Failed to update weight:', error);
@@ -267,7 +269,7 @@ export const AuthProvider = ({ children }) => {
               const resAvatar = await searchAvatarRequest(user.id);
               const avatar =
                 resAvatar.status === 200
-                  ? `/public/uploads/${resAvatar.data.avatar}.png`
+                  ? `/uploads/${resAvatar.data.avatar}.png`
                   : '../images/default.png';
 
               return {
@@ -308,7 +310,7 @@ export const AuthProvider = ({ children }) => {
             const resAvatar = await searchAvatarRequest(friend.id);
             const avatar =
               resAvatar.status === 200
-                ? `/public/uploads/${resAvatar.data.avatar}.png`
+                ? `/uploads/${resAvatar.data.avatar}.png`
                 : '../images/default.png';
 
             const friendUser = {

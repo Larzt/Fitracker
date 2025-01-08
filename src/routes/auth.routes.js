@@ -49,9 +49,9 @@ router.post('/login', validateSchema(loginSchema), login);
 router.post('/logout', logout);
 
 router.get('/metrics/weight', authRequired, getWeight);
-router.put('/metrics/weight', authRequired, updateWeight);
+router.put('/metrics/weight/:weight', authRequired, updateWeight);
 router.get('/metrics/calories', authRequired, getCalories);
-router.put('/metrics/calories', authRequired, updateCalories);
+router.put('/metrics/calories/:calories', authRequired, updateCalories);
 router.get('/metrics/height', authRequired, getHeight);
 router.put('/metrics/height/:height', authRequired, updateHeight);
 

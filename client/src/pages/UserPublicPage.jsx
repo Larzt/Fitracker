@@ -35,7 +35,7 @@ function UserPublicPage() {
     const loadUserAvatar = async () => {
       let res = await searchAvatarRequest(id);
       if (res.status === 200) {
-        setAvatar(`/public/uploads/${res.data.avatar}.png`);
+        setAvatar(`/uploads/${res.data.avatar}.png`);
       }
       console.log(res.status);
     };

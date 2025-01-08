@@ -24,14 +24,17 @@ const Metrics = ({
 
   const handleHeightSubmit = async (data) => {
     await updateHeight(data.height); // Actualiza la altura usando el contexto
+    window.location.reload();
   };
 
   const handleWeightSubmit = async (data) => {
     await updateWeight(data.weight); // Actualiza el peso usando el contexto
+    // window.location.reload();
   };
 
   const handleCaloriesSubmit = async (data) => {
     await updateCalories(data.calories); // Actualiza las calorías usando el contexto
+    window.location.reload();
   };
 
   return (

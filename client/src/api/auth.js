@@ -26,11 +26,11 @@ export const deleteAvatarRequest = () => axios.delete('/profile/avatar');
 
 export const getWeightRequest = () => axios.get('/metrics/weight');
 export const updateWeightRequest = (value) =>
-  axios.put('/metrics/weight', value);
+  axios.put(`/metrics/weight/${value}`);
 
 export const getCaloriesRequest = () => axios.get('/metrics/calories');
 export const updateCaloriesRequest = (value) =>
-  axios.put('/metrics/calories', value);
+  axios.put(`/metrics/calories/${value}`);
 
 export const getHeightRequest = () => axios.get('/metrics/height');
 export const updateHeightRequest = (value) =>
