@@ -7,29 +7,30 @@ import { useExers } from '../context/Exercise/ExerciseContext';
 import { searchAvatarRequest } from '../api/auth';
 
 function UserPublicPage() {
-  const { id } = useParams(); // Extrae el parámetro id de la URL.
+  const { id } = useParams();
   const { user, getUser } = useAuth();
   const { foodFromUser, copyFood } = useFood();
-  const { exerciseFromUser, createExer } = useExers();
-  const [currentUser, setUser] = useState(null); // Inicializa el estado como null.
-  const [foods, setFood] = useState([]); // Inicializa el estado como un arreglo vacío.
-  const [exers, setExers] = useState([]); // Inicializa el estado como un arreglo vacío.
-  const [avatar, setAvatar] = useState('/uploads/default.png'); // Inicializa el estado como un arreglo vacío.
+  const { exerciseFromUser, copyExer } = useExers();
+  const [currentUser, setUser] = useState(null);
+  const [foods, setFood] = useState([]);
+  const [exers, setExers] = useState([]);
+  const [avatar, setAvatar] = useState('/uploads/default.png');
+  const [alertMessage, setAlertMessage] = useState(''); // Estado para el mensaje de alerta.
 
   useEffect(() => {
     const fetchUser = async () => {
-      const user = await getUser(id); // Espera a que la promesa se resuelva.
-      setUser(user); // Actualiza el estado con la respuesta obtenida.
+      const user = await getUser(id);
+      setUser(user);
     };
 
     const fetchFood = async () => {
-      const food = await foodFromUser(id); // Espera a que la promesa se resuelva.
-      setFood(food); // Actualiza el estado con la respuesta obtenida.
+      const food = await foodFromUser(id);
+      setFood(food);
     };
 
     const fetchExercise = async () => {
-      const food = await exerciseFromUser(id); // Espera a que la promesa se resuelva.
-      setExers(food); // Actualiza el estado con la respuesta obtenida.
+      const food = await exerciseFromUser(id);
+      setExers(food);
     };
 
     const loadUserAvatar = async () => {
@@ -45,21 +46,26 @@ function UserPublicPage() {
     fetchExercise();
     fetchFood();
     loadUserAvatar();
-  }, [id]); // Asegúrate de que se vuelva a ejecutar si cambia el id.
+  }, [id]);
 
-  // Verifica si `currentUser` está cargado
   if (!currentUser) {
-    return <div className="loading-message">Loading...</div>; // Muestra un mensaje de carga mientras esperas la respuesta.
+    return <div className="loading-message">Loading...</div>;
   }
+
+  const showAlert = (message) => {
+    setAlertMessage(message);
+    setTimeout(() => setAlertMessage(''), 3000); // Oculta la alerta después de 3 segundos.
+  };
 
   const handleCopyFood = async (data) => {
-    console.log(user);
     copyFood(data, user.id);
-  }
-  // const handleCopyExer = (data) => {
-  //   console.log(data);
-  //   createExer(data);
-  // }
+    showAlert('Food copied successfully!');
+  };
+
+  const handleCopyExer = (data) => {
+    copyExer(data, user.id);
+    showAlert('Exercise copied successfully!');
+  };
 
   function PublicFood() {
     return (
@@ -108,8 +114,8 @@ function UserPublicPage() {
           <thead>
             <tr className="display-content-table-header text-left">
               <th>Name</th>
-              <th>Ingredients</th>
-              <th>Calories</th>
+              <th>Description</th>
+              <th>Equipment</th>
               <th className="text-center">Copy</th>
             </tr>
           </thead>
@@ -145,6 +151,11 @@ function UserPublicPage() {
     <BaseDashboardPage
       content={
         <div className="display-content-public">
+          {alertMessage && (
+            <div className="alert-box">
+              {alertMessage}
+            </div>
+          )}
           <div className="display-content-public-header">
             <Link to={`/public/${id}`}>
               <button>

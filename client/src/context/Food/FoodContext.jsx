@@ -82,6 +82,8 @@ export function FoodProvider({ children }) {
   const foodFromUser = async (id) => {
     try {
       const res = await getFoodFromUserRequest(id);
+      console.log(res);
+
       return res.data;
     } catch (error) {
       console.log(error);

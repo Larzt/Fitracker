@@ -6,6 +6,7 @@ import {
   updateExerRequest,
   deleteExerRequest,
   getExerciseFromUserRequest,
+  copyExerRequest,
 } from '../../api/exercise.js';
 
 const ExersContext = createContext();
@@ -63,6 +64,18 @@ export function ExersProvider({ children }) {
     }
   };
 
+  const copyExer = async (exer, id) => {
+    try {
+      const { name, description, equipment } = exer;
+      const res = await copyExerRequest({
+        name, description, equipment
+      }, id);
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const exerciseFromUser = async (id) => {
     try {
       const res = await getExerciseFromUserRequest(id);
@@ -81,6 +94,7 @@ export function ExersProvider({ children }) {
         getExers,
         getExer,
         updateExer,
+        copyExer,
         exerciseFromUser,
       }}
     >

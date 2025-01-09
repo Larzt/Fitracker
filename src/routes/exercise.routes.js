@@ -10,6 +10,7 @@ import {
   setVisible,
   toggleFavourite,
   getExercisesFromUser,
+  copyExer,
 } from '../controllers/exercise.controller.js';
 import { createSchema, updateSchema } from '../schemas/exercise.schema.js';
 import { validateSchema } from '../middlewares/validator.middleware.js';
@@ -32,6 +33,8 @@ router.put(
   validateSchema(updateSchema),
   updateExer
 );
+
+router.post('/copy/exer/:id', authRequired, copyExer);
 
 router.delete('/exercise/:id', authRequired, deleteExer);
 router.post('/exercise/load/data', loadExers);

@@ -1,6 +1,31 @@
 import Exer from '../models/exercise.model.js';
 import exerciseData from '../../data/exerciseData.js';
 
+export const copyExer = async (req, res) => {
+  try {
+    const { name, description, equipment } = req.body;
+
+    // Validación básica
+    if (!name || !description || !req.params.id) {
+      return res.status(400).json({ message: 'Faltan datos obligatorios' });
+    }
+
+    const newExer = new Exer({
+      name,
+      description,
+      equipment,
+      user: req.params.id,
+    });
+
+    const savedExer = await newExer.save();
+    console.log('Comida guardada exitosamente:', savedExer);
+    res.json(savedExer);
+  } catch (error) {
+    console.error('Error al guardar el ejercicio:', error);
+    res.status(500).json({ message: 'Error interno del servidor', error });
+  }
+};
+
 export const getExers = async (req, res) => {
   try {
     const exers = await Exer.find({
@@ -27,7 +52,7 @@ export const getExercisesFromUser = async (req, res) => {
     // Buscar las comidas asociadas al usuario (por userId) y con propiedad 'public: true'
     const exercises = await Exer.find({
       user: req.params.id, // Suponiendo que el modelo de comida tiene una referencia a 'userId'
-      public: true, // Filtrar comidas donde 'public' es true
+      isPublic: true, // Filtrar comidas donde 'public' es true
     });
 
     if (exercises.length === 0) {

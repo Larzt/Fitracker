@@ -33,8 +33,10 @@ export const getFoodsFromUser = async (req, res) => {
     // Buscar las comidas asociadas al usuario (por userId) y con propiedad 'public: true'
     const foods = await Food.find({
       user: req.params.id, // Suponiendo que el modelo de comida tiene una referencia a 'userId'
-      public: true, // Filtrar comidas donde 'public' es true
+      isPublic: true, // Filtrar comidas donde 'public' es true
     });
+    console.log(foods);
+    console.log(req.params.id);
 
     if (foods.length === 0) {
       return res.status(204).json({ message: 'No foods found for this user' });
@@ -79,14 +81,17 @@ export const createFood = async (req, res) => {
     const savedFood = await newFood.save();
     res.json(savedFood);
   } catch (error) {
-    if (error) return res.status(404).json({ message: 'Food not created', error: error });
+    if (error)
+      return res
+        .status(404)
+        .json({ message: 'Food not created', error: error });
   }
 };
 
 export const copyFood = async (req, res) => {
   try {
     const { name, calories, ingredients } = req.body;
-    
+
     // Validación básica
     if (!name || !calories || !req.params.id) {
       return res.status(400).json({ message: 'Faltan datos obligatorios' });
@@ -107,7 +112,6 @@ export const copyFood = async (req, res) => {
     res.status(500).json({ message: 'Error interno del servidor', error });
   }
 };
-
 
 export const deleteFood = async (req, res) => {
   try {
@@ -167,7 +171,6 @@ export const updateFood = async (req, res) => {
     });
   }
 };
-
 
 export const setVisible = async (req, res) => {
   try {
