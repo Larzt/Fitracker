@@ -104,3 +104,20 @@
 .form-container p a:hover {
   color: #3b82f6;
 }
+
+.default-login button {
+  padding: 0rem;
+  background-color: #131318;
+  color: #34d399;
+  border: none;
+  border-radius: 0.3rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+.default-login button:hover {
+  background-color: #131318;
+  color: #3b82f6;
+}

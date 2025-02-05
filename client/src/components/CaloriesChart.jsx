@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 // Registrar los componentes necesarios de Chart.js
 ChartJS.register(ArcElement, Title, Tooltip, Legend);
 
-export const CaloriesDoughnut = ({ currentValue, targetCalories }) => {
+export const CaloriesDoughnut = ({ currentValue, targetCalories = 0 }) => {
   const remainingValue = Math.max(targetCalories - currentValue, 0);
 
   const data = {
